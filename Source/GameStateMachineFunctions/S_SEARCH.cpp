@@ -11,7 +11,7 @@ const int nSecondsShowDirectionTimer = 2;
 void S_SEARCH_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_SEARCH;
-    showSEARCHScreen();
+    Display::showSEARCHScreen();
 
     Controls::controlsSingleton->setFunctionsForButtons(
         Controls::doNothing,
@@ -31,5 +31,5 @@ void showDirectionsForNSeconds()
     //update user object
     User::userSingelton->timeDirectionButtonPressed++;
     //go back to the normal SEARCH screen again
-    showSEARCHScreen();
+    Display::showSEARCHScreen();
 }
