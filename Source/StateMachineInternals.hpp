@@ -8,13 +8,17 @@ namespace statemachine
         S_NO,
         S_INIT,
         S_QRCODE,
+        S_SEARCH,
+
     };
 
     enum Event
     {
         E_INIT_ERROR,
         E_INIT_SUCCESS,
-        E_CONTINUE_BUTTON
+        E_CONTINUE_BUTTON,
+        E_NEW_WAYPOINT,
+        E_CLOSE_PROXIMITY,
     };
     
     class StateMachine

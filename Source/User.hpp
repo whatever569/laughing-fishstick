@@ -6,8 +6,9 @@ using namespace std;
 class User
 {
     public:
-        User* userSingelton;
+        static User* userSingelton;
         string username = "Unassigned at intialization";
+        int timeDirectionButtonPressed;
     GPSLocation getUsersCurrentLocation()
     {
         GPSLocation currentLocation {GPSLocation()};

@@ -8,10 +8,15 @@ using namespace statemachine;
 
 void S_QRCODE_OnEntry()
 {
-    Event nextEvent;
+    showQRCODEScreen();
     StateMachine::stateMachineSingelton->currentState = S_QRCODE;
-    while(!isCPressed()){}
-    nextEvent = E_CONTINUE_BUTTON;
-    StateMachine::stateMachineSingelton->transition(nextEvent);
+    Controls::controlsSingleton->setFunctionsForButtons(Controls::controlsSingleton->doNothing, //A button
+                                                        Controls::controlsSingleton->doNothing, //B button
+                                                        switchToNextStateSSEARCH,               //C button
+                                                        Controls::controlsSingleton->doNothing);//D button
+}
 
+void switchToNextStateSSEARCH()
+{
+    StateMachine::stateMachineSingelton->transition(E_CONTINUE_BUTTON);
 }

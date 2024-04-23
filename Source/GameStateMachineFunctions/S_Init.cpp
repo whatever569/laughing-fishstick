@@ -15,7 +15,7 @@ void S_INIT_OnEntry()
     StateMachine::stateMachineSingelton->currentState = S_INIT;
     showINITScreen();
 
-    //TODO: Get data
+    //TODO: Get data and initialize user object
 
     if(isDataGottenSuccessfully)
     {
