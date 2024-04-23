@@ -10,10 +10,10 @@ void S_QRCODE_OnEntry()
 {
     showQRCODEScreen();
     StateMachine::stateMachineSingelton->currentState = S_QRCODE;
-    Controls::controlsSingleton->setFunctionsForButtons(Controls::controlsSingleton->doNothing, //A button
-                                                        Controls::controlsSingleton->doNothing, //B button
+    Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, //A button
+                                                        Controls::doNothing, //B button
                                                         switchToNextStateSSEARCH,               //C button
-                                                        Controls::controlsSingleton->doNothing);//D button
+                                                        Controls::doNothing);//D button
 }
 
 void switchToNextStateSSEARCH()

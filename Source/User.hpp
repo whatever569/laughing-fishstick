@@ -9,6 +9,7 @@ class User
         static User* userSingelton;
         string username = "Unassigned at intialization";
         int timeDirectionButtonPressed;
+        int currentWayPointNumber;
     GPSLocation getUsersCurrentLocation()
     {
         GPSLocation currentLocation {GPSLocation()};
