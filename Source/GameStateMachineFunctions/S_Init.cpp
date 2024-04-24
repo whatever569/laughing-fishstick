@@ -8,7 +8,6 @@ using namespace statemachine;
 
 void S_INIT_OnEntry()
 {
-
     initializeModules();
     bool isDataGottenSuccessfully;
     Event nextEvent;
@@ -25,5 +24,7 @@ void S_INIT_OnEntry()
     }
     StateMachine::stateMachineSingelton->transition(nextEvent);
 }
+
+
 
 

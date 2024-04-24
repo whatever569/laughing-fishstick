@@ -56,7 +56,7 @@ namespace GameData {
     struct InitGameData {
         string userName;
         vector<WayPoint> wayPoints;
-
+        static InitGameData* gameDataSingleton;
         InitGameData(string uName, const vector<WayPoint>& wp) : userName(uName), wayPoints(wp) {}
     };
 }

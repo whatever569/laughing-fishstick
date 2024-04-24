@@ -9,6 +9,8 @@ namespace statemachine
         S_INIT,
         S_QRCODE,
         S_SEARCH,
+        S_HOT_COLD,
+
 
     };
 
@@ -19,6 +21,8 @@ namespace statemachine
         E_CONTINUE_BUTTON,
         E_NEW_WAYPOINT,
         E_CLOSE_PROXIMITY,
+        E_WAYPOINT_REACHED,
+        E_NOT_CLOSE_ANYMORE,
     };
     
     class StateMachine
