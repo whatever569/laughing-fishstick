@@ -11,7 +11,7 @@ class Display
         static void showINITScreen();
         static void showQRCODEScreen();
         static void showSEARCHScreen();
-        /// @brief is the screen that shows up when the user presses the show direction button, also implement the function in S_SEARCH.cpp
+        /// @brief is the screen that shows up when the user presses the show direction button
         static void showDIRECTIONSEARCHscreen();
 
         static void showS_HOT_COLDVeryColdStatus();
