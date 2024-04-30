@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 #include <string>
-#include <GPSLocation.hpp>
+#include "GPSLocation.hpp"
 using namespace std;
 
 /// @brief This represents the current user that is playing the game rn, remember to initialize the userSingelton object at S_INIT

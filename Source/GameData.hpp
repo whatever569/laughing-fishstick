@@ -54,9 +54,9 @@ namespace GameData {
      * @brief This holds all the information concerning the game initial data obtained from admin
     */
     struct InitGameData {
+		static InitGameData* gameDataSingleton;
         string userName;
         vector<WayPoint> wayPoints;
-        static InitGameData* gameDataSingleton;
         InitGameData(string uName, const vector<WayPoint>& wp) : userName(uName), wayPoints(wp) {}
     };
 }
