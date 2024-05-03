@@ -35,7 +35,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define Q_SIZE (1024)	//might need to change later
+#define Q_SIZE (512)
 
 /*!
  * \brief Type definition of a queue
@@ -56,5 +56,6 @@ bool q_empty(const queue_t *q);
 bool q_full(const queue_t *q);
 bool q_enqueue(queue_t *q, const uint8_t d);
 bool q_dequeue(queue_t *q, uint8_t *d);
+void q_flush(queue_t *q);
 
 #endif // QUEUE_H

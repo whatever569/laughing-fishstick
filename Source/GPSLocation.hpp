@@ -8,7 +8,7 @@ class GPSLocation {
 private:
     double latitude;   // in degrees
     double longitude;  // in degrees
-
+    bool isConnected = false;
 public:
     
     GPSLocation(double lat = 0.0, double lon = 0.0) : latitude(lat), longitude(lon) {}
@@ -30,6 +30,12 @@ public:
     double getLongitude() const {
         return longitude;
     }
+
+    void setIsConnected(bool b)
+    { isConnected = b; }
+    
+    bool getIsConnected()
+    { return isConnected; }
 
     /// @brief Calculate distance between this location and another location using the Haversine formula
     double distanceTo(const GPSLocation& other) const {

@@ -174,3 +174,19 @@ bool q_dequeue(queue_t *q, uint8_t *d)
         return false;
     }
 }
+
+void q_flush(queue_t *q) {
+	if(!q_empty(q)) 
+    {
+        uint32_t m = __get_PRIMASK();
+        __disable_irq();
+		
+		while (!q_empty(q)) {    
+			q->head++;
+			q->head %= Q_SIZE;
+			q->size--;
+		}	
+        
+        __set_PRIMASK(m);
+    }
+}

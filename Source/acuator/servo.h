@@ -2,7 +2,6 @@
 #define SERVO_H
 
 #include <MKL25Z4.h>
-#include "../Initializers.h"
 
 #define SERVO_PIN 	  30			
 #define SERVO_PORT 	  PORTE->PCR[SERVO_PIN] 

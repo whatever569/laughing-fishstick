@@ -1,0 +1,32 @@
+while(1) {
+		if (uart0_num_rx_chars_available() == 16) {
+			/*example code of getting info from pc to micrcontroller 
+			 *send uart from pc to microcntroller in format:
+			 * nameLength - 2 char 		//write 0 before if its under 10
+			 * name - is limited to nameLength
+			 * coordinates - 2 char
+			 *
+			 * do this with nothing inbetween and you have transfert data from pc to microcontroller
+			 * something like this but more fleshed out will be made, also some uart library for cpp
+			 * needs to be researched
+			 */
+			
+													
+			char nameLength[2];					
+			uart0_get_string(nameLength, 2);	
+			int nawa = atoi(nameLength);
+			
+			char name[16] = {0};
+			uart0_get_string(name, nawa);
+					
+			char coordinates[2] = {0};
+			uart0_get_string(coordinates, 2);
+			
+			uart0_send_string(name);
+			uart0_send_string("\r\n");
+			uart0_send_string(coordinates);
+			
+			
+			break;
+		}
+	}

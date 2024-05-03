@@ -32,6 +32,10 @@
 #ifndef UART0_H
 #define UART0_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <MKL25Z4.h>
 #include "queue.h"
@@ -40,7 +44,12 @@ void uart0_init(void);
 uint32_t uart0_num_rx_chars_available(void);
 char uart0_get_char(void);
 void uart0_put_char(char c);
-char* uart0_get_string(void);
+void uart0_get_string(char* str, int bufferSize);
 void uart0_send_string(char *str);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif
+

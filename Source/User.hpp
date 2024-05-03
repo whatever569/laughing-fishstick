@@ -4,6 +4,8 @@
 #include "GPSLocation.hpp"
 using namespace std;
 
+#define MAX_NAME_SIZE 16		
+
 /// @brief This represents the current user that is playing the game rn, remember to initialize the userSingelton object at S_INIT
 class User
 {
