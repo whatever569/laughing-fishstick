@@ -10,6 +10,7 @@ namespace statemachine
         S_QRCODE,
         S_SEARCH,
         S_HOT_COLD,
+        S_WAYPOINT,
 
 
     };
@@ -23,6 +24,7 @@ namespace statemachine
         E_CLOSE_PROXIMITY,
         E_WAYPOINT_REACHED,
         E_NOT_CLOSE_ANYMORE,
+        E_PUZZLE_COMPLETE,
     };
     
     class StateMachine

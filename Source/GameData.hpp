@@ -4,25 +4,31 @@
 #include <string>
 #include <vector>
 #include "GPSLocation.hpp"
-
-namespace GameData {
+#include "Controls.hpp"
+#include "Metadata.hpp"
+namespace GameData
+{
     using namespace std;
 
-    enum Puzzles {
-        gyroscope,
+    enum Puzzles
+    {
+        SimonSays, // the user is shown a set of arrows for three rounds, the user has to input back the directions in a set time, for now it is 3 seconds (the timer gets renewed each time the user gives an input)
     };
 
     /**
      * @brief this is the basic data type for a waypoint
      * @note use the constructor to make a waypoint object
-    */
-    struct WayPoint {
-        private:
+     */
+    struct WayPoint
+    {
+    private:
         GPSLocation waypointLocation;
         Puzzles waypointPuzzle;
         bool isReached = false;
-        public:
-        WayPoint(GPSLocation coord, Puzzles puzzle){
+
+    public:
+        WayPoint(GPSLocation coord, Puzzles puzzle)
+        {
             waypointLocation.setLatitude(coord.getLatitude());
             waypointLocation.setLongitude(coord.getLongitude());
 
@@ -40,7 +46,7 @@ namespace GameData {
             waypointLocation.setLongitude(location.getLongitude());
         }
 
-        bool getIsReached() 
+        bool getIsReached()
         {
             return isReached;
         }
@@ -48,18 +54,27 @@ namespace GameData {
         {
             isReached = didReach;
         }
+        void setPuzzle(Puzzles p)
+        {
+            waypointPuzzle =p;
+        }
+
+        Puzzles getPuzzle()
+        {
+            return waypointPuzzle;
+        }
     };
 
     /**
      * @brief This holds all the information concerning the game initial data obtained from admin
-    */
-    struct InitGameData {
+     */
+    struct InitGameData
+    {
         string userName;
         vector<WayPoint> wayPoints;
-        static InitGameData* gameDataSingleton;
-        InitGameData(string uName, const vector<WayPoint>& wp) : userName(uName), wayPoints(wp) {}
+        static InitGameData *gameDataSingleton;
+        InitGameData(string uName, const vector<WayPoint> &wp) : userName(uName), wayPoints(wp) {}
     };
 }
-
 
 #endif

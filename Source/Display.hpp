@@ -14,6 +14,11 @@ class Display
         /// @brief is the screen that shows up when the user presses the show direction button
         static void showDIRECTIONSEARCHscreen();
 
+        static void showLeftArrow();
+        static void showRightArrow();
+        static void showUpArrow();
+        static void showDownArrow();
+
         static void showS_HOT_COLDVeryColdStatus();
         static void showS_HOT_COLDColdStatus();
         static void showS_HOT_COLDWarmStatus();
@@ -23,8 +28,16 @@ class Display
         //search for it again, make sure to update the product report if you made the screen which I think is a good idea
         static void showS_HOT_COLDNotCloseAnymore();
 
+        static void showS_WAYPOINT_SimonSaysPuzzlePrompt();
+        static void showS_WAYPOINT_SimonSaysControlsTutorial();
+        static void showAwaitingUserInput();
         //implement this function to show a screen for n amount of seconds, and then returning to another screen
         static void showScreenForNSeconds(int n, void (*screenToBeShown)(void), void (*screenToReturnTo));
+        //show nothing or maybe a "Loading..." screen
+        static void showNothingForNow();
+
+        //This screen shows up when the GPS is disconnected, so the user is prompted to find a better spot
+        static void showAwaitingReconnection();
     
     private:
     
