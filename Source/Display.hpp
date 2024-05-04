@@ -31,6 +31,8 @@ class Display
         static void showS_WAYPOINT_SimonSaysPuzzlePrompt();
         static void showS_WAYPOINT_SimonSaysControlsTutorial();
         static void showAwaitingUserInput();
+        static void showPuzzleLost();
+        static void showPuzzleWon();
         //implement this function to show a screen for n amount of seconds, and then returning to another screen
         static void showScreenForNSeconds(int n, void (*screenToBeShown)(void), void (*screenToReturnTo));
         //show nothing or maybe a "Loading..." screen
@@ -38,7 +40,12 @@ class Display
 
         //This screen shows up when the GPS is disconnected, so the user is prompted to find a better spot
         static void showAwaitingReconnection();
-    
+        static void showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();\
+        //no reason for the error was given, check transitions to error state
+        static void showS_ERROR_NO_SOURCE();
+        static void showS_ERROR_ERROR_SENDING_DATA_AT_S_ENDGAME();
+        static void showS_ERROR_ERROR_DURING_GAME();
+        static void showS_ERROR_ERROR_INIT();
     private:
     
 };

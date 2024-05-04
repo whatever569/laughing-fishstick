@@ -3,5 +3,4 @@
 namespace projectmetadata
 {
     bool isGyroImplemented = false;
-    bool isProgramBeingBlocked
 }

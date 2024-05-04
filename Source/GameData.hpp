@@ -23,10 +23,11 @@ namespace GameData
     {
     private:
         GPSLocation waypointLocation;
-        Puzzles waypointPuzzle;
         bool isReached = false;
+        bool isPuzzleSuccess = false;
 
     public:
+        Puzzles waypointPuzzle;
         WayPoint(GPSLocation coord, Puzzles puzzle)
         {
             waypointLocation.setLatitude(coord.getLatitude());
@@ -54,27 +55,19 @@ namespace GameData
         {
             isReached = didReach;
         }
-        void setPuzzle(Puzzles p)
+        void setIsPuzzleSuccess(bool p)
         {
-            waypointPuzzle =p;
+            isPuzzleSuccess = p;
         }
 
-        Puzzles getPuzzle()
+        bool getIsPuzzleSuccess()
         {
-            return waypointPuzzle;
+            return isPuzzleSuccess;
         }
     };
 
     /**
      * @brief This holds all the information concerning the game initial data obtained from admin
-<<<<<<< HEAD
-    */
-    struct InitGameData {
-		static InitGameData* gameDataSingleton;
-        string userName;
-        vector<WayPoint> wayPoints;
-        InitGameData(string uName, const vector<WayPoint>& wp) : userName(uName), wayPoints(wp) {}
-=======
      */
     struct InitGameData
     {
@@ -82,7 +75,6 @@ namespace GameData
         vector<WayPoint> wayPoints;
         static InitGameData *gameDataSingleton;
         InitGameData(string uName, const vector<WayPoint> &wp) : userName(uName), wayPoints(wp) {}
->>>>>>> 02c130fb9371806cc34a766490f1a1f850636b7e
     };
 }
 
