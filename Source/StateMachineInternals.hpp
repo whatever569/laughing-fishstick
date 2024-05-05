@@ -72,7 +72,7 @@ namespace statemachine
 
         // Shutdown
         {S_ERROR, E_TURNED_OFF, S_NO},
-        {S_ENDGAME, E_TURNED_OFF, S_NO}
+        {S_ENDGAME, E_TURNED_OFF, S_NO},
 
         // Errors during game
         {S_QRCODE, E_ERROR_DURING_GAME, S_ERROR},
@@ -90,7 +90,7 @@ namespace statemachine
         {S_SETUP, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
     };
 
-    class StateMachine
+    struct StateMachine
     {
     public:
         static StateMachine *stateMachineSingelton;
@@ -109,7 +109,7 @@ namespace statemachine
         }
 
         /// @brief THIS IS IMPORTANT IF YOU GENERATE EERORS... SET THE ERROR SOURCE FIRST BEFORE TRANSITIONING TO THE ERROR STATE SO THAT THE ERROR STATE KNOWS WHAT CAUSED IT
-        /// @param e
+        /// @param e Error Event
         void setErrorSource(Event e)
         {
             errorSource = e;
