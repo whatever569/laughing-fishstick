@@ -12,13 +12,15 @@ using namespace GameData;
 void S_SETUP_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_SETUP;
-    Display::showNothingForNow();
+    Display::clearScreen();
+    Display::showLoading();
     Event nextEvent;
-    //if user has finished all the waypoints
-    if(User::userSingelton->currentWayPointNumber == InitGameData::gameDataSingleton->wayPoints.size())
+    // if user has finished all the waypoints
+    if (User::userSingelton->currentWayPointNumber == InitGameData::gameDataSingleton->wayPoints.size())
     {
         nextEvent = E_ALL_WAYPOINTS_REACHED;
-    }else if (User::userSingelton->currentWayPointNumber < InitGameData::gameDataSingleton->wayPoints.size())
+    }
+    else if (User::userSingelton->currentWayPointNumber < InitGameData::gameDataSingleton->wayPoints.size())
     {
         nextEvent = E_NEW_WAYPOINT;
         User::userSingelton->currentWayPointNumber++;
@@ -26,7 +28,3 @@ void S_SETUP_OnEntry()
 
     StateMachine::stateMachineSingelton->transition(nextEvent);
 }
-
-
-
-

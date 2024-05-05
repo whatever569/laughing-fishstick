@@ -5,7 +5,6 @@
 #include <vector>
 #include "GPSLocation.hpp"
 #include "Controls.hpp"
-#include "Metadata.hpp"
 namespace GameData
 {
     using namespace std;
