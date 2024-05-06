@@ -1,4 +1,3 @@
-
 #include <vector>
 #include "../GameData.hpp"
 #include "../StateMachineInternals.hpp"
@@ -11,7 +10,7 @@ using namespace GameData;
 void S_ENDGAME_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_ENDGAME;
-    Display::showNothingForNow();
+    Display::clearScreen();
     Event nextEvent;
 
     Display::showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();

@@ -45,7 +45,5 @@ class Controls {
             //nothing is done here, this is only for readablity
         }
 
-
-
 };
 #endif

@@ -11,7 +11,7 @@ using namespace GameData;
 void S_ERROR_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_ERROR;
-    
+    Display::clearScreen();
    switch(StateMachine::stateMachineSingelton->getErrorSource())
    {
     case E_NO_ERROR_SOURCE_SET:

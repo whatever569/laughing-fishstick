@@ -8,6 +8,7 @@ using namespace statemachine;
 
 void S_QRCODE_OnEntry()
 {
+    Display::clearScreen();
     Display::showQRCODEScreen();
     StateMachine::stateMachineSingelton->currentState = S_QRCODE;
     Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, //A button
