@@ -32,6 +32,10 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -49,7 +53,6 @@ typedef struct
     
 }queue_t;
 
-
 void q_init(queue_t *q);
 uint32_t q_size(const queue_t *q);
 bool q_empty(const queue_t *q);
@@ -58,4 +61,8 @@ bool q_enqueue(queue_t *q, const uint8_t d);
 bool q_dequeue(queue_t *q, uint8_t *d);
 void q_flush(queue_t *q);
 
-#endif // QUEUE_H
+#ifdef __cplusplus
+}
+#endif
+
+#endif 

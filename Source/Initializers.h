@@ -4,6 +4,7 @@
 
 void initializeModules();
 
-void servo_init(void);				//Function to initialise timer0, and other settings for servo
+void servo_init(void);				//Initialise timer0, and other settings for servo
+void uart0_init(void);				//Initialise uart0, setup queue's for rx and tx.
 
 #endif

@@ -182,11 +182,11 @@ void q_flush(queue_t *q) {
         __disable_irq();
 		
 		while (!q_empty(q)) {    
-			q->head++;
+			q->data[q->head++] = 0;
 			q->head %= Q_SIZE;
 			q->size--;
-		}	
-        
+		}
+
         __set_PRIMASK(m);
     }
 }

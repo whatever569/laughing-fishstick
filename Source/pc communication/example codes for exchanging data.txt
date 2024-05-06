@@ -1,5 +1,6 @@
+-------------MICROCONTROLLER CODE--------------------
 while(1) {
-		if (uart0_num_rx_chars_available() == 16) {
+		if (buttonFlag) {
 			/*example code of getting info from pc to micrcontroller 
 			 *send uart from pc to microcntroller in format:
 			 * nameLength - 2 char 		//write 0 before if its under 10
@@ -26,7 +27,27 @@ while(1) {
 			uart0_send_string("\r\n");
 			uart0_send_string(coordinates);
 			
-			
-			break;
+			buttonFlag = 0;
 		}
 	}
+	
+--------------PC CODE-----------------------
+PC_UART pc;
+
+string userName;
+QByteArray coordinates = "03";
+cout << "Set us a task: ";
+cin >> userName;
+
+QByteArray username = QByteArray::fromStdString(userName);
+int nameLength = username.size();
+if (nameLength < 10) username.prepend(QByteArray::number(nameLength).prepend('0'));
+else username.prepend(nameLength);
+username.append(coordinates);
+pc.transmitData(username);
+
+fflush(stdin);
+getchar();
+
+QByteArray bloodlevel = pc.receiveData();
+cout << bloodlevel.toStdString() << std::endl;

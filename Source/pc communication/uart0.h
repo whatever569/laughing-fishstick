@@ -46,6 +46,8 @@ char uart0_get_char(void);
 void uart0_put_char(char c);
 void uart0_get_string(char* str, int bufferSize);
 void uart0_send_string(char *str);
+void uart0_add_string(char *str);
+bool uart0_flush(char TxorRx);	
 
 #ifdef __cplusplus
 }
