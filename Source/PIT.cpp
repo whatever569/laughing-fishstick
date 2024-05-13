@@ -39,10 +39,17 @@ void PITObject::setInterruptFrequency(double interruptFreq)
 
 void PIT_Handler()
 {
-    PITObject::PIT_function();
+    if (PITObject::PIT_function)
+    {
+        PITObject::PIT_function();
+    }
+    else
+    {
+        PITObject::doNothing();
+    }
 }
 
 void PITObject::doNothing()
 {
-    std::cout<< "PIT is executing nothing" << std::endl;
+    std::cout << "PIT is executing nothing" << std::endl;
 }
