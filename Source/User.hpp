@@ -15,6 +15,7 @@ public:
     int timeDirectionButtonPressed = 0;
     int currentWayPointNumber = 0;
 
+
     GPSLocation getUsersCurrentLocation()
     {
         GPSLocation currentLocation{GPSLocation()};

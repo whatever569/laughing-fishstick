@@ -5,7 +5,7 @@ using namespace statemachine;
 #include "../Initializers.hpp"
 #include "../StateMachineInternals.hpp"
 #include "../Display.hpp"
-
+#include "../User.hpp"
 void S_INIT_OnEntry()
 {
     initializeModules();
@@ -16,7 +16,6 @@ void S_INIT_OnEntry()
     Display::showINITScreen();
 
     //TODO: Get data and initialize user object
-
     if(isDataGottenSuccessfully)
     {
         nextEvent = E_INIT_SUCCESS;

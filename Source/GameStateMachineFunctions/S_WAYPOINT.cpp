@@ -27,6 +27,7 @@ const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of di
 unique_ptr<SimonSaysGame> simonSaysGame(new SimonSaysGame(numberOfRounds));
 const int secondsForTheEachDirectionToBeShown = 1;
 bool didDirectionsGetShown = false;
+const double interruptFrequency = 1.5;
 
 enum Directions
 {
@@ -100,7 +101,6 @@ void DPressed()
 {
     buttonForDirectionPressed(DOWN);
 }
-
 struct SimonSaysGame
 {
 public:

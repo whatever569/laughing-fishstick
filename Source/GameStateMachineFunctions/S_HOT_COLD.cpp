@@ -4,6 +4,7 @@
 #include "../Display.hpp"
 #include "../Controls.hpp"
 #include "../User.hpp"
+#include "../PIT.hpp"
 
 using namespace GameData;
 using namespace std;
@@ -15,9 +16,12 @@ const double reachedThreshold = 5.0;
 GPSLocation wpLocation;
 const double part = hotColdExitThreshold / 4.0;  // Calculate each part size
 const int secondstoShowNotCloseAnymoreScreen = 3;
+const double interruptFrequency = 1.5;
 void S_HOT_COLD_OnEntry() {
     StateMachine::stateMachineSingelton->currentState = S_HOT_COLD;
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingelton->currentWayPointNumber].getLocation();
+
+    PITObject::PITSingleton = new PITObject(interruptFrequency, timerInterruptHotCold);
 }
 
 void timerInterruptHotCold() {
@@ -42,6 +46,7 @@ void timerInterruptHotCold() {
         Display::showS_HOT_COLDHotStatus();
     } else if (distance >= 0) {
         InitGameData::gameDataSingleton->wayPoints[User::userSingelton->currentWayPointNumber].setIsReached(true);
+        PITObject::PITSingleton->deleteInstance();
         StateMachine::stateMachineSingelton->transition(E_WAYPOINT_REACHED);
     }
 }
