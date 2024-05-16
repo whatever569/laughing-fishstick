@@ -17,6 +17,7 @@ GPSLocation wpLocation;
 const double part = hotColdExitThreshold / 4.0;  // Calculate each part size
 const int secondstoShowNotCloseAnymoreScreen = 3;
 const double interruptFrequency = 1.5;
+void timerInterruptHotCold();
 void S_HOT_COLD_OnEntry() {
     StateMachine::stateMachineSingelton->currentState = S_HOT_COLD;
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingelton->currentWayPointNumber].getLocation();

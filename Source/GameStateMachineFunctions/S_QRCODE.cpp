@@ -1,10 +1,13 @@
-using namespace std;
-using namespace statemachine;
+
 #include <vector>
 #include "../GameData.hpp"
 #include "../StateMachineInternals.hpp"
 #include "../Display.hpp"
 #include "../Controls.hpp"
+
+using namespace std;
+using namespace statemachine;
+void switchToNextStateSSEARCH();
 
 void S_QRCODE_OnEntry()
 {

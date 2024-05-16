@@ -33,7 +33,7 @@ public:
     static void showPuzzleLost();
     static void showPuzzleWon();
     // implement this function to show a screen for n amount of seconds, and then returning to another screen
-    static void showScreenForNSeconds(int n, void (*screenToBeShown)(void), void(*screenToReturnTo));
+    static void showScreenForNSeconds(int n, void (*screenToBeShown)(void), void (*screenToReturnTo)(void));
     // "Loading..." screen
     static void showLoading();
     // This screen shows up when the GPS is disconnected, so the user is prompted to find a better spot

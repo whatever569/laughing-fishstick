@@ -1,4 +1,5 @@
 #include <vector>
+#include <memory>
 #include "../GameData.hpp"
 #include "../StateMachineInternals.hpp"
 #include "../Display.hpp"
@@ -8,26 +9,22 @@
 using namespace std;
 using namespace statemachine;
 using namespace GameData;
-using namespace random;
+using namespace randomNG;
+
+void APressed();
+void BPressed();
+void CPressed();
+void DPressed();
 
 // TODO Define these plz
-const int RNGpinShift; // RNG = Random Number Generator, it uses a dangling non connected pin, just assign these some random pin
-GPIO_Type *RNGport;
+ int RNGpinShift; // RNG = Random Number Generator, it uses a dangling non connected pin, just assign these some random pin
+GPIO_Type *RNGGPIOModulePort;
+PORT_Type *RNGportModulePort;
 const int RNGBits = 4;
-const int RNGportShift;
+ int RNGportShift;
 
 const int showingPuzzlePromptScreenNSeconds = 3;
 const int showingControlsForSeconds = 5;
-
-// Simon says specific
-vector<Directions> userInput;                  // vector holding users input
-const int numberOfRounds = 3;                  // how many rounds of simon says
-vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
-const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
-unique_ptr<SimonSaysGame> simonSaysGame(new SimonSaysGame(numberOfRounds));
-const int secondsForTheEachDirectionToBeShown = 1;
-bool didDirectionsGetShown = false;
-const double interruptFrequency = 1.5;
 
 enum Directions
 {
@@ -36,6 +33,100 @@ enum Directions
     RIGHT,
     DOWN
 };
+
+// Simon says specific
+vector<Directions> userInput;                  // vector holding users input
+const int numberOfRounds = 3;                  // how many rounds of simon says
+vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
+const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
+const int secondsForTheEachDirectionToBeShown = 1;
+bool didDirectionsGetShown = false;
+const double interruptFrequency = 1.5;
+
+struct SimonSaysGame
+{
+public:
+    SimonSaysGame(int rounds)
+    {
+        numberOfRounds = rounds;
+        for (int i = 0; i < baseNumberOfDirectionsToBeShown; i++)
+        {
+            Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+            directionsToBeShown.push_back(randDirection);
+        }
+
+        currentRound = 0;
+    }
+
+    /// @return true if the puzzle is finished
+    bool nextRound()
+    {
+        if (numberOfRounds - 1 == currentRound)
+        {
+            Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
+            return true;
+        }
+        else
+        {
+            Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
+            currentRound++;
+            Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+            directionsToBeShown.push_back(randDirection);
+            showArrowSequence();
+            return false;
+        }
+    }
+
+    int getCurrentRound()
+    {
+        return currentRound;
+    }
+
+    int getNumberOfRounds()
+    {
+        return numberOfRounds;
+    }
+
+    vector<Directions> getDirToBeShown()
+    {
+        return directionsToBeShown;
+    }
+
+    void showArrowSequence()
+    {
+        for (Directions direction : getDirToBeShown())
+        {
+            switch (direction)
+            {
+            case (LEFT):
+                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showLeftArrow, Display::clearScreen);
+                break;
+            case (RIGHT):
+                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showRightArrow, Display::clearScreen);
+                break;
+            case (UP):
+                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showUpArrow, Display::clearScreen);
+                break;
+            case (DOWN):
+                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showDownArrow, Display::clearScreen);
+                break;
+            }
+        }
+
+        Controls::controlsSingleton->setFunctionsForButtons(
+            APressed,
+            BPressed,
+            CPressed,
+            DPressed);
+    }
+
+private:
+    int numberOfRounds;
+    int currentRound;
+    vector<Directions> directionsToBeShown;
+};
+
+unique_ptr<SimonSaysGame> simonSaysGame(new SimonSaysGame(numberOfRounds));
 
 void S_WAYPOINT_OnEntry()
 {
@@ -101,85 +192,3 @@ void DPressed()
 {
     buttonForDirectionPressed(DOWN);
 }
-struct SimonSaysGame
-{
-public:
-    SimonSaysGame(int rounds)
-    {
-        numberOfRounds = rounds;
-        for (int i = 0; i < baseNumberOfDirectionsToBeShown; i++)
-        {
-            Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGport, RNGBits) % 4);
-            directionsToBeShown.push_back(randDirection);
-        }
-
-        currentRound = 0;
-    }
-
-    /// @return true if the puzzle is finished
-    bool nextRound()
-    {
-        if (numberOfRounds - 1 == currentRound)
-        {
-            Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
-            return true;
-        }
-        else
-        {
-            Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
-            currentRound++;
-            Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGport, RNGBits) % 4);
-            directionsToBeShown.push_back(randDirection);
-            showArrowSequence();
-            return false;
-        }
-    }
-
-    int getCurrentRound()
-    {
-        return currentRound;
-    }
-
-    int getNumberOfRounds()
-    {
-        return numberOfRounds;
-    }
-
-    vector<Directions> getDirToBeShown()
-    {
-        return directionsToBeShown;
-    }
-
-    void showArrowSequence()
-    {
-        for (Directions direction : getDirToBeShown())
-        {
-            switch (direction)
-            {
-            case (LEFT):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showLeftArrow, Display::clearScreen);
-                break;
-            case (RIGHT):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showRightArrow, Display::clearScreen);
-                break;
-            case (UP):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showUpArrow, Display::clearScreen);
-                break;
-            case (DOWN):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showDownArrow, Display::clearScreen);
-                break;
-            }
-        }
-
-        Controls::controlsSingleton->setFunctionsForButtons(
-            APressed,
-            BPressed,
-            CPressed,
-            DPressed);
-    }
-
-private:
-    int numberOfRounds;
-    int currentRound;
-    vector<Directions> directionsToBeShown;
-};

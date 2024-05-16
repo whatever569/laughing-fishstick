@@ -1,5 +1,4 @@
 #include "PIT.hpp"
-#include <iostream>
 
 PITObject::~PITObject()
 {
@@ -51,5 +50,5 @@ void PIT_Handler()
 
 void PITObject::doNothing()
 {
-    std::cout << "PIT is executing nothing" << std::endl;
+
 }

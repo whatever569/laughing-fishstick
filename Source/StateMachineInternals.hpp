@@ -83,11 +83,11 @@ namespace statemachine
         {S_ENDGAME, E_ERROR_SENDING_DATA, S_ERROR},
 
         // Admin-forced ending or timeouts
-        {S_QRCODE, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
-        {S_SEARCH, E_TIME_OUT, S_ERROR},
-        {S_HOT_COLD, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
-        {S_WAYPOINT, E_TIME_OUT, S_ERROR},
-        {S_SETUP, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
+//        {S_QRCODE, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
+//        {S_SEARCH, E_TIME_OUT, S_ERROR},
+//        {S_HOT_COLD, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
+//        {S_WAYPOINT, E_TIME_OUT, S_ERROR},
+//        {S_SETUP, E_FORCE_ENDING_FROM_ADMIN, S_ERROR},
     };
 
     struct StateMachine

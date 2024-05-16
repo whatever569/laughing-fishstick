@@ -1,11 +1,11 @@
-using namespace std;
-using namespace statemachine;
 #include <vector>
 #include "../GameData.hpp"
 #include "../Initializers.hpp"
 #include "../StateMachineInternals.hpp"
 #include "../Display.hpp"
 #include "../User.hpp"
+using namespace std;
+using namespace statemachine;
 void S_INIT_OnEntry()
 {
     initializeModules();

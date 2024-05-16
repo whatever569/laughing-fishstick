@@ -13,6 +13,8 @@ const double hotColdGameThreshold = 25.0;
 const double distanceAboveWhichInterruptsAreDoneSlower = 100.0;
 const double slowInterruptFrequency = 0.2;
 const double fastInterruptFrequency = 1.0;
+void interruptFunctionS_SEARCH();
+void showDir();
 void S_SEARCH_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_SEARCH;

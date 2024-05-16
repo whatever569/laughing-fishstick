@@ -2,6 +2,7 @@
 #define PIT_H
 #include <math.h>
 using namespace std;
+#include "MKL25Z4.h"
 class PITObject
 {
     private:
