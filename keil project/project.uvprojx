@@ -390,32 +390,32 @@
             <File>
               <FileName>dataMC.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\pc communication\Microcontroller\dataMC.cpp</FilePath>
+              <FilePath>..\Source\pc communication\Microcontroller\dataMC.cpp</FilePath>
             </File>
             <File>
               <FileName>dataMC.hpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\pc communication\Microcontroller\dataMC.hpp</FilePath>
+              <FilePath>..\Source\pc communication\Microcontroller\dataMC.hpp</FilePath>
             </File>
             <File>
               <FileName>queue.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Source\pc communication\Microcontroller\queue.c</FilePath>
+              <FilePath>..\Source\pc communication\Microcontroller\queue.c</FilePath>
             </File>
             <File>
               <FileName>queue.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Source\pc communication\Microcontroller\queue.h</FilePath>
+              <FilePath>..\Source\pc communication\Microcontroller\queue.h</FilePath>
             </File>
             <File>
               <FileName>uart0.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Source\pc communication\Microcontroller\uart0.c</FilePath>
+              <FilePath>..\Source\pc communication\Microcontroller\uart0.c</FilePath>
             </File>
             <File>
               <FileName>uart0.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Source\pc communication\Microcontroller\uart0.h</FilePath>
+              <FilePath>..\Source\pc communication\Microcontroller\uart0.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -425,12 +425,12 @@
             <File>
               <FileName>servo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Source\acuator\servo.c</FilePath>
+              <FilePath>..\Source\acuator\servo.c</FilePath>
             </File>
             <File>
               <FileName>servo.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Source\acuator\servo.h</FilePath>
+              <FilePath>..\Source\acuator\servo.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -440,47 +440,47 @@
             <File>
               <FileName>S_ENDGAME.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_ENDGAME.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_ENDGAME.cpp</FilePath>
             </File>
             <File>
               <FileName>S_ERROR.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_ERROR.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_ERROR.cpp</FilePath>
             </File>
             <File>
               <FileName>S_HOT_COLD.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_HOT_COLD.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_HOT_COLD.cpp</FilePath>
             </File>
             <File>
               <FileName>S_Init.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_Init.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_Init.cpp</FilePath>
             </File>
             <File>
               <FileName>S_NO.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_NO.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_NO.cpp</FilePath>
             </File>
             <File>
               <FileName>S_QRCODE.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_QRCODE.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_QRCODE.cpp</FilePath>
             </File>
             <File>
               <FileName>S_SEARCH.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_SEARCH.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_SEARCH.cpp</FilePath>
             </File>
             <File>
               <FileName>S_SETUP.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_SETUP.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_SETUP.cpp</FilePath>
             </File>
             <File>
               <FileName>S_WAYPOINT.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\GameStateMachineFunctions\S_WAYPOINT.cpp</FilePath>
+              <FilePath>..\Source\GameStateMachineFunctions\S_WAYPOINT.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -488,74 +488,74 @@
           <GroupName>general</GroupName>
           <Files>
             <File>
-              <FileName>Display.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\Display.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>PIT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\PIT.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>PIT.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\PIT.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>RandomNumberGenerator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\RandomNumberGenerator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>RandomNumberGenerator.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\RandomNumberGenerator.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>StateMachineInternals.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\StateMachineInternals.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>User.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\User.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>GameData.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\GameData.hpp</FilePath>
-            </File>
-            <File>
               <FileName>Controls.hpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\Controls.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>GPSLocation.hpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\GPSLocation.hpp</FilePath>
-            </File>
-            <File>
-              <FileName>Initializers.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Source\Initializers.h</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\Source\main.cpp</FilePath>
+              <FilePath>..\Source\Controls.hpp</FilePath>
             </File>
             <File>
               <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\Source\Display.cpp</FilePath>
+              <FilePath>..\Source\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\Display.hpp</FilePath>
+            </File>
+            <File>
+              <FileName>GameData.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\GameData.hpp</FilePath>
+            </File>
+            <File>
+              <FileName>GPSLocation.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\GPSLocation.hpp</FilePath>
             </File>
             <File>
               <FileName>Initializers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Source\Initializers.c</FilePath>
+              <FilePath>..\Source\Initializers.c</FilePath>
+            </File>
+            <File>
+              <FileName>Initializers.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\Initializers.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PIT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\PIT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PIT.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\PIT.hpp</FilePath>
+            </File>
+            <File>
+              <FileName>RandomNumberGenerator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\RandomNumberGenerator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>RandomNumberGenerator.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\RandomNumberGenerator.hpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateMachineInternals.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\StateMachineInternals.hpp</FilePath>
+            </File>
+            <File>
+              <FileName>User.hpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\User.hpp</FilePath>
             </File>
           </Files>
         </Group>

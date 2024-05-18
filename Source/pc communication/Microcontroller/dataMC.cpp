@@ -35,16 +35,3 @@ void GameDataInit(void) {
 	}
 }
 
-void GameDataCleanup(void) {
-    /*
-	if (User::userSingleton) {
-        delete User::userSingleton;
-        User::userSingleton = nullptr;
-    }
-	
-    if (InitGameData::gameDataSingleton) {
-        delete InitGameData::gameDataSingleton;
-        InitGameData::gameDataSingleton = nullptr;
-    }
-	*/
-}
