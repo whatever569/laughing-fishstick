@@ -1,6 +1,6 @@
 #ifndef USER_H
 #define USER_H
-#include "GPSLocation.hpp"
+#include "GPSLocation.h"
 
 #define MAX_NAME_SIZE 16
 

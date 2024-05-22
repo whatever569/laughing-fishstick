@@ -1,8 +1,7 @@
-#include "PIT.hpp"
+#include "PIT.h"
 
 PITObject* PITObject::PITSingleton = nullptr;
 void (*PITObject::PIT_function)(void) = nullptr;
-
 
 PITObject::~PITObject()
 {

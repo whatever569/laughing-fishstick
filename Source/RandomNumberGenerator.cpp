@@ -1,4 +1,4 @@
-#include "RandomNumberGenerator.hpp"
+#include "RandomNumberGenerator.h"
 
 uint32_t generaterandom32bitint(uint32_t pinShift, int portShift, GPIO_Type *gpioModulePort, int numberBits, PORT_Type *portModulePort)
 {

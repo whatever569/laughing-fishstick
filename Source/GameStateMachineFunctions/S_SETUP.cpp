@@ -1,10 +1,10 @@
 
 #include <vector>
-#include "../GameData.hpp"
-#include "../StateMachineInternals.hpp"
-#include "../Display.hpp"
-#include "../User.hpp"
-#include "../GameData.hpp"
+#include "../GameData.h"
+#include "../StateMachineInternals.h"
+#include "../Display.h"
+#include "../User.h"
+#include "../GameData.h"
 
 using namespace std;
 using namespace statemachine;

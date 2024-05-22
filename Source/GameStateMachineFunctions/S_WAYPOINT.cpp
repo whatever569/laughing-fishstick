@@ -1,10 +1,10 @@
 #include <vector>
-#include "../GameData.hpp"
-#include "../StateMachineInternals.hpp"
-#include "../Display.hpp"
-#include "../Controls.hpp"
-#include "../User.hpp"
-#include "../RandomNumberGenerator.hpp"
+#include "../GameData.h"
+#include "../StateMachineInternals.h"
+#include "../Display.h"
+#include "../Controls.h"
+#include "../User.h"
+#include "../RandomNumberGenerator.h"
 using namespace std;
 using namespace statemachine;
 using namespace GameData;
@@ -15,11 +15,11 @@ void CPressed();
 void DPressed();
 
 // TODO Define these plz
- int RNGpinShift; // RNG = Random Number Generator, it uses a dangling non connected pin, just assign these some random pin
+int RNGpinShift; // RNG = Random Number Generator, it uses a dangling non connected pin, just assign these some random pin
 GPIO_Type *RNGGPIOModulePort;
 PORT_Type *RNGportModulePort;
 const int RNGBits = 4;
- int RNGportShift;
+int RNGportShift;
 
 const int showingPuzzlePromptScreenNSeconds = 3;
 const int showingControlsForSeconds = 5;
@@ -32,16 +32,18 @@ enum Directions
     DOWN
 };
 
+
 // Simon says specific
-vector<Directions> userInput;                  // vector holding users input
+//vector<Directions> userInput;                  // vector holding users input
 const int numberOfRounds = 3;                  // how many rounds of simon says
-vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
+//vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
 const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
 bool didDirectionsGetShown = false;
 const double interruptFrequency = 1.5;
 
-struct SimonSaysGame
+
+/*struct SimonSaysGame
 {
 public:
     SimonSaysGame(int rounds)
@@ -125,6 +127,7 @@ private:
 };
 
 unique_ptr<SimonSaysGame> simonSaysGame(new SimonSaysGame(numberOfRounds));
+*/
 
 void S_WAYPOINT_OnEntry()
 {
@@ -149,7 +152,7 @@ void S_WAYPOINT_OnEntry()
 
 void buttonForDirectionPressed(Directions dir)
 {
-    if (userInput.size() - 1 < simonSaysGame->getDirToBeShown().size())
+    /*if (userInput.size() - 1 < simonSaysGame->getDirToBeShown().size())
     {
         userInput.push_back(dir);
     }
@@ -171,7 +174,7 @@ void buttonForDirectionPressed(Directions dir)
             InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(false);
             StateMachine::stateMachineSingelton->transition(E_PUZZLE_COMPLETE);
         }
-    }
+    }*/
 }
 
 void APressed()

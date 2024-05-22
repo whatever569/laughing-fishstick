@@ -1,9 +1,8 @@
-
 #include <vector>
-#include "../GameData.hpp"
-#include "../StateMachineInternals.hpp"
-#include "../Display.hpp"
-#include "../Controls.hpp"
+#include "../GameData.h"
+#include "../StateMachineInternals.h"
+#include "../Display.h"
+#include "../Controls.h"
 
 using namespace std;
 using namespace statemachine;

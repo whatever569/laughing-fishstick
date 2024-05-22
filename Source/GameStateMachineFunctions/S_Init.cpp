@@ -1,9 +1,9 @@
 #include <vector>
-#include "../GameData.hpp"
+#include "../GameData.h"
 #include "../Initializers.h"
-#include "../StateMachineInternals.hpp"
-#include "../Display.hpp"
-#include "../User.hpp"
+#include "../StateMachineInternals.h"
+#include "../Display.h"
+#include "../User.h"
 using namespace std;
 using namespace statemachine;
 void S_INIT_OnEntry()

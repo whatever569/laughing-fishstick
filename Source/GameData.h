@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "GPSLocation.hpp"
-#include "Controls.hpp"
+#include "GPSLocation.h"
+#include "Controls.h"
 namespace GameData
 {
     using namespace std;

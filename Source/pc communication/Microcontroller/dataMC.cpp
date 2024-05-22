@@ -1,10 +1,9 @@
 #include <string>
-#include <stdlib.h>
-#include "dataMC.hpp"
+#include "dataMC.h"
 #include "uart0.h"
-#include "../../User.hpp"
-#include "../../GameData.hpp"
-#include "../../GPSLocation.hpp"
+#include "../../User.h"
+#include "../../GameData.h"
+#include "../../GPSLocation.h"
 
 using namespace GameData;
 User* User::userSingleton = nullptr;
