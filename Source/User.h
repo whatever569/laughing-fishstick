@@ -1,6 +1,9 @@
 #ifndef USER_H
 #define USER_H
 #include "GPSLocation.h"
+#include "GPS/GPS.h"
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_NAME_SIZE 16
 
@@ -15,8 +18,22 @@ public:
 
     GPSLocation getUsersCurrentLocation()
     {
-        GPSLocation currentLocation{GPSLocation()};
-        // Todo
+		char coordinates[30] = {0};
+		gps(coordinates);
+		
+		if (coordinates[0] > '9') { 				//if its a letter/not a number, dont set it as location
+			char *slon = strchr(coordinates, ',');	//find where lon starts
+			double lon = strtod(&slon[2], NULL);	//from position 3 the numbers start, so from that point on write as double
+			coordinates[slon-coordinates] = '\0';	//put terminator on the comma 
+			double lat = strtod(coordinates, NULL); //write as double
+			GPSLocation currentLocation{GPSLocation(lat, lon)};
+			currentLocation.setIsConnected(true);
+		}
+		else {
+			GPSLocation currentLocation{GPSLocation()};
+			currentLocation.setIsConnected(false);
+		}
+		
         return currentLocation;
     }
 };

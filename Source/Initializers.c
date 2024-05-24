@@ -1,4 +1,7 @@
 #include "Initializers.h"
+#include "acuator/servo.h"
+#include "pc communication/Microcontroller/uart0.h"
+#include "GPS/GPS.h"
 
 void initializeModules() {
 	servo_init();

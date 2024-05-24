@@ -34,30 +34,24 @@ enum Directions
 
 
 // Simon says specific
-//vector<Directions> userInput;                  // vector holding users input
+vector<Directions> userInput;                  // vector holding users input
 const int numberOfRounds = 3;                  // how many rounds of simon says
-//vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
+vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
 const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
 bool didDirectionsGetShown = false;
-const double interruptFrequency = 1.5;
+const double interruptFrequency = 1.5f;
 
-
-/*struct SimonSaysGame
+struct SimonSaysGame
 {
 public:
     SimonSaysGame(int rounds)
     {
-        numberOfRounds = rounds;
-        for (int i = 0; i < baseNumberOfDirectionsToBeShown; i++)
-        {
-            Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
-            directionsToBeShown.push_back(randDirection);
-        }
-
-        currentRound = 0;
+      numberOfRounds = rounds;
+      currentRound = 0;
+		//initDirs();
     }
-
+	
     /// @return true if the puzzle is finished
     bool nextRound()
     {
@@ -124,10 +118,17 @@ private:
     int numberOfRounds;
     int currentRound;
     vector<Directions> directionsToBeShown;
+	void initDirs(){
+		directionsToBeShown.clear();
+	for (int i = 0; i < baseNumberOfDirectionsToBeShown; i++)
+       {
+         Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+         directionsToBeShown.push_back(randDirection);
+       }
+	}
 };
 
 unique_ptr<SimonSaysGame> simonSaysGame(new SimonSaysGame(numberOfRounds));
-*/
 
 void S_WAYPOINT_OnEntry()
 {

@@ -1,6 +1,7 @@
 #ifndef GPSLOCATION_H
 #define GPSLOCATION_H
 #include <cmath>
+#include "GPS/GPS.h"
 
 #define PI 3.14159265
 
@@ -80,4 +81,5 @@ private:
         return degree * PI / 180.0;
     }
 };
+
 #endif

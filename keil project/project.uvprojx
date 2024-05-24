@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>CLOCK_SETUP=1</Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>..\Source\acuator;..\Source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -423,14 +423,14 @@
           <GroupName>actuator</GroupName>
           <Files>
             <File>
-              <FileName>servo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Source\acuator\servo.c</FilePath>
-            </File>
-            <File>
               <FileName>servo.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Source\acuator\servo.h</FilePath>
+            </File>
+            <File>
+              <FileName>servo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Source\acuator\servo.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -503,11 +503,6 @@
               <FilePath>..\Source\Initializers.h</FilePath>
             </File>
             <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Source\main.cpp</FilePath>
-            </File>
-            <File>
               <FileName>PIT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Source\PIT.cpp</FilePath>
@@ -556,6 +551,11 @@
               <FileName>User.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Source\User.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\main.cpp</FilePath>
             </File>
           </Files>
         </Group>

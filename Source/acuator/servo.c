@@ -1,8 +1,7 @@
+#include <MKL25Z4.h>
 #include "servo.h"
-#include "../Initializers.h"
 
-void servo_init(void)
-{
+void servo_init (void) {
 	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
 	SIM->SCGC6 |= SIM_SCGC6_TPM0_MASK;	
 	SERVO_PORT = PORT_PCR_MUX(3);									//PORTE pin 30, set to altenative 3 for TMP0 Channel 3 
