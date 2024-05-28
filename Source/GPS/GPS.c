@@ -54,7 +54,7 @@ void UART1_IRQHandler(void) {
 	   
 	uint8_t c;
   
-    NVIC_ClearPendingIRQ(UART0_IRQn);
+    NVIC_ClearPendingIRQ(UART1_IRQn);
 	
     if (UART1->S1 & UART_S1_RDRF_MASK) {
         c = UART1->D;
