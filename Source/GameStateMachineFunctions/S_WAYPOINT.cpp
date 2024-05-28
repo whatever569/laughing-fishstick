@@ -5,6 +5,7 @@
 #include "../Controls.h"
 #include "../User.h"
 #include "../RandomNumberGenerator.h"
+#include "../GPSLocation.h"
 using namespace std;
 using namespace statemachine;
 using namespace GameData;
@@ -24,19 +25,11 @@ int RNGportShift;
 const int showingPuzzlePromptScreenNSeconds = 3;
 const int showingControlsForSeconds = 5;
 
-enum Directions
-{
-    LEFT,
-    UP,
-    RIGHT,
-    DOWN
-};
-
 
 // Simon says specific
-vector<Directions> userInput;                  // vector holding users input
+vector<GPSLocation::Direction> userInput;                  // vector holding users input
 const int numberOfRounds = 3;                  // how many rounds of simon says
-vector<Directions> arrowsToBeShown;            // set of arrows to be displayed as the sequence
+vector<GPSLocation::Direction> arrowsToBeShown;            // set of arrows to be displayed as the sequence
 const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
 bool didDirectionsGetShown = false;
@@ -64,7 +57,7 @@ public:
         {
             Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
             currentRound++;
-            Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+            GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
             directionsToBeShown.push_back(randDirection);
             showArrowSequence();
             return false;
@@ -81,27 +74,27 @@ public:
         return numberOfRounds;
     }
 
-    vector<Directions> getDirToBeShown()
+    vector<GPSLocation::Direction> getDirToBeShown()
     {
         return directionsToBeShown;
     }
 
     void showArrowSequence()
     {
-        for (Directions direction : getDirToBeShown())
+        for (GPSLocation::Direction direction : getDirToBeShown())
         {
             switch (direction)
             {
-            case (LEFT):
+            case (GPSLocation::LEFT):
                 Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showLeftArrow, Display::clearScreen);
                 break;
-            case (RIGHT):
+            case (GPSLocation::RIGHT):
                 Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showRightArrow, Display::clearScreen);
                 break;
-            case (UP):
+            case (GPSLocation::UP):
                 Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showUpArrow, Display::clearScreen);
                 break;
-            case (DOWN):
+            case (GPSLocation::DOWN):
                 Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showDownArrow, Display::clearScreen);
                 break;
             }
@@ -117,12 +110,12 @@ public:
 private:
     int numberOfRounds;
     int currentRound;
-    vector<Directions> directionsToBeShown;
+    vector<GPSLocation::Direction> directionsToBeShown;
 	void initDirs(){
 		directionsToBeShown.clear();
 	for (int i = 0; i < baseNumberOfDirectionsToBeShown; i++)
        {
-         Directions randDirection = static_cast<Directions>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+         GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
          directionsToBeShown.push_back(randDirection);
        }
 	}
@@ -151,7 +144,7 @@ void S_WAYPOINT_OnEntry()
     }
 }
 
-void buttonForDirectionPressed(Directions dir)
+void buttonForDirectionPressed(GPSLocation::Direction dir)
 {
     /*if (userInput.size() - 1 < simonSaysGame->getDirToBeShown().size())
     {
@@ -179,18 +172,18 @@ void buttonForDirectionPressed(Directions dir)
 }
 
 void APressed()
-{
-    buttonForDirectionPressed(UP);
+{;
+    buttonForDirectionPressed(GPSLocation::UP);
 }
 void BPressed()
 {
-    buttonForDirectionPressed(LEFT);
+    buttonForDirectionPressed(GPSLocation::LEFT);
 }
 void CPressed()
 {
-    buttonForDirectionPressed(RIGHT);
+    buttonForDirectionPressed(GPSLocation::RIGHT);
 }
 void DPressed()
 {
-    buttonForDirectionPressed(DOWN);
+    buttonForDirectionPressed(GPSLocation::DOWN);
 }

@@ -76,6 +76,11 @@ namespace GameData
         vector<WayPoint> wayPoints;
         static InitGameData* gameDataSingleton;
     };
+
+    struct ScoreData
+    {
+        static int timesDButtonPressed;
+    };
 }
 
 #endif

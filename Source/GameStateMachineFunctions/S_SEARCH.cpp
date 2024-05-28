@@ -54,5 +54,26 @@ void interruptFunctionS_SEARCH()
 
 void showDir()
 {
-    Display::showScreenForNSeconds(nSecondsShowDirectionTimer, Display::showDIRECTIONSEARCHscreen, Display::showSEARCHScreen);
+    GPSLocation currentlocation = User::userSingleton->getUsersCurrentLocation();
+    GPSLocation::Direction dir = currentlocation.getDirection(InitGameData::
+                                                                  gameDataSingleton->wayPoints
+                                                                      [User::userSingleton->currentWayPointNumber]
+                                                                          .getLocation());
+    switch (dir)
+    {
+    case (GPSLocation::LEFT):
+        Display::showScreenForNSeconds(nSecondsShowDirectionTimer, Display::showLeftArrow, Display::clearScreen);
+        break;
+    case (GPSLocation::RIGHT):
+        Display::showScreenForNSeconds(nSecondsShowDirectionTimer, Display::showRightArrow, Display::clearScreen);
+        break;
+    case (GPSLocation::UP):
+        Display::showScreenForNSeconds(nSecondsShowDirectionTimer, Display::showUpArrow, Display::clearScreen);
+        break;
+    case (GPSLocation::DOWN):
+        Display::showScreenForNSeconds(nSecondsShowDirectionTimer, Display::showDownArrow, Display::clearScreen);
+        break;
+    }
+
+    ScoreData::timesDButtonPressed++;
 }
