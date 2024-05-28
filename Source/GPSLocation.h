@@ -14,6 +14,13 @@ private:
     bool isConnected = false;
 
 public:
+    enum Direction
+    {
+        LEFT,
+        UP,
+        RIGHT,
+        DOWN
+    };
     GPSLocation(double lat = 0.0, double lon = 0.0) : latitude(lat), longitude(lon) {}
 
     // remember to protect this code from interrrupts
@@ -72,6 +79,35 @@ public:
     bool isEqualToWithInRange(const GPSLocation &other, double accuracyInMeters = 5.0)
     {
         return (distanceTo(other) <= accuracyInMeters);
+    }
+
+    Direction getDirection(const GPSLocation &other)
+    {
+        float lat_diff = other.latitude - latitude;
+        float lon_diff = other.longitude - longitude;
+
+        if (fabs(lat_diff) > fabs(lon_diff))
+        {
+            if (lat_diff > 0)
+            {
+                return UP;
+            }
+            else
+            {
+                return DOWN;
+            }
+        }
+        else
+        {
+            if (lon_diff > 0)
+            {
+                return RIGHT;
+            }
+            else
+            {
+                return LEFT;
+            }
+        }
     }
 
 private:
