@@ -4,8 +4,11 @@
 #include "../StateMachineInternals.h"
 #include "../Display.h"
 #include "../User.h"
+
 using namespace std;
 using namespace statemachine;
+using namespace GameData;
+
 void S_INIT_OnEntry()
 {
     initializeModules();
@@ -23,6 +26,7 @@ void S_INIT_OnEntry()
         nextEvent = E_INIT_ERROR;
         StateMachine::stateMachineSingelton->setErrorSource(E_INIT_ERROR);
     }
+    ScoreData::timesDButtonPressed = 0;
     StateMachine::stateMachineSingelton->transition(nextEvent);
 }
 
