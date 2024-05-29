@@ -1,7 +1,7 @@
 #include <vector>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
-#include "../Display.h"
+#include "../display/Display.h"
 #include "../Controls.h"
 #include "../User.h"
 #include "../PIT.h"
@@ -18,11 +18,12 @@ const double part = hotColdExitThreshold / 4.0;  // Calculate each part size
 const int secondstoShowNotCloseAnymoreScreen = 3;
 const double interruptFrequency = 1.5;
 void timerInterruptHotCold();
+
 void S_HOT_COLD_OnEntry() {
     StateMachine::stateMachineSingelton->currentState = S_HOT_COLD;
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getLocation();
 
-    PITObject::PITSingleton = new PITObject(interruptFrequency, timerInterruptHotCold);
+    PITObject::PITSingleton = new PITObject(interruptFrequency, timerInterruptHotCold, 0);
 }
 
 void timerInterruptHotCold() {

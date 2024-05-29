@@ -43,6 +43,10 @@
 #ifndef I2C1_H
 #define I2C1_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <MKL25Z4.h>
 #include <stdint.h> 
 #include <stdbool.h>
@@ -60,5 +64,9 @@ void i2c1_init(void);
 
 bool i2c1_write_cmd(const uint8_t address, const uint8_t cmd[], const uint32_t n);
 bool i2c1_write_data(const uint8_t address, const uint8_t data[], const uint32_t n);
+	
+#ifdef __cplusplus
+}
+#endif	
 
 #endif // I2C1_H

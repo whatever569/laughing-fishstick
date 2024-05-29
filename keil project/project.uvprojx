@@ -383,6 +383,28 @@
       <Groups>
         <Group>
           <GroupName>eeprom</GroupName>
+          <Files>
+            <File>
+              <FileName>at24c256.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\eeprom\at24c256.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2c0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Source\eeprom\i2c0.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c0.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\eeprom\i2c0.h</FilePath>
+            </File>
+            <File>
+              <FileName>at24c256.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\eeprom\at24c256.cpp</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>PC communication</GroupName>
@@ -488,16 +510,6 @@
           <GroupName>general</GroupName>
           <Files>
             <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Source\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Initializers.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Source\Initializers.c</FilePath>
-            </File>
-            <File>
               <FileName>Initializers.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Source\Initializers.h</FilePath>
@@ -516,11 +528,6 @@
               <FileName>Controls.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Source\Controls.h</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Source\Display.h</FilePath>
             </File>
             <File>
               <FileName>GameData.h</FileName>
@@ -557,6 +564,26 @@
               <FileType>8</FileType>
               <FilePath>..\Source\main.cpp</FilePath>
             </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\delay.h</FilePath>
+            </File>
+            <File>
+              <FileName>GameData.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\GameData.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Initializers.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\Initializers.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>delay.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\delay.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -571,6 +598,51 @@
               <FileName>GPS.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Source\GPS\GPS.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Source\display\fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>fonts.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\display\fonts.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2c1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Source\display\i2c1.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c1.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\display\i2c1.h</FilePath>
+            </File>
+            <File>
+              <FileName>ssd1306.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Source\display\ssd1306.h</FilePath>
+            </File>
+            <File>
+              <FileName>ssd1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\display\ssd1306.cpp</FilePath>
             </File>
           </Files>
         </Group>

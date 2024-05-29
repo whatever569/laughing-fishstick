@@ -41,8 +41,16 @@
 #ifndef FONTS_H_
 #define FONTS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const char Monospaced_plain_10[];
 extern const char Dialog_plain_12[];
 extern const char Monospaced_bold_24[];
+	
+#ifdef __cplusplus
+}
+#endif	
 
 #endif // FONTS_H_

@@ -43,8 +43,13 @@
 #ifndef I2C0_H
 #define I2C0_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+	
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /*!
  * \brief Definition for the I2C timeout
@@ -60,4 +65,8 @@ void i2c0_init(void);
 bool i2c0_read(const uint8_t device_address, const uint16_t address, uint8_t data[], const uint16_t n);
 bool i2c0_write(const uint8_t device_address, const uint16_t address, const uint8_t data[], const uint16_t n);
     
+#ifdef __cplusplus
+}
+#endif
+	
 #endif // I2C0_H

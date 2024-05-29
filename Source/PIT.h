@@ -1,8 +1,8 @@
 #ifndef PIT_H
 #define PIT_H
-#include <math.h>
-using namespace std;
 #include "MKL25Z4.h"
+using namespace std;
+
 class PITObject
 {
     private:
@@ -16,9 +16,9 @@ class PITObject
         static void doNothing();
         static PITObject * PITSingleton;
         void deleteInstance();
-        PITObject(double interruptFreq, void(*functionToBeExecutedAtInterrupt)(void));
+        PITObject(double interruptFreq, void(*functionToBeExecutedAtInterrupt)(void), int channel);
         /// @brief The load value will only update after the current PIT is finished and therefore the effect will be on the next cycle
         /// @param interruptFreq frequency at which the function will be executed
-        void setInterruptFrequency(double interruptFreq);
+        void setInterruptFrequency(double interruptFreq, int channel);
 };
 #endif

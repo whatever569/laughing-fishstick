@@ -1,6 +1,7 @@
 #include <string>
 #include "dataMC.h"
 #include "uart0.h"
+#include "../../delay.h"
 #include "../../User.h"
 #include "../../GameData.h"
 #include "../../GPSLocation.h"
@@ -9,8 +10,12 @@ using namespace GameData;
 User* User::userSingleton = nullptr;
 InitGameData* InitGameData::gameDataSingleton = nullptr;
 
-void GameDataInit(void) {
-	char nameSize[3] = {0};								//Limits name to 99 size, but name is limited to 16 in User.hpp anyway.
+bool GameDataInit(void) {
+	while(uart0_num_rx_chars_available() < 10 || milliSecond > 1e4); //wait for data or timeout after 10 seconds
+	if (milliSecond > 1e4) return false;
+	delay_ms(100);													 //wait a little so all info can get received
+	
+	char nameSize[3] = {0};											 //Limits name to 99 size, but name is limited to 16 in User.hpp anyway.
 	uart0_get_string(nameSize, 2);
 	uart0_get_string(User::userSingleton->username, strtol(nameSize, NULL, 10));
 	
@@ -30,7 +35,12 @@ void GameDataInit(void) {
 	
 		GPSLocation coordinates = GPSLocation(strtod(lat, NULL), strtod(lon, NULL));
 		InitGameData::gameDataSingleton->wayPoints[i].setWayPoint(coordinates, waypointPuzzle); 
-
 	}
+	
+	return true;
+}
+
+void GameDataReturn() {
+
 }
 

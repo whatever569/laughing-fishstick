@@ -1,10 +1,11 @@
 #include <vector>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
-#include "../Display.h"
+#include "../display/Display.h"
 #include "../Controls.h"
 #include "../User.h"
 #include "../PIT.h"
+
 using namespace std;
 using namespace statemachine;
 using namespace GameData;
@@ -15,13 +16,14 @@ const double slowInterruptFrequency = 0.2;
 const double fastInterruptFrequency = 1.0;
 void interruptFunctionS_SEARCH();
 void showDir();
+
 void S_SEARCH_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_SEARCH;
     Display::clearScreen();
     Display::showSEARCHScreen();
 
-    PITObject::PITSingleton = new PITObject(slowInterruptFrequency, interruptFunctionS_SEARCH);
+    PITObject::PITSingleton = new PITObject(slowInterruptFrequency, interruptFunctionS_SEARCH, 0);
 
     Controls::controlsSingleton->setFunctionsForButtons(
         Controls::doNothing,
@@ -44,11 +46,11 @@ void interruptFunctionS_SEARCH()
     }
     else if (distance > distanceAboveWhichInterruptsAreDoneSlower)
     {
-        PITObject::PITSingleton->setInterruptFrequency(slowInterruptFrequency);
+        PITObject::PITSingleton->setInterruptFrequency(slowInterruptFrequency, 0);
     }
     else
     {
-        PITObject::PITSingleton->setInterruptFrequency(fastInterruptFrequency);
+        PITObject::PITSingleton->setInterruptFrequency(fastInterruptFrequency, 0);
     }
 }
 

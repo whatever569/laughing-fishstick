@@ -2,8 +2,10 @@
 #include "../GameData.h"
 #include "../Initializers.h"
 #include "../StateMachineInternals.h"
-#include "../Display.h"
+#include "../display/Display.h"
 #include "../User.h"
+#include "../pc communication/Microcontroller/dataMC.h"
+#include "../eeprom/at24c256.h"
 
 using namespace std;
 using namespace statemachine;
@@ -18,7 +20,7 @@ void S_INIT_OnEntry()
     Display::clearScreen();
     Display::showINITScreen();
 
-    //TODO: Get data and initialize user object
+	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
     if(isDataGottenSuccessfully)
     {
         nextEvent = E_INIT_SUCCESS;
@@ -26,10 +28,10 @@ void S_INIT_OnEntry()
         nextEvent = E_INIT_ERROR;
         StateMachine::stateMachineSingelton->setErrorSource(E_INIT_ERROR);
     }
+	
+	eeprom_write_string(EEPROM_currentAdress, User::userSingleton->username);
+	eeprom_write_uint8_t(EEPROM_currentAdress, (uint8_t)InitGameData::gameDataSingleton->wayPoints.size());
+	
     ScoreData::timesDButtonPressed = 0;
     StateMachine::stateMachineSingelton->transition(nextEvent);
 }
-
-
-
-

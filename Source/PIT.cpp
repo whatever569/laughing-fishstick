@@ -1,3 +1,4 @@
+#include <math.h>
 #include "PIT.h"
 
 PITObject* PITObject::PITSingleton = nullptr;
@@ -10,17 +11,17 @@ PITObject::~PITObject()
     NVIC_DisableIRQ(PIT_IRQn);
 }
 
-PITObject::PITObject(double interruptFreq, void (*functionToBeExecutedAtInterrupt)(void))
+PITObject::PITObject(double interruptFreq, void (*functionToBeExecutedAtInterrupt)(void), int channel)
 {
     interruptfrequency = interruptFreq;
     SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
     PIT->MCR &= ~PIT_MCR_MDIS_MASK;
-    PIT->MCR &= ~PIT_MCR_FRZ_MASK;
-    PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TIE_MASK;
+    PIT->MCR |= PIT_MCR_FRZ_MASK;
+    PIT->CHANNEL[channel].TCTRL |= PIT_TCTRL_TIE_MASK;
 
     int starting_value = int(floor(busFreq / interruptfrequency) - 1);
-    PIT->CHANNEL[0].LDVAL |= starting_value;
-    PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TEN_MASK;
+    PIT->CHANNEL[channel].LDVAL |= starting_value;
+    PIT->CHANNEL[channel].TCTRL |= PIT_TCTRL_TEN_MASK;
 
     PIT_function = functionToBeExecutedAtInterrupt;
     NVIC_SetPriority(PIT_IRQn, NVIC_PRIORITY);
@@ -32,11 +33,11 @@ void PITObject::deleteInstance()
     delete PITSingleton;
     PITSingleton = nullptr;
 }
-void PITObject::setInterruptFrequency(double interruptFreq)
+void PITObject::setInterruptFrequency(double interruptFreq, int channel)
 {
     interruptfrequency = interruptFreq;
     int starting_value = int(floor(busFreq / interruptfrequency) - 1);
-    PIT->CHANNEL[0].LDVAL |= starting_value;
+    PIT->CHANNEL[channel].LDVAL |= starting_value;
 }
 
 void PIT_Handler()

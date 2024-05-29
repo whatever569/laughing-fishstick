@@ -1,7 +1,7 @@
 #include <vector>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
-#include "../Display.h"
+#include "../display/Display.h"
 #include "../Controls.h"
 
 using namespace std;

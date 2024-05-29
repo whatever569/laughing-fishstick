@@ -18,6 +18,7 @@ public:
 
     GPSLocation getUsersCurrentLocation()
     {
+		GPSLocation currentLocation{GPSLocation()};;
 		char coordinates[30] = {0};
 		gps(coordinates);
 		
@@ -26,13 +27,12 @@ public:
 			double lon = strtod(&slon[2], NULL);	//from position 3 the numbers start, so from that point on write as double
 			coordinates[slon-coordinates] = '\0';	//put terminator on the comma 
 			double lat = strtod(coordinates, NULL); //write as double
-			GPSLocation currentLocation{GPSLocation(lat, lon)};
+			currentLocation.setLatitude(lat);
+			currentLocation.setLongitude(lon);
 			currentLocation.setIsConnected(true);
 		}
-		else {
-			GPSLocation currentLocation{GPSLocation()};
-			currentLocation.setIsConnected(false);
-		}
+		
+		else currentLocation.setIsConnected(false);
 		
         return currentLocation;
     }

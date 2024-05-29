@@ -1,7 +1,7 @@
 #include <vector>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
-#include "../Display.h"
+#include "../display/Display.h"
 #include "../User.h"
 #include "../GameData.h"
 

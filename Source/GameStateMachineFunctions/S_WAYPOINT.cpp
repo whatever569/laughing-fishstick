@@ -1,7 +1,7 @@
 #include <vector>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
-#include "../Display.h"
+#include "../display/Display.h"
 #include "../Controls.h"
 #include "../User.h"
 #include "../RandomNumberGenerator.h"
@@ -42,7 +42,6 @@ public:
     {
       numberOfRounds = rounds;
       currentRound = 0;
-		//initDirs();
     }
 	
     /// @return true if the puzzle is finished
@@ -146,7 +145,7 @@ void S_WAYPOINT_OnEntry()
 
 void buttonForDirectionPressed(GPSLocation::Direction dir)
 {
-    /*if (userInput.size() - 1 < simonSaysGame->getDirToBeShown().size())
+    if (userInput.size() - 1 < simonSaysGame->getDirToBeShown().size())
     {
         userInput.push_back(dir);
     }
@@ -161,14 +160,15 @@ void buttonForDirectionPressed(GPSLocation::Direction dir)
                 InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(true);
                 StateMachine::stateMachineSingelton->transition(E_PUZZLE_COMPLETE);
             }
-        }
+        } 
+		
         else
         {
             Display::showScreenForNSeconds(3, Display::showPuzzleLost, Display::showLoading);
             InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(false);
             StateMachine::stateMachineSingelton->transition(E_PUZZLE_COMPLETE);
-        }
-    }*/
+        } 
+    }
 }
 
 void APressed()

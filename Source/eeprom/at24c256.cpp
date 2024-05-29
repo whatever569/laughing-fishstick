@@ -32,14 +32,19 @@
 #include "at24c256.h"
 #include "i2c0.h"
 #include "delay.h"
+#include "../PIT.h"
 
-/*!
- * \brief Initialises the AT24C256 EEPROM
- *
- */
+uint16_t EEPROM_currentAdress = 0x0000;
+
 void eeprom_init(void)
 {
     i2c0_init();
+}
+
+void eeprom_flush(void) {
+	uint8_t buffer[EEPROM_SIZE];
+	for (int i = 0; i < EEPROM_SIZE; i++) buffer[i] = EEPROM_CLEAR;
+	eeprom_write(0x0, buffer, EEPROM_SIZE);
 }
 
 /*!
@@ -65,9 +70,6 @@ void eeprom_init(void)
  */
 bool eeprom_read(const uint16_t address, uint8_t data[], const uint16_t n)
 {
-    // Make sure there is a t_wr delay of 10ms
-    delay_us(10000);
-
     uint8_t device_address = 0b10100000;
 
     return i2c0_read(device_address, address, data, n);
@@ -101,6 +103,8 @@ bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n
     const uint8_t PAGE_SIZE_IN_BYTES = 64;
     uint16_t start_address = address;
     uint16_t n_written = 0;
+	
+	EEPROM_currentAdress += n;
 
     while(n_written < n)
     {
@@ -128,48 +132,43 @@ bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n
     return true;
 }
 
-inline bool eeprom_write_float(const uint16_t address, float var)
+bool eeprom_write_float(const uint16_t address, float var)
 {
     return eeprom_write(address, (uint8_t *)(&var), sizeof(float));
 }
 
-inline bool eeprom_read_float(const uint16_t address, float *var)
+bool eeprom_read_float(const uint16_t address, float *var)
 {
     return eeprom_read(address, (uint8_t *)(var), sizeof(float));
 }
 
-inline bool eeprom_write_uint32_t(const uint16_t address, uint32_t var)
+bool eeprom_write_uint32_t(const uint16_t address, uint32_t var)
 {
     return eeprom_write(address, (uint8_t *)(&var), sizeof(uint32_t));
 }
 
-inline bool eeprom_read_uint32_t(const uint16_t address, uint32_t *var)
+bool eeprom_read_uint32_t(const uint16_t address, uint32_t *var)
 {
     return eeprom_read(address, (uint8_t *)(var), sizeof(uint32_t));
 }
 
-inline bool eeprom_write_uint8_t(const uint16_t address, uint8_t var)
+bool eeprom_write_uint8_t(const uint16_t address, uint8_t var)
 {
     return eeprom_write(address, (uint8_t *)(&var), sizeof(uint8_t));
 }
 
-inline bool eeprom_read_uint8_t(const uint16_t address, uint8_t *var)
+bool eeprom_read_uint8_t(const uint16_t address, uint8_t *var)
 {
     return eeprom_read(address, (uint8_t *)(var), sizeof(uint8_t));
 }
 
-bool eeprom_write_string(const uint16_t address, char *str)
+bool eeprom_write_string(const uint16_t address, const char *str)
 {
     uint32_t n = 0;
 
-    // Determine string length
-    while(str[n] != '\0')
-    {
-        ++n;
-    }
-    
-    // Add one more, making sure to include '\0'
-    ++n;
+    // get string length
+    while(str[n++] != '\0');
+    n++;
 
     return eeprom_write(address, (uint8_t *)str, n);
 }
