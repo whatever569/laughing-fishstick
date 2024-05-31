@@ -502,6 +502,8 @@ void Display::showScreenForNSeconds(long n, void (*screenToBeShown)(void), void(
 {
 	returnScreen = screenToReturnTo;
 	screenToBeShown();
+
+	showForNSecondsCalledFlag = 1;
 	
 	millisWhenShowForNSecondsCalled = milliSecond;
 	nScreenMilliseconds = n;	
