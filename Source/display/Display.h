@@ -8,9 +8,9 @@ class Display
 {
 public:
 	
-		Display();
+    Display();
 
-    // functions are static so they are accessible from the type (no object has to be initialized to access type)
+    // define all functions to be used as static so they are accessible from the type (no object has to be initialized to access type)
     static void displayInit();
 		static void showINITScreen();
     static void showQRCODEScreen();
@@ -35,14 +35,14 @@ public:
     static void showAwaitingUserInput();
     static void showPuzzleLost();
     static void showPuzzleWon();
-    // @brief shows a screen for n amount of seconds, and then returns to another screen
-    static void showScreenForNSeconds(int n, void (*screenToBeShown)(void), void(*screenToReturnTo) (void));
-    //  "Loading..." screen
+    // show a screen for n amount of seconds, and then returning to another screen
+    static void showScreenForNSeconds(long n, void (*screenToBeShown)(void), void(*screenToReturnTo) (void));
+    // "Loading..." screen
     static void showLoading();
     // This screen shows up when the GPS is disconnected, so the user is prompted to find a better spot
     static void showAwaitingReconnection();
     static void showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();
-    // No reason for the error was given, check transitions to error state
+    // no reason for the error was given, check transitions to error state
     static void showS_ERROR_NO_SOURCE();
     static void showS_ERROR_ERROR_SENDING_DATA_AT_S_ENDGAME();
     static void showS_ERROR_ERROR_DURING_GAME();
@@ -50,10 +50,16 @@ public:
 
     static void clearScreen();
 
-    //Still figuring out how to implement this class variable so that it will also be accessible in the ISR
-    //It stores the function pointer to the screenToReturnTo that was selected in showScreenForNSeconds
-		static void (*returnScreen)(void);
-
+    // stores the screenToReturnTo that was set in showScreenForNSeconds
+    static void (*returnScreen)(void);
+		
+    //stores the amount of milliseconds that screenToBeShown needs to be shown for
+    static long nScreenMilliseconds;
+		
+    //stores the milliSecond count at the moment when the showScreenForNSeconds function was called
+    static volatile long millisWhenShowForNSecondsCalled;
+		
 private:
 };
 #endif
+
