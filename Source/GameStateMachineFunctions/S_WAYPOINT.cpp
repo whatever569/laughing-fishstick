@@ -33,7 +33,6 @@ vector<GPSLocation::Direction> arrowsToBeShown;            // set of arrows to b
 const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
 bool didDirectionsGetShown = false;
-const double interruptFrequency = 1.5f;
 
 struct SimonSaysGame
 {

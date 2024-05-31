@@ -1,8 +1,6 @@
-#include <MKL25Z4.H>
 #include "delay.h"
 #include "eeprom/at24c256.h"
 #include "User.h"
-#include "PIT.h"
 
 volatile long milliSecond = 0;
 
@@ -17,6 +15,19 @@ void millis_setup() {
     NVIC_EnableIRQ(PIT_IRQn);
 	
 	PIT->CHANNEL[1].TCTRL |= PIT_TCTRL_TIE_MASK | PIT_TCTRL_TEN_MASK;
+}
+
+void PIT_setup(void) {
+	SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
+    PIT->MCR &= ~PIT_MCR_MDIS_MASK;
+    PIT->MCR |= PIT_MCR_FRZ_MASK;
+    PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV((24e6 / SLOWINTERRUPTFREQUENCY) - 1);
+	
+    NVIC_SetPriority(PIT_IRQn, 3);
+    NVIC_ClearPendingIRQ(PIT_IRQn);
+    NVIC_EnableIRQ(PIT_IRQn);
+	
+	PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TIE_MASK | PIT_TCTRL_TEN_MASK;
 }
 
 void delay_ms(int ms) {
@@ -42,11 +53,15 @@ void delay_us(int us) {
         __asm("nop");
     }
 }
-
-extern "C" {
-	void PIT_IRQHandler(void) {
-		NVIC_ClearPendingIRQ(PIT_IRQn);
-		PIT->CHANNEL[1].TFLG = PIT_TFLG_TIF_MASK;
+ 
+extern "C" void PIT_IRQHandler(void) {
+	NVIC_ClearPendingIRQ(PIT_IRQn);
+	if (PIT->CHANNEL[0].TFLG & PIT_TFLG_TIF_MASK) {
+		PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;	
+	}	
+	
+	if (PIT->CHANNEL[1].TFLG & PIT_TFLG_TIF_MASK) {
+		PIT->CHANNEL[1].TFLG |= PIT_TFLG_TIF_MASK;
 		
 		milliSecond += MILLISUPDATE;
 		

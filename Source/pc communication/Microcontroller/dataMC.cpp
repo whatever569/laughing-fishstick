@@ -1,10 +1,15 @@
-#include <string>
 #include "dataMC.h"
 #include "uart0.h"
 #include "../../delay.h"
 #include "../../User.h"
 #include "../../GameData.h"
 #include "../../GPSLocation.h"
+#include "../eeprom/at24c256.h"
+
+extern "C" {
+	#include <string.h>
+	#include <stdio.h>
+}
 
 using namespace GameData;
 User* User::userSingleton = nullptr;
@@ -41,6 +46,13 @@ bool GameDataInit(void) {
 }
 
 void GameDataReturn() {
-
+	char tempData[64];
+//	sprintf();
+	//uart0_send_string();
+	char data[Q_SIZE];
+	
+	eeprom_read_string(0x0, tempData);
+	strcat(data, tempData);
+	//eeprom_read_uint8_t(, tempData);
 }
 

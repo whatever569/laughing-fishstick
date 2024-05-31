@@ -4,7 +4,8 @@
 #include "../display/Display.h"
 #include "../Controls.h"
 #include "../User.h"
-#include "../PIT.h"
+#include "../delay.h"
+#include "../eeprom/at24c256.h"
 
 using namespace GameData;
 using namespace std;
@@ -16,14 +17,13 @@ const double reachedThreshold = 5.0;
 GPSLocation wpLocation;
 const double part = hotColdExitThreshold / 4.0;  // Calculate each part size
 const int secondstoShowNotCloseAnymoreScreen = 3;
-const double interruptFrequency = 1.5;
 void timerInterruptHotCold();
 
 void S_HOT_COLD_OnEntry() {
     StateMachine::stateMachineSingelton->currentState = S_HOT_COLD;
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getLocation();
 
-    PITObject::PITSingleton = new PITObject(interruptFrequency, timerInterruptHotCold, 0);
+    PIT->CHANNEL[1].LDVAL = PIT_LDVAL_TSV((24e6 / INTERRUPTFREQUENCY) - 1);
 }
 
 void timerInterruptHotCold() {
@@ -48,8 +48,8 @@ void timerInterruptHotCold() {
         Display::showS_HOT_COLDHotStatus();
     } else if (distance >= 0) {
         InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsReached(true);
-        PITObject::PITSingleton->deleteInstance();
-        StateMachine::stateMachineSingelton->transition(E_WAYPOINT_REACHED);
+		StateMachine::stateMachineSingelton->transition(E_WAYPOINT_REACHED);
+        
     }
 }
 

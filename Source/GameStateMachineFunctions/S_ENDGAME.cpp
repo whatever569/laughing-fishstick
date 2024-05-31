@@ -22,15 +22,15 @@ void S_ENDGAME_OnEntry()
 
     Display::showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();
 
-	eeprom_write_string(EEPROM_currentAdress, "ENDGAME");
-	eeprom_write_uint8_t(EEPROM_currentAdress, GameData::ScoreData::timesDButtonPressed);
-	eeprom_write_uint32_t(EEPROM_currentAdress, milliSecond);
+	eepromData[0] = (char)(GameData::ScoreData::timesDButtonPressed / 10)+'0';
+    eepromData[1] = (char)(GameData::ScoreData::timesDButtonPressed % 10)+'0';
+    eepromData[2] = 'T';
+    eepromData[3] = '\0';
+    strcpy(eepromData, timeData);
+    eepromData[strlen(eepromData)] = '\0';
+    eeprom_write_string(EEPROM_currentAdress, eepromData);
 	GameDataReturn();
 	
     StateMachine::stateMachineSingelton->transition(E_TURNED_OFF);
     
 }
-
-
-
-

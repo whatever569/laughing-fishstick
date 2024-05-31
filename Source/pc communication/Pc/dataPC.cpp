@@ -23,3 +23,9 @@ void gameDataInit (string userName, vector<waypoint> waypoints) {
 	pc.flush('T');
 	pc.transmitData(gameData);
 }
+
+Loggingwaypoint GameDataReturn(void) {
+	PC_UART pc;
+	Q
+	
+}

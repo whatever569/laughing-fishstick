@@ -4,7 +4,7 @@
 #include "../display/Display.h"
 #include "../Controls.h"
 #include "../User.h"
-#include "../PIT.h"
+#include "../delay.h"
 
 using namespace std;
 using namespace statemachine;
@@ -12,8 +12,7 @@ using namespace GameData;
 const int nSecondsShowDirectionTimer = 2;
 const double hotColdGameThreshold = 25.0;
 const double distanceAboveWhichInterruptsAreDoneSlower = 100.0;
-const double slowInterruptFrequency = 0.2;
-const double fastInterruptFrequency = 1.0;
+
 void interruptFunctionS_SEARCH();
 void showDir();
 
@@ -23,7 +22,7 @@ void S_SEARCH_OnEntry()
     Display::clearScreen();
     Display::showSEARCHScreen();
 
-    PITObject::PITSingleton = new PITObject(slowInterruptFrequency, interruptFunctionS_SEARCH, 0);
+    PIT_setup();
 
     Controls::controlsSingleton->setFunctionsForButtons(
         Controls::doNothing,
@@ -41,16 +40,15 @@ void interruptFunctionS_SEARCH()
                                                               .getLocation()));
     if (distance == hotColdGameThreshold)
     {
-        PITObject::PITSingleton->deleteInstance();
         StateMachine::stateMachineSingelton->transition(E_CLOSE_PROXIMITY);
     }
     else if (distance > distanceAboveWhichInterruptsAreDoneSlower)
     {
-        PITObject::PITSingleton->setInterruptFrequency(slowInterruptFrequency, 0);
+        PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV((24e6 / SLOWINTERRUPTFREQUENCY) - 1);
     }
     else
     {
-        PITObject::PITSingleton->setInterruptFrequency(fastInterruptFrequency, 0);
+        PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV((24e6 / FASTINTERRUPTFREQUENCY) - 1);
     }
 }
 

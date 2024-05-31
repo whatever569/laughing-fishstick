@@ -32,7 +32,6 @@
 #include "at24c256.h"
 #include "i2c0.h"
 #include "delay.h"
-#include "../PIT.h"
 
 uint16_t EEPROM_currentAdress = 0x0000;
 
@@ -100,7 +99,6 @@ bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n
 {
     uint8_t device_address = 0b10100000;
 
-    const uint8_t PAGE_SIZE_IN_BYTES = 64;
     uint16_t start_address = address;
     uint16_t n_written = 0;
 	
@@ -109,7 +107,7 @@ bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n
     while(n_written < n)
     {
         // Set length that fits the current page
-        uint16_t m = PAGE_SIZE_IN_BYTES - (start_address % PAGE_SIZE_IN_BYTES);
+        uint16_t m = EEPROM_PAGE - (start_address % EEPROM_PAGE);
 
         // If the available length in the current page is larger than the
         // required length, set to required length

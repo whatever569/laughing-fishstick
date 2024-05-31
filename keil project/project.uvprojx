@@ -515,11 +515,6 @@
               <FilePath>..\Source\Initializers.h</FilePath>
             </File>
             <File>
-              <FileName>PIT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Source\PIT.cpp</FilePath>
-            </File>
-            <File>
               <FileName>RandomNumberGenerator.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Source\RandomNumberGenerator.cpp</FilePath>
@@ -538,11 +533,6 @@
               <FileName>GPSLocation.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Source\GPSLocation.h</FilePath>
-            </File>
-            <File>
-              <FileName>PIT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Source\PIT.h</FilePath>
             </File>
             <File>
               <FileName>RandomNumberGenerator.h</FileName>
