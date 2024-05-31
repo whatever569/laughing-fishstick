@@ -1,24 +1,18 @@
 #include "Display.h"
 
+void (*Display::returnScreen)(void) = Display::showINITScreen;
+long Display::nScreenMilliseconds = 0;
+volatile long Display::millisWhenShowForNSecondsCalled = 0;
+
 Display::Display()
 {
 	ssd1306_init();
 	ssd1306_setorientation(1); 
 	ssd1306_setfont(Dialog_plain_12);
-	//returnScreen = displayInit;
 }
 
 void Display::displayInit()
 {
-	SIM->SCGC6 |= SIM_SCGC6_PIT_MASK; //enable clock to PIT
-	
-	PIT->MCR |= PIT_MCR_MDIS_MASK; //disable module
-	PIT->MCR |= PIT_MCR_FRZ_MASK;  //freeze timer during debug
-	PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV(24e6-1); //set initial timer overflow period to 1 second
-	
-	PIT->CHANNEL[0].TCTRL &= ~PIT_TCTRL_CHN_MASK; //no chaining
-	
-	PIT->CHANNEL[0].TCTRL &= ~PIT_TCTRL_TIE_MASK; //disable interrupts
 	
 	ssd1306_init();
 	ssd1306_setorientation(1); 
@@ -504,22 +498,13 @@ void Display::showPuzzleWon()
 	ssd1306_update();
 }
 
-void Display::showScreenForNSeconds(int n, void (*screenToBeShown)(void), void(*screenToReturnTo) (void))
+void Display::showScreenForNSeconds(long n, void (*screenToBeShown)(void), void(*screenToReturnTo) (void))
 {
+	returnScreen = screenToReturnTo;
 	screenToBeShown();
 	
-	PIT->MCR &= ~PIT_MCR_MDIS_MASK; //enable PIT module
-	
-	PIT->CHANNEL[0].LDVAL = PIT_LDVAL_TSV(n / 24000000 - 1);
-	PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TIE_MASK; //enable PIT interrupts
-	
-	NVIC_SetPriority(PIT_IRQn, 1);
-	NVIC_ClearPendingIRQ(PIT_IRQn);
-	NVIC_EnableIRQ(PIT_IRQn);
-	
-	PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TEN_MASK; //enable counter
-	
-	//returnScreen = screenToReturnTo;
+	millisWhenShowForNSecondsCalled = milliSecond;
+	nScreenMilliseconds = n;	
 }
 
 void Display::showLoading()
@@ -605,5 +590,3 @@ void Display::showS_ERROR_ERROR_INIT()
 	ssd1306_putstring(0, 26, "initialization.");
 	ssd1306_update();
 }
-
-
