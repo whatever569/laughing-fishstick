@@ -56,11 +56,11 @@ void i2c1_init(void)
 {
     // Clock i2c peripheral and port
     SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;
-    SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
+    SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
     
     // Set pins to I2C function
-    PORTE->PCR[0] |= PORT_PCR_MUX(6);
-    PORTE->PCR[1] |= PORT_PCR_MUX(6);
+    PORTC->PCR[10] |= PORT_PCR_MUX(6);
+    PORTC->PCR[11] |= PORT_PCR_MUX(6);
     
     // Make sure i2c is disabled
     I2C1->C1 &= ~(I2C_C1_IICEN_MASK);
