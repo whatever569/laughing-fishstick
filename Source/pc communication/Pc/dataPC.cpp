@@ -10,6 +10,8 @@ void gameDataInit (string userName, vector<WayPoint> waypoints) {
 	PC_UART pc;
     QByteArray gameData;
 	
+	while(!pc.receiveData(1));		//wait till it receievs startflag
+	
 	gameData.append(userName.size());
 	if (userName.size() < 10) gameData.prepend('0');
 	gameData.append(userName);
@@ -32,7 +34,8 @@ LogData GameDataReturn(void) {
     QByteArray dataArray;
     LogData returnData;
 
-    getchar(); //activate function once the data has been send on micro controller, maybe instead put the "PC_UART pc;" line outside
+    pc.transmitData('S'); 
+	while (!pc.receiveData(1)); 		//wait till it receievs startflag
 
     while(1) {
         QByteArray temp;

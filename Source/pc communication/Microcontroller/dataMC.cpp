@@ -16,6 +16,8 @@ User* User::userSingleton = nullptr;
 InitGameData* InitGameData::gameDataSingleton = nullptr;
 
 bool GameDataInit(void) {
+	uart0_put_char('S');											 //Send start signal
+	
 	while(uart0_num_rx_chars_available() < 10 || milliSecond > 1e4); //wait for data or timeout after 10 seconds
 	if (milliSecond > 1e4) return false;
 	delay_ms(100);													 //wait a little so all info can get received
@@ -46,8 +48,12 @@ bool GameDataInit(void) {
 }
 
 int GameDataReturn() {
+	while(!uart0_num_rx_chars_available());
+	uart0_get_char();
+	
 	int EEPROM_readAdress = 0x0000;
 	long startTime = milliSecond;
+	uart0_put_char('S');							//send start info
 	
 	while (EEPROM_currentAdress > EEPROM_readAdress) {
 		char tempData[32] = {0};
