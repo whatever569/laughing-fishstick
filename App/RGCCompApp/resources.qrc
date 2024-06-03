@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>js/qwebchannel.js</file>
+        <file>Leaflet/leaflet.js</file>
+        <file>Leaflet/leaflet.css</file>
+    </qresource>
+</RCC>
