@@ -18,15 +18,16 @@
 
 class PC_UART {
 public:
+    QSerialPort serial;
     PC_UART(void);							//Initialization
     ~PC_UART(void);							//cleanup
 
     bool flush(char TxorRx = 'B');
     void transmitData(const QByteArray data);
     QByteArray receiveData(const int Bytes = MAXBYTES);
+    QSerialPort getSerialPort(void);
 
 private:
-    QSerialPort serial;
 	bool initFlag = true;					//shows whether initialization went correctly
 };
 

@@ -1,8 +1,10 @@
 #include "delay.h"
 #include "eeprom/at24c256.h"
 #include "User.h"
+#include "display/Display.h"
 
 volatile long milliSecond = 0;
+volatile bool showForNSecondsCalledFlag = false;
 
 void millis_setup() {
     SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
@@ -66,10 +68,16 @@ extern "C" void PIT_IRQHandler(void) {
 		milliSecond += MILLISUPDATE;
 		
 		if ((milliSecond % 30000) == 0) {
+			char dataEeprom[36];
 			char coord[30];
 			gps(coord);
-			eeprom_write_string(EEPROM_currentAdress, coord);
-			//eeprom_write_float(EEPROM_currentAdress, temprature);
+			//sprintf(dataEeprom, "D:%sC%f|", coord, temprature());
+			eeprom_write_string(EEPROM_currentAdress, dataEeprom);
+		}
+		
+		if (showForNSecondsCalledFlag & ((milliSecond - Display::millisWhenShowForNSecondsCalled) > Display::nScreenMilliseconds)) {
+			showForNSecondsCalledFlag = false;
+			Display::returnScreen();
 		}
 	}
 }

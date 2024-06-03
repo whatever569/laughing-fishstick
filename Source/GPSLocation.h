@@ -33,7 +33,12 @@ public:
     {
         longitude = lon;
     }
-
+	
+	void setCoordinates(double lat, double lon) {
+		latitude = lat;
+		longitude = lon;
+	}
+	
     double getLatitude() const
     {
         return latitude;

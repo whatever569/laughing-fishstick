@@ -45,14 +45,26 @@ bool GameDataInit(void) {
 	return true;
 }
 
-void GameDataReturn() {
-	char tempData[64];
-//	sprintf();
-	//uart0_send_string();
-	char data[Q_SIZE];
+int GameDataReturn() {
+	int EEPROM_readAdress = 0x0000;
+	long startTime = milliSecond;
 	
-	eeprom_read_string(0x0, tempData);
-	strcat(data, tempData);
-	//eeprom_read_uint8_t(, tempData);
+	while (EEPROM_currentAdress > EEPROM_readAdress) {
+		char tempData[32] = {0};
+		eeprom_read_string(EEPROM_readAdress, tempData);
+		EEPROM_readAdress += strlen(tempData) + 1;
+		uart0_send_string(tempData);
+		delay_ms(50);
+		
+		if (milliSecond - startTime >= GAMEDATARETURN_TIMEOUT) {
+			char timeoutStr[26] = "Timeout of GameDataReturn";
+			uart0_send_string(timeoutStr);
+			delay_ms(50);
+			break;
+		}
+	}
+	//while (uart0_num_rx_chars_available());
+	
+	return (int)(uart0_get_char()-'0'); //when done send from pc 1 if it went correct 0 if it didnt so it doesnt flush eeprom.
 }
 

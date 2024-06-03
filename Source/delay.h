@@ -10,6 +10,7 @@
 #define INTERRUPTFREQUENCY 1.5f
 	
 extern volatile long milliSecond;
+extern volatile bool showForNSecondsCalledFlag;
 void millis_setup(void);
 void PIT_setup(void);
 void delay_ms(int ms);

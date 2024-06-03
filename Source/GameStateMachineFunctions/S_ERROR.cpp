@@ -1,4 +1,6 @@
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
 #include "../display/Display.h"
@@ -17,7 +19,6 @@ void S_ERROR_OnEntry()
     StateMachine::stateMachineSingelton->currentState = S_ERROR;
     Display::clearScreen();
 	char eepromData[12] = {0};
-	char timeData[8] = {0};
 	
    switch(StateMachine::stateMachineSingelton->getErrorSource())
    {
@@ -30,14 +31,10 @@ void S_ERROR_OnEntry()
     case E_ERROR_DURING_GAME:
         Display::showS_ERROR_ERROR_DURING_GAME();
 		
-		eepromData[0] = 'W';
-		eepromData[1] = (char)(User::userSingleton->currentWayPointNumber+'0');
-		eepromData[2] = ' ';
-		eepromData[3] = (InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getIsReached()) ? '1' : '0';
-		eepromData[4] = (InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getIsPuzzleSuccess()) ? '1' : '0';
-		sprintf(timeData, "%ld", milliSecond);
-		strcat(eepromData, timeData);
-		eepromData[strlen(eepromData)] = '\0';
+		sprintf(eepromData, "W%dR%dP%dT%ld|",User::userSingleton->currentWayPointNumber, 
+										  InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getIsReached(),
+										  InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getIsPuzzleSuccess(),
+									      milliSecond);
 		eeprom_write_string(EEPROM_currentAdress, eepromData);
 		break;
     case E_INIT_ERROR:
@@ -48,12 +45,8 @@ void S_ERROR_OnEntry()
         break;
    }
    
-   eepromData[0] = (char)(GameData::ScoreData::timesDButtonPressed / 10)+'0';
-   eepromData[1] = (char)(GameData::ScoreData::timesDButtonPressed % 10)+'0';
-   eepromData[2] = 'T';
-   eepromData[3] = '\0';
-   strcpy(eepromData, timeData);
-   eepromData[strlen(eepromData)] = '\0';
+   memset(eepromData, 0, sizeof(eepromData));
+   sprintf(eepromData, "E%.3fB%d|", ((float)milliSecond / 1000), GameData::ScoreData::timesDButtonPressed);
    eeprom_write_string(EEPROM_currentAdress, eepromData);
    GameDataReturn();
 

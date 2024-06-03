@@ -27,8 +27,7 @@ public:
 			double lon = strtod(&slon[2], NULL);	//from position 3 the numbers start, so from that point on write as double
 			coordinates[slon-coordinates] = '\0';	//put terminator on the comma 
 			double lat = strtod(coordinates, NULL); //write as double
-			currentLocation.setLatitude(lat);
-			currentLocation.setLongitude(lon);
+			currentLocation.setCoordinates(lat, lon);
 			currentLocation.setIsConnected(true);
 		}
 		

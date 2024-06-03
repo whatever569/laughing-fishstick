@@ -32,9 +32,7 @@ namespace GameData
 	
         void setWayPoint(GPSLocation coord, Puzzle puzzle)
         {
-            waypointLocation.setLatitude(coord.getLatitude());
-            waypointLocation.setLongitude(coord.getLongitude());
-
+			waypointLocation.setCoordinates(coord.getLatitude(), coord.getLongitude());
             waypointPuzzle = puzzle;
         }
 
@@ -45,8 +43,7 @@ namespace GameData
 
         void setLocation(GPSLocation location)
         {
-            waypointLocation.setLatitude(location.getLatitude());
-            waypointLocation.setLongitude(location.getLongitude());
+			waypointLocation.setCoordinates(location.getLatitude(), location.getLongitude());
         }
 
         bool getIsReached()

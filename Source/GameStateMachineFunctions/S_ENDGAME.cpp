@@ -1,4 +1,5 @@
 #include <vector>
+#include <stdio.h>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
 #include "../display/Display.h"
@@ -21,15 +22,11 @@ void S_ENDGAME_OnEntry()
     Event nextEvent;
 
     Display::showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();
-
-	eepromData[0] = (char)(GameData::ScoreData::timesDButtonPressed / 10)+'0';
-    eepromData[1] = (char)(GameData::ScoreData::timesDButtonPressed % 10)+'0';
-    eepromData[2] = 'T';
-    eepromData[3] = '\0';
-    strcpy(eepromData, timeData);
-    eepromData[strlen(eepromData)] = '\0';
+	
+	char eepromData[12];
+	sprintf(eepromData, "E%.3fB%d|", ((float)milliSecond / 1000), GameData::ScoreData::timesDButtonPressed);
     eeprom_write_string(EEPROM_currentAdress, eepromData);
-	GameDataReturn();
+	if (GameDataReturn()) eeprom_flush();
 	
     StateMachine::stateMachineSingelton->transition(E_TURNED_OFF);
     

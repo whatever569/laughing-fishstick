@@ -75,7 +75,6 @@ QByteArray PC_UART::receiveData(const int Bytes) {
     return receivedData;
 }
 
-
 PC_UART::~PC_UART(void) {
     if (initFlag == false || (serial.bytesAvailable() || serial.bytesToWrite())) {
         if (IGNOREWARNINGS) {

@@ -7,6 +7,7 @@
 #include "../pc communication/Microcontroller/dataMC.h"
 #include "../eeprom/at24c256.h"
 #include <string.h>
+#include <stdio.h>
 	
 using namespace std;
 using namespace statemachine;
@@ -30,11 +31,7 @@ void S_INIT_OnEntry()
         StateMachine::stateMachineSingelton->setErrorSource(E_INIT_ERROR);
     }
 	char eepromData[20];
-	strcpy(eepromData, User::userSingleton->username);
-	strcat(eepromData, "W:");
-	eepromData[strlen(eepromData)] = (char)(InitGameData::gameDataSingleton->wayPoints.size()+'0');
-	eepromData[strlen(eepromData)] = '\0';
-	
+	sprintf(eepromData, "%sW:%d|", User::userSingleton->username, InitGameData::gameDataSingleton->wayPoints.size());
 	eeprom_write_string(EEPROM_currentAdress, eepromData);	
 	
     ScoreData::timesDButtonPressed = 0;

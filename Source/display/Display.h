@@ -12,7 +12,7 @@ public:
 
     // define all functions to be used as static so they are accessible from the type (no object has to be initialized to access type)
     static void displayInit();
-		static void showINITScreen();
+	static void showINITScreen();
     static void showQRCODEScreen();
     static void showSEARCHScreen();
     /// @brief is the screen that shows up when the user presses the show direction button
