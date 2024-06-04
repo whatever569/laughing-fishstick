@@ -36,7 +36,7 @@ void LogCard::setupUi() {
     mapView->settings()->setAttribute(QWebEngineSettings::JavascriptCanOpenWindows, true);
     mapView->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     mapView->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
-    mapView->setUrl(QUrl::fromLocalFile("/Users/mohammedalzuaa/Documents/HAN University Of Applied Sciences/Project/GitHub/laughing-fishstick/App/RGCCompApp/map.html"));
+    mapView->setUrl(QUrl("qrc:/html/map.html"));
 
     mapView->setMinimumHeight(200);
     mapView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -74,11 +74,11 @@ void LogCard::setupUi() {
     QPalette additionalTextPalette = additionalTextLabel->palette();
     additionalTextPalette.setColor(QPalette::WindowText, QColor(255, 255, 255, 128)); // Less visible
     additionalTextLabel->setPalette(additionalTextPalette);
-    additionalTextLabel->setAlignment(Qt::AlignLeft); // Left-align the additional text label
+    additionalTextLabel->setAlignment(Qt::AlignLeft);
     frameLayout->addWidget(additionalTextLabel);
 
     // Configure the "More Info" button
-    QColor buttonColor = backgroundColor.darker(150); // Darker shade of the background color
+    QColor buttonColor = backgroundColor.darker(150);
     moreInfoButton->setStyleSheet(QString("background-color: %1; color: white; border-radius: 5px; padding: 8px 16px;")
                                       .arg(buttonColor.name()));
     connect(moreInfoButton, &QPushButton::clicked, this, &LogCard::onMoreInfoClicked);

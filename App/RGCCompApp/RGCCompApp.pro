@@ -19,7 +19,7 @@ SOURCES += \
     mainwindow.cpp \
     mapcontroller.cpp
 RESOURCES += resources.qrc \
-    resources.qrc
+resources.qrc
 HEADERS += \
     appgpslocation.h \
     appinitgamedata.h \
