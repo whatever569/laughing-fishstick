@@ -10,6 +10,8 @@
 	statemachine::StateMachine::stateMachineSingelton = new statemachine::StateMachine;
 	
 	statemachine::StateMachine::stateMachineSingelton->currentState = statemachine::S_NO;
+	
+	//this line causes bkpt error with this specific event, other events are fine
 	statemachine::StateMachine::stateMachineSingelton->transition(statemachine::E_ENTER_STATE_MACHINE);
 
 	//looping back to S_INIT or some other state is done in the state machine, there is should be no while loop as the software archeticture is event based
