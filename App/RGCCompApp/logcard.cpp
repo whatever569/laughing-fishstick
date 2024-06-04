@@ -36,7 +36,7 @@ void LogCard::setupUi() {
     mapView->settings()->setAttribute(QWebEngineSettings::JavascriptCanOpenWindows, true);
     mapView->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     mapView->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
-    mapView->setUrl(QUrl::fromLocalFile("/Users/mohammedalzuaa/Documents/HAN University Of Applied Sciences/Project/GitHub/App/RGCCompApp/map.html"));
+    mapView->setUrl(QUrl::fromLocalFile("/Users/mohammedalzuaa/Documents/HAN University Of Applied Sciences/Project/GitHub/laughing-fishstick/App/RGCCompApp/map.html"));
 
     mapView->setMinimumHeight(200);
     mapView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);

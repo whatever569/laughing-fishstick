@@ -40,7 +40,8 @@ namespace statemachine
         E_TURNED_OFF,
         E_NO_ERROR_SOURCE_SET,
         E_ERROR_SENDING_DATA,
-        E_ERROR_DURING_GAME
+        E_ERROR_DURING_GAME,
+        E_ENTER_STATE_MACHINE,
     };
 
     struct Transition
@@ -51,6 +52,8 @@ namespace statemachine
     };
 
     constexpr Transition transitionTable[] = {
+        //start the state machine
+        {S_NO, E_ENTER_STATE_MACHINE, S_INIT},
         // Initialization transitions
         {S_INIT, E_INIT_SUCCESS, S_QRCODE},
         {S_INIT, E_INIT_ERROR, S_ERROR},
@@ -95,7 +98,6 @@ namespace statemachine
     public:
         static StateMachine *stateMachineSingelton;
         State currentState = S_NO;
-        // TODO create a transition table
         void transition(Event e)
         {
             for (Transition trans : transitionTable)
