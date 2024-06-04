@@ -6,7 +6,6 @@
 #include "../../GPSLocation.h"
 #include "../eeprom/at24c256.h"
 #include <string.h>
-#include <stdio.h>
 
 using namespace GameData;
 User* User::userSingleton = nullptr;

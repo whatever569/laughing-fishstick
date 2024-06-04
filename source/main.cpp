@@ -4,7 +4,7 @@
 #include "pc communication/Microcontroller/dataMC.h"
 #include "StateMachineInternals.h"
 
-int main() {
+ int main() {
 	//consider putting this in S_INIT to keep the clean software structure of the state mahcine if they don't explicitly need to be here
 	delete statemachine::StateMachine::stateMachineSingelton;
 	statemachine::StateMachine::stateMachineSingelton = new statemachine::StateMachine;
