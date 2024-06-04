@@ -3,5 +3,6 @@
         <file>js/qwebchannel.js</file>
         <file>Leaflet/leaflet.js</file>
         <file>Leaflet/leaflet.css</file>
+        <file>html/map.html</file>
     </qresource>
 </RCC>
