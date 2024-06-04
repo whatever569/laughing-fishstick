@@ -9,7 +9,10 @@
     void S_HOT_COLD_OnEntry();
     void S_ERROR_OnEntry();
     void S_ENDGAME_OnEntry();
-
+	
+	//functions used for PIT
+	void interruptFunctionS_SEARCH();
+	void timerInterruptHotCold();
 
 namespace statemachine
 {
@@ -156,6 +159,5 @@ namespace statemachine
             }
         }
     };
-
 }
 #endif

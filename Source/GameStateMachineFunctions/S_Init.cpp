@@ -14,7 +14,7 @@ using namespace statemachine;
 using namespace GameData;
 
 void S_INIT_OnEntry()
-{
+{	
     initializeModules();
     bool isDataGottenSuccessfully;
     Event nextEvent;

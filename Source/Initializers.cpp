@@ -11,4 +11,5 @@ void initializeModules() {
 	gps_init();
 	eeprom_init();
 	millis_setup();
+	PIT_setup();
 }

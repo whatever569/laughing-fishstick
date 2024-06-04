@@ -84,7 +84,7 @@ void gps(char* coordinates) {
 		if (gnrmc_start != NULL) {
 			char *token = strstr(gnrmc_start, ",V"); 											// if it encounters ",V" it means no fix can be found
 			if (token[1] == 'V') strcpy(coordinates, "DISCONECTED");
-			else if (strstr(gnrmc_start, "\r\n") == NULL) strcpy(coordinates, "INVALID_DATA");	// if the endline cannot befound the GPSData string didnt read full line
+			else if (strchr(gnrmc_start, '\r') == NULL) strcpy(coordinates, "INVALID_DATA");	// if the endline cannot befound the GPSData string didnt read full line
 			else {
 				int token_index = 0;
 				token = strtok(gnrmc_start, ",");

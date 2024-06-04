@@ -1,4 +1,3 @@
-#include <vector>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
 #include "../display/Display.h"
@@ -9,11 +8,11 @@
 using namespace std;
 using namespace statemachine;
 using namespace GameData;
+
 const int nSecondsShowDirectionTimer = 2;
 const double hotColdGameThreshold = 25.0;
 const double distanceAboveWhichInterruptsAreDoneSlower = 100.0;
 
-void interruptFunctionS_SEARCH();
 void showDir();
 
 void S_SEARCH_OnEntry()
@@ -22,7 +21,7 @@ void S_SEARCH_OnEntry()
     Display::clearScreen();
     Display::showSEARCHScreen();
 
-    PIT_setup();
+	pitFunction = S_search;
 
     Controls::controlsSingleton->setFunctionsForButtons(
         Controls::doNothing,

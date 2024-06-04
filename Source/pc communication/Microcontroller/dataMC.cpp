@@ -5,11 +5,8 @@
 #include "../../GameData.h"
 #include "../../GPSLocation.h"
 #include "../eeprom/at24c256.h"
-
-extern "C" {
-	#include <string.h>
-	#include <stdio.h>
-}
+#include <string.h>
+#include <stdio.h>
 
 using namespace GameData;
 User* User::userSingleton = nullptr;
@@ -70,7 +67,7 @@ int GameDataReturn() {
 		}
 	}
 	//while (uart0_num_rx_chars_available());
-	
-	return (int)(uart0_get_char()-'0'); //when done send from pc 1 if it went correct 0 if it didnt so it doesnt flush eeprom.
+	//return (int)(uart0_get_char()-'0');		 //when done send from pc 1 if it went correct 0 if it didnt so it doesnt flush eeprom.
+	return 1;
 }
 

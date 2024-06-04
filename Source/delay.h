@@ -8,9 +8,16 @@
 #define SLOWINTERRUPTFREQUENCY 0.2f
 #define FASTINTERRUPTFREQUENCY 1.0f
 #define INTERRUPTFREQUENCY 1.5f
+
+typedef enum {
+	S_search  = 0,
+	S_hotcold = 1, 
+}pitFunction_e;
 	
 extern volatile long milliSecond;
 extern volatile bool showForNSecondsCalledFlag;
+extern volatile pitFunction_e pitFunction;
+
 void millis_setup(void);
 void PIT_setup(void);
 void delay_ms(int ms);

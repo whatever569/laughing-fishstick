@@ -57,7 +57,7 @@ LogData GameDataReturn(void) {
                 waypointNumber = stoi(writeUntil(dataArray, 'R'));
                 returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
                 returnData.gameWaypoints[waypointNumber].setIsPuzzleSuccess(stoi(writeUntil(dataArray, 'T')));
-                //returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
+                returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
                 break;
 
             case 'D':

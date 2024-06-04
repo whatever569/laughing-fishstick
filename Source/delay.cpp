@@ -2,9 +2,11 @@
 #include "eeprom/at24c256.h"
 #include "User.h"
 #include "display/Display.h"
+#include "StateMachineInternals.h"
 
 volatile long milliSecond = 0;
 volatile bool showForNSecondsCalledFlag = false;
+volatile pitFunction_e pitFunction = S_search;
 
 void millis_setup() {
     SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
@@ -60,6 +62,11 @@ extern "C" void PIT_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(PIT_IRQn);
 	if (PIT->CHANNEL[0].TFLG & PIT_TFLG_TIF_MASK) {
 		PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;	
+		
+		switch (pitFunction) {
+			case S_search:  timerInterruptHotCold();
+			case S_hotcold: interruptFunctionS_SEARCH();	
+		}
 	}	
 	
 	if (PIT->CHANNEL[1].TFLG & PIT_TFLG_TIF_MASK) {

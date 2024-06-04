@@ -47,12 +47,6 @@ void eeprom_flush(void);
 
 bool eeprom_read(const uint16_t address, uint8_t data[], const uint16_t n);
 bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n);
-bool eeprom_write_float(const uint16_t address, float var);
-bool eeprom_read_float(const uint16_t address, float *var);
-bool eeprom_write_uint32_t(const uint16_t address, uint32_t var);
-bool eeprom_read_uint32_t(const uint16_t address, uint32_t *var);
-bool eeprom_write_uint8_t(const uint16_t address, uint8_t var);
-bool eeprom_read_uint8_t(const uint16_t address, uint8_t *var);
 bool eeprom_write_string(const uint16_t address, const char *str);
 bool eeprom_read_string(const uint16_t address, char *str);
 

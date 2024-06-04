@@ -2,7 +2,6 @@
 #define USER_H
 #include "GPSLocation.h"
 #include "GPS/GPS.h"
-#include <stdlib.h>
 #include <string.h>
 
 #define MAX_NAME_SIZE 16

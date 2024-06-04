@@ -130,36 +130,6 @@ bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n
     return true;
 }
 
-bool eeprom_write_float(const uint16_t address, float var)
-{
-    return eeprom_write(address, (uint8_t *)(&var), sizeof(float));
-}
-
-bool eeprom_read_float(const uint16_t address, float *var)
-{
-    return eeprom_read(address, (uint8_t *)(var), sizeof(float));
-}
-
-bool eeprom_write_uint32_t(const uint16_t address, uint32_t var)
-{
-    return eeprom_write(address, (uint8_t *)(&var), sizeof(uint32_t));
-}
-
-bool eeprom_read_uint32_t(const uint16_t address, uint32_t *var)
-{
-    return eeprom_read(address, (uint8_t *)(var), sizeof(uint32_t));
-}
-
-bool eeprom_write_uint8_t(const uint16_t address, uint8_t var)
-{
-    return eeprom_write(address, (uint8_t *)(&var), sizeof(uint8_t));
-}
-
-bool eeprom_read_uint8_t(const uint16_t address, uint8_t *var)
-{
-    return eeprom_read(address, (uint8_t *)(var), sizeof(uint8_t));
-}
-
 bool eeprom_write_string(const uint16_t address, const char *str)
 {
     uint32_t n = 0;
