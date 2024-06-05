@@ -4,12 +4,14 @@
 #include "GPS/GPS.h"
 #include "eeprom/at24c256.h"
 #include "delay.h"
+#include "display/Display.h"
 
 void initializeModules() {
+	millis_setup();
 	servo_init();		
 	uart0_init();
 	gps_init();
 	eeprom_init();
-	millis_setup();
 	PIT_setup();
+	Display::displayInit();
 }

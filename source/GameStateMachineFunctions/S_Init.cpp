@@ -14,15 +14,17 @@ using namespace statemachine;
 using namespace GameData;
 
 void S_INIT_OnEntry()
-{	
-    initializeModules();
+{
+	initializeModules();
     bool isDataGottenSuccessfully;
     Event nextEvent;
     StateMachine::stateMachineSingelton->currentState = S_INIT;
     Display::clearScreen();
     Display::showINITScreen();
-
+	
+	
 	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
+	
     if(isDataGottenSuccessfully)
     {
         nextEvent = E_INIT_SUCCESS;

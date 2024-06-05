@@ -1,4 +1,5 @@
 #include <vector>
+#include <stdio.h>
 #include "../GameData.h"
 #include "../StateMachineInternals.h"
 #include "../display/Display.h"

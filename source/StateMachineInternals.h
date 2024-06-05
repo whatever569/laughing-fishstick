@@ -10,9 +10,10 @@
     void S_ERROR_OnEntry();
     void S_ENDGAME_OnEntry();
 	
-	//functions used for PIT
-	void interruptFunctionS_SEARCH();
+	//pit functions
 	void timerInterruptHotCold();
+	void interruptFunctionS_SEARCH();
+
 
 namespace statemachine
 {
@@ -31,6 +32,7 @@ namespace statemachine
 
     enum Event
     {
+		E_START_STATE_MACHINE,
         E_INIT_ERROR,
         E_INIT_SUCCESS,
         E_CONTINUE_BUTTON,
@@ -43,8 +45,7 @@ namespace statemachine
         E_TURNED_OFF,
         E_NO_ERROR_SOURCE_SET,
         E_ERROR_SENDING_DATA,
-        E_ERROR_DURING_GAME,
-        E_ENTER_STATE_MACHINE,
+        E_ERROR_DURING_GAME
     };
 
     struct Transition
@@ -55,9 +56,8 @@ namespace statemachine
     };
 
     constexpr Transition transitionTable[] = {
-        //start the state machine
-        {S_NO, E_ENTER_STATE_MACHINE, S_INIT},
         // Initialization transitions
+		{S_NO, 	 E_START_STATE_MACHINE, S_INIT},
         {S_INIT, E_INIT_SUCCESS, S_QRCODE},
         {S_INIT, E_INIT_ERROR, S_ERROR},
 
@@ -100,14 +100,18 @@ namespace statemachine
     {
     public:
         static StateMachine *stateMachineSingelton;
-        State currentState = S_NO;
+        State currentState ;//= S_NO;
+        // TODO create a transition table
         void transition(Event e)
         {
-            for (Transition trans : transitionTable)
+            for (int i = 0; i < (sizeof(transitionTable)/sizeof(Transition)); i++)
             {
+				Transition trans = transitionTable[i];
+				
                 if (trans.currentState == currentState && trans.triggerEvent == e)
                 {
-                    invokeOnEntry(trans.nextState);
+					currentState = trans.nextState;
+                    invokeOnEntry(currentState);
                     break;
                 }
             }
@@ -125,7 +129,7 @@ namespace statemachine
         }
 
     private:
-        Event errorSource = E_NO_ERROR_SOURCE_SET;
+        Event errorSource ;//= E_NO_ERROR_SOURCE_SET;
         void invokeOnEntry(State state)
         {
             switch (state)
@@ -159,5 +163,6 @@ namespace statemachine
             }
         }
     };
+
 }
 #endif

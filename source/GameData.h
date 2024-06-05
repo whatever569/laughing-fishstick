@@ -5,6 +5,7 @@
 #include <vector>
 #include "GPSLocation.h"
 #include "Controls.h"
+#include "User.h"
 
 namespace GameData
 {
@@ -70,7 +71,7 @@ namespace GameData
      */
     struct InitGameData
     {
-        string userName;
+        char userName[MAX_NAME_SIZE];
         vector<WayPoint> wayPoints;
         static InitGameData* gameDataSingleton;
     };

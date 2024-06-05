@@ -7,7 +7,7 @@
 #define MAX_NAME_SIZE 16
 
 /// @brief This represents the current user that is playing the game rn, remember to initialize the userSingleton object at S_INIT
-class User
+struct User
 {
 public:
     static User* userSingleton;

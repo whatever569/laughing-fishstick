@@ -1,20 +1,26 @@
-#include "pc communication/Microcontroller/uart0.h"
-#include "delay.h"
-#include "eeprom/at24c256.h"
-#include "pc communication/Microcontroller/dataMC.h"
 #include "StateMachineInternals.h"
+#include "delay.h"
+#include "Initializers.h"
+#include "User.h"
+#include "GameData.h"
 
- int main() {
-	//consider putting this in S_INIT to keep the clean software structure of the state mahcine if they don't explicitly need to be here
-	delete statemachine::StateMachine::stateMachineSingelton;
-	statemachine::StateMachine::stateMachineSingelton = new statemachine::StateMachine;
+using namespace GameData;
+using namespace statemachine;
+
+User* User::userSingleton = nullptr;
+GameData::InitGameData* GameData::InitGameData::gameDataSingleton = nullptr;
+
+int main() {
+	StateMachine statemachineInstance;
+	StateMachine::stateMachineSingelton = &statemachineInstance;
+	User userInstance;
+	User::userSingleton = &userInstance;
+	InitGameData initgamedataInstance;
+	InitGameData::gameDataSingleton = &initgamedataInstance;
 	
-	statemachine::StateMachine::stateMachineSingelton->currentState = statemachine::S_NO;
+	StateMachine::stateMachineSingelton->currentState = S_NO;
+	StateMachine::stateMachineSingelton->transition(E_START_STATE_MACHINE);
 	
-	//this line causes bkpt error with this specific event, other events are fine
-	statemachine::StateMachine::stateMachineSingelton->transition(statemachine::E_ENTER_STATE_MACHINE);
-
-	//looping back to S_INIT or some other state is done in the state machine, there is should be no while loop as the software archeticture is event based
-
+	delay_ms(100);
 	return 0;
 }

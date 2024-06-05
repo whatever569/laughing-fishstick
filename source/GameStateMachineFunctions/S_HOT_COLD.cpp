@@ -17,13 +17,13 @@ const double reachedThreshold = 5.0;
 GPSLocation wpLocation;
 const double part = hotColdExitThreshold / 4.0;  // Calculate each part size
 const int secondstoShowNotCloseAnymoreScreen = 3;
+void timerInterruptHotCold();
 
 void S_HOT_COLD_OnEntry() {
     StateMachine::stateMachineSingelton->currentState = S_HOT_COLD;
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getLocation();
 
     PIT->CHANNEL[1].LDVAL = PIT_LDVAL_TSV((24e6 / INTERRUPTFREQUENCY) - 1);
-	pitFunction = S_hotcold;
 }
 
 void timerInterruptHotCold() {

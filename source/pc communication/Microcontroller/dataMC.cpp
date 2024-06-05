@@ -5,11 +5,8 @@
 #include "../../GameData.h"
 #include "../../GPSLocation.h"
 #include "../eeprom/at24c256.h"
-#include <string.h>
 
 using namespace GameData;
-User* User::userSingleton = nullptr;
-InitGameData* InitGameData::gameDataSingleton = nullptr;
 
 bool GameDataInit(void) {
 	uart0_put_char('S');											 //Send start signal
@@ -22,12 +19,12 @@ bool GameDataInit(void) {
 	uart0_get_string(nameSize, 2);
 	uart0_get_string(User::userSingleton->username, strtol(nameSize, NULL, 10));
 	
-	InitGameData::gameDataSingleton->userName = User::userSingleton->username;
-	
+	strcpy(InitGameData::gameDataSingleton->userName, User::userSingleton->username);
 	//get_char - 48, because '0' = 48. EXAMPLE: if get_char = '3' -> 51 as int, 51-48 = 3. 
-	int waypointAmount = (int)(uart0_get_char() - 48);			//Limits waypointAmount to 9	
-	InitGameData::gameDataSingleton->wayPoints.resize(waypointAmount);
+	int waypointAmount = (int)(uart0_get_char() - 48);			//Limits waypointAmount to 9
 	
+	InitGameData::gameDataSingleton->wayPoints.resize(waypointAmount);
+	/*
 	for (int i = 0; i < waypointAmount; i++) {
 		//if the Puzzle is accidentally bigger then the amount of Puzzles, it switches around.
 		Puzzle waypointPuzzle = (Puzzle)((uart0_get_char() - 48) % TotalPuzzles);	
@@ -39,6 +36,7 @@ bool GameDataInit(void) {
 		GPSLocation coordinates = GPSLocation(strtod(lat, NULL), strtod(lon, NULL));
 		InitGameData::gameDataSingleton->wayPoints[i].setWayPoint(coordinates, waypointPuzzle); 
 	}
+	*/
 	
 	return true;
 }

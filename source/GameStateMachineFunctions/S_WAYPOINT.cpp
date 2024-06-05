@@ -27,10 +27,10 @@ const int showingControlsForSeconds = 5;
 
 
 // Simon says specific
-vector<GPSLocation::Direction> userInput;            // vector holding users input
-const int numberOfRounds = 3;                 		 // how many rounds of simon says
-vector<GPSLocation::Direction> arrowsToBeShown;      // set of arrows to be displayed as the sequence
-const int baseNumberOfDirectionsToBeShown = 3; 		 // this is the first amount of direcrtion that will be shown, where a direction is added at each round
+vector<GPSLocation::Direction> userInput;                  // vector holding users input
+const int numberOfRounds = 3;                  // how many rounds of simon says
+vector<GPSLocation::Direction> arrowsToBeShown;            // set of arrows to be displayed as the sequence
+const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direcrtion that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
 bool didDirectionsGetShown = false;
 
