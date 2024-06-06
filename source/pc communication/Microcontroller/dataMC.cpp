@@ -7,6 +7,7 @@
 #include "../eeprom/at24c256.h"
 
 using namespace GameData;
+using namespace std;
 
 bool GameDataInit(void) {
 	uart0_put_char('S');											 //Send start signal
@@ -23,20 +24,19 @@ bool GameDataInit(void) {
 	//get_char - 48, because '0' = 48. EXAMPLE: if get_char = '3' -> 51 as int, 51-48 = 3. 
 	int waypointAmount = (int)(uart0_get_char() - 48);			//Limits waypointAmount to 9
 	
-	InitGameData::gameDataSingleton->wayPoints.resize(waypointAmount);
-	/*
+	//InitGameData::gameDataSingleton->wayPoints.resize(waypointAmount);
 	for (int i = 0; i < waypointAmount; i++) {
 		//if the Puzzle is accidentally bigger then the amount of Puzzles, it switches around.
-		Puzzle waypointPuzzle = (Puzzle)((uart0_get_char() - 48) % TotalPuzzles);	
+		Puzzle waypointPuzzle = (Puzzle)((uart0_get_char() - '0') % TotalPuzzles);	
 		
+		int coordSize = (int)(uart0_get_char() - '0');
 		char lat[10] = {0}, lon[10] = {0};
-		uart0_get_string(lat, 10);
-		uart0_get_string(lon, 10);
+		uart0_get_string(lat, coordSize);
+		uart0_get_string(lon, coordSize);
 	
 		GPSLocation coordinates = GPSLocation(strtod(lat, NULL), strtod(lon, NULL));
 		InitGameData::gameDataSingleton->wayPoints[i].setWayPoint(coordinates, waypointPuzzle); 
 	}
-	*/
 	
 	return true;
 }

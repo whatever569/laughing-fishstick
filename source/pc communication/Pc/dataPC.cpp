@@ -9,20 +9,25 @@ using namespace std;
 void gameDataInit (string userName, vector<WayPoint> waypoints) {
 	PC_UART pc;
     QByteArray gameData;
-	
-	while(!pc.receiveData(1));		//wait till it receievs startflag
-	
-	gameData.append(userName.size());
+
+    while(1) {                  //poll until it receives start info
+        QByteArray temp;
+        temp = pc.receiveData();
+        if (temp.size()) break;
+    }
+
+    gameData.append(to_string(userName.size()));
 	if (userName.size() < 10) gameData.prepend('0');
 	gameData.append(userName);
-	gameData.append(waypoints.size());
+    gameData.append(to_string(waypoints.size()));
 
     for (int i = 0; i < (int)waypoints.size(); i++) {
 		
 		gameData.append((char)waypoints[i].waypointPuzzle + 48);
         GPSLocation gps = waypoints[i].getLocation();
-        gameData.append(std::to_string(gps.getLatitude()));
-        gameData.append(std::to_string(gps.getLongitude()));
+        gameData.append((int)to_string(gps.getLatitude()).size()+'0');
+        gameData.append(to_string(gps.getLatitude()));
+        gameData.append(to_string(gps.getLongitude()));
 	}
 	
 	pc.flush('T');
@@ -34,14 +39,10 @@ LogData GameDataReturn(void) {
     QByteArray dataArray;
     LogData returnData;
 
-    pc.transmitData('S'); 
-	while (!pc.receiveData(1)); 		//wait till it receievs startflag
-
     while(1) {
         QByteArray temp;
         temp = pc.receiveData();
-        if (temp.size() <= 0) break;
-        dataArray.append(temp);
+        if (temp.size()) break;
     }
 
     if (dataArray.size()) {
@@ -57,7 +58,7 @@ LogData GameDataReturn(void) {
                 waypointNumber = stoi(writeUntil(dataArray, 'R'));
                 returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
                 returnData.gameWaypoints[waypointNumber].setIsPuzzleSuccess(stoi(writeUntil(dataArray, 'T')));
-                returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
+                //returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
                 break;
 
             case 'D':
