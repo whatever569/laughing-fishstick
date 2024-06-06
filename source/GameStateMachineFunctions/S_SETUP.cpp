@@ -23,11 +23,11 @@ void S_SETUP_OnEntry()
     Display::showLoading();
     Event nextEvent;
     // if user has finished all the waypoints
-    if (User::userSingleton->currentWayPointNumber == InitGameData::gameDataSingleton->wayPoints.size())
+    if (User::userSingleton->currentWayPointNumber == sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint))
     {
         nextEvent = E_ALL_WAYPOINTS_REACHED;
     }
-    else if (User::userSingleton->currentWayPointNumber < InitGameData::gameDataSingleton->wayPoints.size())
+    else if (User::userSingleton->currentWayPointNumber < sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint))
     {
         nextEvent = E_NEW_WAYPOINT;
         User::userSingleton->currentWayPointNumber++;

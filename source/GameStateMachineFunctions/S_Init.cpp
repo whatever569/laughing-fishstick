@@ -33,7 +33,7 @@ void S_INIT_OnEntry()
         StateMachine::stateMachineSingelton->setErrorSource(E_INIT_ERROR);
     }
 	char eepromData[20];
-	sprintf(eepromData, "%sW:%d|", User::userSingleton->username, InitGameData::gameDataSingleton->wayPoints.size());
+	sprintf(eepromData, "%sW:%d|", User::userSingleton->username, sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint));
 	eeprom_write_string(EEPROM_currentAdress, eepromData);	
 	
     ScoreData::timesDButtonPressed = 0;

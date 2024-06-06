@@ -2,13 +2,13 @@
 #define GAMEDATA_H
 
 #include <string>
-#include <vector>
 #include "GPSLocation.h"
 #include "Controls.h"
 #include "User.h"
 
 namespace GameData
 {
+    const int MAX_WAYPOINTS  =10;
     using namespace std;
 
     enum Puzzle
@@ -72,7 +72,7 @@ namespace GameData
     struct InitGameData
     {
         char userName[MAX_NAME_SIZE];
-        vector<WayPoint> wayPoints;
+        WayPoint wayPoints[MAX_WAYPOINTS];
         static InitGameData* gameDataSingleton;
     };
 
