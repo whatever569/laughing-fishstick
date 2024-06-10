@@ -9,8 +9,10 @@
 #include "../../laughing-fishstick/Source/GameData.h"
 #include "Loggingwaypoint.hpp"
 
+bool IsConnectedToMc (void);
 void gameDataInit (string userName, vector<GameData::WayPoint> waypoints);	//takes data from pc uart to setup game
 LogData GameDataReturn(void);								//sends data to pc for stats, temprature and such
+
 string writeUntil(QByteArray& str, const char* end);
 string writeUntil(QByteArray& str, const char end);
 string writeUntil(QByteArray& str);

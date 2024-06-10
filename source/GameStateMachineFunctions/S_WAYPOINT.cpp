@@ -15,12 +15,12 @@ void BPressed();
 void CPressed();
 void DPressed();
 
-// TODO Define these plz
-int RNGpinShift; // RNG = Random Number Generator, it uses a dangling non connected pin, just assign these some random pin
-GPIO_Type *RNGGPIOModulePort;
-PORT_Type *RNGportModulePort;
+// TODO check if correctly defined
+int RNGpinShift = 5; // RNG = Random Number Generator, it uses a dangling non connected pin, just assign these some random pin
+GPIO_Type *RNGGPIOModulePort = GPIOA;
+PORT_Type *RNGportModulePort = PORTA;
 const int RNGBits = 4;
-int RNGportShift;
+int RNGportShift = 0;
 
 const int showingPuzzlePromptScreenNSeconds = 3;
 const int showingControlsForSeconds = 5;

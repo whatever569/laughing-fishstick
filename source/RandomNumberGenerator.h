@@ -7,7 +7,7 @@ using namespace std;
 
 /// @brief Give this function a dangling pin and it will give you back a random number based on that
 /// @param pinShift the pin's shift
-/// @param portShift is where the port is from the 0 index of SIM_SCGC5
+/// @param portShift is where the port is from the 9 (for PORTA) index of SIM_SCGC5, 0=PORTA, 1=PORTB, etc.
 /// @param port is the PORTx name
 /// @param numberBits is how big the number you want to be is, from 1 to 32
 /// @return a 32bit random integer based on the readings from the pin

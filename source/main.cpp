@@ -9,6 +9,7 @@ using namespace statemachine;
 
 User* User::userSingleton = nullptr;
 GameData::InitGameData* GameData::InitGameData::gameDataSingleton = nullptr;
+Controls* Controls::controlsSingleton = nullptr;
 
 int main() {
 	StateMachine statemachineInstance;
@@ -17,6 +18,8 @@ int main() {
 	User::userSingleton = &userInstance;
 	InitGameData initgamedataInstance;
 	InitGameData::gameDataSingleton = &initgamedataInstance;
+	Controls controlInstance;
+	Controls::controlsSingleton = &controlInstance;
 	
 	StateMachine::stateMachineSingelton->currentState = S_NO;
 	StateMachine::stateMachineSingelton->transition(E_START_STATE_MACHINE);

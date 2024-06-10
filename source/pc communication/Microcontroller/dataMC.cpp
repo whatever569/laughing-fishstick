@@ -12,7 +12,7 @@ using namespace std;
 bool GameDataInit(void) {
 	uart0_put_char('S');											 //Send start signal
 	
-	while(uart0_num_rx_chars_available() < 10 || milliSecond > 1e4); //wait for data or timeout after 10 seconds
+	while(uart0_num_rx_chars_available() < 10 || milliSecond < 1e4); //wait for data or timeout after 10 seconds
 	if (milliSecond > 1e4) return false;
 	delay_ms(100);													 //wait a little so all info can get received
 	
@@ -24,7 +24,6 @@ bool GameDataInit(void) {
 	//get_char - 48, because '0' = 48. EXAMPLE: if get_char = '3' -> 51 as int, 51-48 = 3. 
 	int waypointAmount = (int)(uart0_get_char() - 48);			//Limits waypointAmount to 9
 	
-	//InitGameData::gameDataSingleton->wayPoints.resize(waypointAmount);
 	for (int i = 0; i < waypointAmount; i++) {
 		//if the Puzzle is accidentally bigger then the amount of Puzzles, it switches around.
 		Puzzle waypointPuzzle = (Puzzle)((uart0_get_char() - '0') % TotalPuzzles);	

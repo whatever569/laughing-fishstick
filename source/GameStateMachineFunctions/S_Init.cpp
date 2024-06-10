@@ -22,7 +22,6 @@ void S_INIT_OnEntry()
     Display::clearScreen();
     Display::showINITScreen();
 	
-	
 	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
 	
     if(isDataGottenSuccessfully)

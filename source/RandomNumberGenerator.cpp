@@ -3,7 +3,7 @@
 uint32_t generaterandom32bitint(uint32_t pinShift, int portShift, GPIO_Type *gpioModulePort, int numberBits, PORT_Type *portModulePort)
 {
     uint32_t rand = 0;
-    SIM->SCGC5 |= (1UL << portShift);
+    SIM->SCGC5 |= (1UL << (portShift + 9));						
     portModulePort->PCR[pinShift] = PORT_PCR_MUX(1);
     gpioModulePort->PDDR &= ~(1UL << pinShift);
 

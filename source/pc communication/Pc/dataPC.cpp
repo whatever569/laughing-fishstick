@@ -6,6 +6,13 @@
 using namespace GameData;
 using namespace std;
 
+bool IsConnectedToMc (void) {
+	 if (QSerialPortInfo::availablePorts()) {
+		 return true;
+	 }
+	return false;
+}
+
 void gameDataInit (string userName, vector<WayPoint> waypoints) {
 	PC_UART pc;
     QByteArray gameData;

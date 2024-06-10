@@ -8,8 +8,6 @@ using namespace std;
 using namespace statemachine;
 void switchToNextStateSSEARCH();
 
-Controls* Controls::controlsSingleton = nullptr;
-
 void S_QRCODE_OnEntry()
 {
     Display::clearScreen();
