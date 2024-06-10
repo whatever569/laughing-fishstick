@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "logcard.h"
 #include "ui_mainwindow.h"
+#include "datapc.h"
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->latLineEdit, SIGNAL(editingFinished()), this,SLOT(on_latLineEdit_editingFinished()));
     connect(ui->longLineEdit, SIGNAL(editingFinished()), this, SLOT(on_longLineEdit_editingFinished()));
-    boxIsConnected = true; //CHANGE THIS WHEN YOU ADD THE BOX CONNECTION CODE
 }
 
 
@@ -230,6 +230,7 @@ void MainWindow::DataCompleteCheck()
 
 void MainWindow::on_recheckConnectionButton_clicked()
 {
-
+    boxIsConnected = IsConnectedToMc();
+    DataCompleteCheck();
 }
 

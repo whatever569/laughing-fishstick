@@ -38,6 +38,8 @@ private slots:
     void on_longLineEdit_editingFinished();
     void on_wayPointPuzzleSelect_currentIndexChanged(int index);
 
+    void on_recheckConnectionButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

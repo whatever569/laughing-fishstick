@@ -12,7 +12,8 @@
 
 using namespace std;
 void gameDataInit (string userName, vector<GameData::WayPoint> waypoints);	//takes data from pc uart to setup game
-LogData GameDataReturn(void);								//sends data to pc for stats, temprature and such
+LogData GameDataReturn(void); //sends data to pc for stats, temprature and such
+bool IsConnectedToMc (void);
 string writeUntil(QByteArray& str, const char* end);
 string writeUntil(QByteArray& str, const char end);
 string writeUntil(QByteArray& str);
