@@ -227,3 +227,9 @@ void MainWindow::DataCompleteCheck()
 
     ui->waypointStatusTextEdit->setHtml(waypointInfo);
 }
+
+void MainWindow::on_recheckConnectionButton_clicked()
+{
+
+}
+

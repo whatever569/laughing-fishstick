@@ -1,4 +1,4 @@
-QT       += core gui webenginewidgets webchannel
+QT += core gui webenginewidgets webchannel serialport
 QT += charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,23 +12,27 @@ SOURCES += \
     appgpslocation.cpp \
     appinitgamedata.cpp \
     appwaypoint.cpp \
+    datapc.cpp \
     logcard.cpp \
     logdata.cpp \
     loggingwaypoint.cpp \
     main.cpp \
     mainwindow.cpp \
-    mapcontroller.cpp
+    mapcontroller.cpp \
+    pc_uart.cpp
 RESOURCES += resources.qrc \
 resources.qrc
 HEADERS += \
     appgpslocation.h \
     appinitgamedata.h \
     appwaypoint.h \
+    datapc.h \
     logcard.h \
     logdata.h \
     loggingwaypoint.h \
     mainwindow.h \
-    mapcontroller.h
+    mapcontroller.h \
+    pc_uart.h
 
 FORMS += \
     mainwindow.ui

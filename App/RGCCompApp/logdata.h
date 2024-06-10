@@ -32,7 +32,6 @@ public:
     float calculateUserScore(); //this is shown too ofcourse
     float calculateDistanceWalked(); //this is shown
 
-private:
     string userName;
     vector<APPGPSLocation> recordedLocations; //to be displayed on the map
     vector<LoggingWaypoint> gameWaypoints; //to be displayed on the map
