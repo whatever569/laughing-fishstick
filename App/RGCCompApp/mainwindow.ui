@@ -988,7 +988,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideRight</enum>
@@ -1275,7 +1275,7 @@
              <x>0</x>
              <y>0</y>
              <width>728</width>
-             <height>209</height>
+             <height>192</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1334,6 +1334,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="recheckConnectionButton">
+          <property name="text">
+           <string>Recheck Box Connection</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
