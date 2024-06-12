@@ -9,7 +9,7 @@
 
 volatile long milliSecond = 0;
 volatile int showForNSecondsCalledFlag = false;
-volatile pitFunction_e pitFunction = pitfunction_search;
+volatile pitFunction_e pitFunction = pitfunction_nothing;
 
 void millis_setup() {
     SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
@@ -73,6 +73,8 @@ extern "C" void PIT_IRQHandler(void) {
 			case pitfunction_search: 
 				interruptFunctionS_SEARCH();
 				break;	
+			case pitfunction_nothing:
+				break;
 		}
 	}	
 	

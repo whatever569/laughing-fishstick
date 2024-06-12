@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Wed Jun 12 14:09:58 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Wed Jun 12 17:18:13 2024
 <BR><P>
 <H3>Maximum Stack Usage =      33224 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -69,7 +69,7 @@ Function Pointers
  <LI><a href="#[14]">UART2_IRQHandler</a> from startup_mkl25z4.o(.text) referenced from startup_mkl25z4.o(RESET)
  <LI><a href="#[1e]">USB0_IRQHandler</a> from startup_mkl25z4.o(.text) referenced from startup_mkl25z4.o(RESET)
  <LI><a href="#[40]">_GLOBAL__sub_I_S_WAYPOINT.cpp</a> from s_waypoint.o(.text._GLOBAL__sub_I_S_WAYPOINT.cpp) referenced from s_waypoint.o(.init_array)
- <LI><a href="#[30]">switchToNextStateSSEARCH()</a> from s_qrcode.o(.text._Z24switchToNextStateSSEARCHv) referenced from s_qrcode.o(.text._Z16S_QRCODE_OnEntryv)
+ <LI><a href="#[31]">switchToNextStateSSEARCH()</a> from s_qrcode.o(.text._Z24switchToNextStateSSEARCHv) referenced from s_qrcode.o(.text._Z16S_QRCODE_OnEntryv)
  <LI><a href="#[32]">showDir()</a> from s_search.o(.text._Z7showDirv) referenced from s_search.o(.text._Z16S_SEARCH_OnEntryv)
  <LI><a href="#[3b]">Display::clearScreen()</a> from display.o(.text._ZN7Display11clearScreenEv) referenced from s_search.o(.text._Z7showDirv)
  <LI><a href="#[34]">Display::showLoading()</a> from display.o(.text._ZN7Display11showLoadingEv) referenced from s_waypoint.o(.text._Z18S_WAYPOINT_OnEntryv)
@@ -82,8 +82,9 @@ Function Pointers
  <LI><a href="#[36]">Display::showS_HOT_COLDNotCloseAnymore()</a> from display.o(.text._ZN7Display29showS_HOT_COLDNotCloseAnymoreEv) referenced from s_hot_cold.o(.text._Z21timerInterruptHotColdv)
  <LI><a href="#[33]">Display::showS_WAYPOINT_SimonSaysPuzzlePrompt()</a> from display.o(.text._ZN7Display36showS_WAYPOINT_SimonSaysPuzzlePromptEv) referenced from s_waypoint.o(.text._Z18S_WAYPOINT_OnEntryv)
  <LI><a href="#[35]">Display::showS_WAYPOINT_SimonSaysControlsTutorial()</a> from display.o(.text._ZN7Display40showS_WAYPOINT_SimonSaysControlsTutorialEv) referenced from s_waypoint.o(.text._Z18S_WAYPOINT_OnEntryv)
- <LI><a href="#[31]">Controls::doNothing()</a> from s_qrcode.o(.text._ZN8Controls9doNothingEv) referenced from s_search.o(.text._Z16S_SEARCH_OnEntryv)
- <LI><a href="#[31]">Controls::doNothing()</a> from s_qrcode.o(.text._ZN8Controls9doNothingEv) referenced from s_waypoint.o(.text._Z18S_WAYPOINT_OnEntryv)
+ <LI><a href="#[30]">Controls::doNothing()</a> from s_init.o(.text._ZN8Controls9doNothingEv) referenced from s_init.o(.text._Z14S_INIT_OnEntryv)
+ <LI><a href="#[30]">Controls::doNothing()</a> from s_init.o(.text._ZN8Controls9doNothingEv) referenced from s_search.o(.text._Z16S_SEARCH_OnEntryv)
+ <LI><a href="#[30]">Controls::doNothing()</a> from s_init.o(.text._ZN8Controls9doNothingEv) referenced from s_waypoint.o(.text._Z18S_WAYPOINT_OnEntryv)
  <LI><a href="#[2f]">std::__2::unique_ptr&lang;SimonSaysGame, std::__2::default_delete&lang;SimonSaysGame&rang;&rang;::~unique_ptr__sub_object[abi:v180000]()</a> from s_waypoint.o(.text._ZNSt3__210unique_ptrI13SimonSaysGameNS_14default_deleteIS1_EEED2B7v180000Ev) referenced from s_waypoint.o(.text._GLOBAL__sub_I_S_WAYPOINT.cpp)
  <LI><a href="#[27]">__main</a> from __main.o(!!!main) referenced from startup_mkl25z4.o(.text)
  <LI><a href="#[2a]">_get_lc_ctype</a> from lc_ctype_c.o(locale$$code) referenced from rt_ctype_table.o(.text)
@@ -1387,8 +1388,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mkl25z4.o(RESET)
 </UL>
-<P><STRONG><a name="[24]"></a>PORTA_IRQHandler</STRONG> (Thumb, 188 bytes, Stack size 8 bytes, controls.o(.text.PORTA_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PORTA_IRQHandler
+<P><STRONG><a name="[24]"></a>PORTA_IRQHandler</STRONG> (Thumb, 192 bytes, Stack size 16 bytes, controls.o(.text.PORTA_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PORTA_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mkl25z4.o(RESET)
 </UL>
@@ -1421,8 +1422,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeModules()
 </UL>
 
-<P><STRONG><a name="[d9]"></a>GameDataInit()</STRONG> (Thumb, 228 bytes, Stack size 72 bytes, datamc.o(.text._Z12GameDataInitv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = GameDataInit() &rArr; strtod &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real
+<P><STRONG><a name="[d9]"></a>GameDataInit()</STRONG> (Thumb, 224 bytes, Stack size 64 bytes, datamc.o(.text._Z12GameDataInitv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = GameDataInit() &rArr; strtod &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms(int)
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart0_put_char
@@ -1477,8 +1478,8 @@ Global Symbols
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;S_ENDGAME_OnEntry()
 </UL>
 
-<P><STRONG><a name="[ec]"></a>S_INIT_OnEntry()</STRONG> (Thumb, 92 bytes, Stack size 40 bytes, s_init.o(.text._Z14S_INIT_OnEntryv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
+<P><STRONG><a name="[ec]"></a>S_INIT_OnEntry()</STRONG> (Thumb, 108 bytes, Stack size 40 bytes, s_init.o(.text._Z14S_INIT_OnEntryv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
 <LI>Call Chain = S_INIT_OnEntry() &rArr; GameDataInit() &rArr; strtod &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1780,7 +1781,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display::displayInit()
 </UL>
 
-<P><STRONG><a name="[30]"></a>switchToNextStateSSEARCH()</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, s_qrcode.o(.text._Z24switchToNextStateSSEARCHv))
+<P><STRONG><a name="[31]"></a>switchToNextStateSSEARCH()</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, s_qrcode.o(.text._Z24switchToNextStateSSEARCHv))
 <BR>[Address Reference Count : 1]<UL><LI> s_qrcode.o(.text._Z16S_QRCODE_OnEntryv)
 </UL>
 <P><STRONG><a name="[d1]"></a>interruptFunctionS_SEARCH()</STRONG> (Thumb, 192 bytes, Stack size 88 bytes, s_search.o(.text._Z25interruptFunctionS_SEARCHv))
@@ -2073,8 +2074,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeModules()
 </UL>
 
-<P><STRONG><a name="[31]"></a>Controls::doNothing()</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, s_qrcode.o(.text._ZN8Controls9doNothingEv))
-<BR>[Address Reference Count : 2]<UL><LI> s_search.o(.text._Z16S_SEARCH_OnEntryv)
+<P><STRONG><a name="[30]"></a>Controls::doNothing()</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, s_init.o(.text._ZN8Controls9doNothingEv))
+<BR>[Address Reference Count : 3]<UL><LI> s_init.o(.text._Z14S_INIT_OnEntryv)
+<LI> s_search.o(.text._Z16S_SEARCH_OnEntryv)
 <LI> s_waypoint.o(.text._Z18S_WAYPOINT_OnEntryv)
 </UL>
 <P><STRONG><a name="[112]"></a>GPSLocation::distanceTo(GPSLocation const&) const</STRONG> (Thumb, 352 bytes, Stack size 64 bytes, s_hot_cold.o(.text._ZNK11GPSLocation10distanceToERKS_))

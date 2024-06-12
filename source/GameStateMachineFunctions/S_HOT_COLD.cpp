@@ -22,6 +22,12 @@ void timerInterruptHotCold();
 void S_HOT_COLD_OnEntry() {
     StateMachine::stateMachineSingelton->currentState = S_HOT_COLD;
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getLocation();
+	
+	Controls::controlsSingleton->setFunctionsForButtons(
+        Controls::doNothing,
+        Controls::doNothing,
+        Controls::doNothing,
+		Controls::doNothing);
 
     PIT->CHANNEL[1].LDVAL = PIT_LDVAL_TSV((24e6 / INTERRUPTFREQUENCY) - 1);
 	pitFunction = pitfunction_hotcold;

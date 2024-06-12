@@ -30,7 +30,9 @@ extern "C" void PORTA_IRQHandler()
 		
 		if((milliSecond - Controls::t0ForA) > Controls::debounceMillis)
 		{
-			Controls::t0ForA = milliSecond; 
+			Controls::t0ForA = milliSecond;
+
+			
 			Controls::controlsSingleton->APressedFunction();
 		}
 	}

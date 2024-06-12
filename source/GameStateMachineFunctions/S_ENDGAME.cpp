@@ -6,6 +6,7 @@
 #include "../User.h"
 #include "../GameData.h"
 #include "../eeprom/at24c256.h"
+#include "../acuator/servo.h"
 #include "../delay.h"
 #include "../pc communication/Microcontroller/dataMC.h"
 
@@ -22,6 +23,7 @@ void S_ENDGAME_OnEntry()
     Event nextEvent;
 
     Display::showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();
+	servo_lock(0);
 	
 	char eepromData[12];
 	sprintf(eepromData, "E%.3fB%d|", ((float)milliSecond / 1000), GameData::ScoreData::timesDButtonPressed);

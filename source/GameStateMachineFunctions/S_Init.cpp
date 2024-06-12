@@ -6,6 +6,7 @@
 #include "../User.h"
 #include "../pc communication/Microcontroller/dataMC.h"
 #include "../eeprom/at24c256.h"
+#include "../Controls.h"
 #include <string.h>
 #include <stdio.h>
 #include "acuator/servo.h"
@@ -22,22 +23,27 @@ void S_INIT_OnEntry()
     StateMachine::stateMachineSingelton->currentState = S_INIT;
     Display::clearScreen();
     Display::showINITScreen();
-	servo_lock(1);
+	servo_lock(0);
+	
+	Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, 		//A button
+                                                        Controls::doNothing, 		//B button
+	Controls::doNothing,   //C button
+                                                        Controls::doNothing);
 	
 	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
 	
-    if(isDataGottenSuccessfully)
-    {
-        nextEvent = E_INIT_SUCCESS;
-    }else{
+    if(isDataGottenSuccessfully) {
+		servo_lock(1);
+		char eepromData[20];
+		sprintf(eepromData, "%sW:%d|", User::userSingleton->username, sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint));
+		eeprom_write_string(EEPROM_currentAdress, eepromData);	
+		
+		ScoreData::timesDButtonPressed = 0;
+		transitionFlag = true;
+		currentEvent = E_INIT_SUCCESS;
+    }
+	else {
         nextEvent = E_INIT_ERROR;
         StateMachine::stateMachineSingelton->setErrorSource(E_INIT_ERROR);
-    }
-	char eepromData[20];
-	sprintf(eepromData, "%sW:%d|", User::userSingleton->username, sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint));
-	eeprom_write_string(EEPROM_currentAdress, eepromData);	
-	
-    ScoreData::timesDButtonPressed = 0;
-	transitionFlag = true;
-	currentEvent = nextEvent;
+    }	
 }

@@ -10,6 +10,7 @@
 typedef enum {
 	pitfunction_search  = 0,
 	pitfunction_hotcold = 1, 
+	pitfunction_nothing = 2,
 }pitFunction_e;
 	
 extern volatile long milliSecond;
