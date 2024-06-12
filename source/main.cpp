@@ -3,9 +3,13 @@
 #include "Initializers.h"
 #include "User.h"
 #include "GameData.h"
+#include "controls.h"
+#include "pc communication/Microcontroller/uart0.h"
 
 using namespace GameData;
 using namespace statemachine;
+short statemachine::transitionFlag = false;
+Event statemachine::currentEvent = (Event)0;
 
 User* User::userSingleton = nullptr;
 GameData::InitGameData* GameData::InitGameData::gameDataSingleton = nullptr;
@@ -22,8 +26,16 @@ int main() {
 	Controls::controlsSingleton = &controlInstance;
 	
 	StateMachine::stateMachineSingelton->currentState = S_NO;
-	StateMachine::stateMachineSingelton->transition(E_START_STATE_MACHINE);
+	StateMachine::stateMachineSingelton->transition(E_START_STATE_MACHINE); 
 	
-	delay_ms(100);
+	while (1) {
+		if (statemachine::transitionFlag) {
+			StateMachine::stateMachineSingelton->transition(statemachine::currentEvent);
+			transitionFlag = false;
+		}
+		
+		delay_ms(5);
+	}
+	
 	return 0;
 }

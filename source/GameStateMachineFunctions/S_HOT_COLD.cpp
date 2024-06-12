@@ -24,6 +24,7 @@ void S_HOT_COLD_OnEntry() {
     wpLocation = InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getLocation();
 
     PIT->CHANNEL[1].LDVAL = PIT_LDVAL_TSV((24e6 / INTERRUPTFREQUENCY) - 1);
+	pitFunction = pitfunction_hotcold;
 }
 
 void timerInterruptHotCold() {
@@ -33,7 +34,8 @@ void timerInterruptHotCold() {
 
     if (distance >= hotColdExitThreshold) {
         Display::showScreenForNSeconds(secondstoShowNotCloseAnymoreScreen, Display::showS_HOT_COLDNotCloseAnymore, Display::showLoading);
-        StateMachine::stateMachineSingelton->transition(E_NOT_CLOSE_ANYMORE);
+		transitionFlag = true;
+		currentEvent = E_NOT_CLOSE_ANYMORE;
     } else if (distance > 3 * part) {
         Display::clearScreen();
         Display::showS_HOT_COLDVeryColdStatus();
@@ -48,8 +50,8 @@ void timerInterruptHotCold() {
         Display::showS_HOT_COLDHotStatus();
     } else if (distance >= 0) {
         InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsReached(true);
-		StateMachine::stateMachineSingelton->transition(E_WAYPOINT_REACHED);
-        
+		transitionFlag = true;
+		currentEvent = E_WAYPOINT_REACHED;
     }
 }
 

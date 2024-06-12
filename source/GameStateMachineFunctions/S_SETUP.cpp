@@ -33,5 +33,6 @@ void S_SETUP_OnEntry()
         User::userSingleton->currentWayPointNumber++;
     }
 
-    StateMachine::stateMachineSingelton->transition(nextEvent);
+	currentEvent = nextEvent;
+	transitionFlag = true;
 }

@@ -8,6 +8,7 @@
 #include "../eeprom/at24c256.h"
 #include <string.h>
 #include <stdio.h>
+#include "acuator/servo.h"
 	
 using namespace std;
 using namespace statemachine;
@@ -21,6 +22,7 @@ void S_INIT_OnEntry()
     StateMachine::stateMachineSingelton->currentState = S_INIT;
     Display::clearScreen();
     Display::showINITScreen();
+	servo_lock(1);
 	
 	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
 	
@@ -36,5 +38,6 @@ void S_INIT_OnEntry()
 	eeprom_write_string(EEPROM_currentAdress, eepromData);	
 	
     ScoreData::timesDButtonPressed = 0;
-    StateMachine::stateMachineSingelton->transition(nextEvent);
+	transitionFlag = true;
+	currentEvent = nextEvent;
 }

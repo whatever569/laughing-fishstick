@@ -1,12 +1,15 @@
+#include <MKL25Z4.H>
+#include <stdio.h>
 #include "delay.h"
 #include "eeprom/at24c256.h"
 #include "User.h"
 #include "display/Display.h"
 #include "StateMachineInternals.h"
+#include "temprature/temp.h"
 
 volatile long milliSecond = 0;
-volatile bool showForNSecondsCalledFlag = false;
-volatile pitFunction_e pitFunction = S_search;
+volatile int showForNSecondsCalledFlag = false;
+volatile pitFunction_e pitFunction = pitfunction_search;
 
 void millis_setup() {
     SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
@@ -64,13 +67,21 @@ extern "C" void PIT_IRQHandler(void) {
 		PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;	
 		
 		switch (pitFunction) {
-			case S_search:  timerInterruptHotCold();
-			case S_hotcold: interruptFunctionS_SEARCH();	
+			case pitfunction_hotcold:  
+				timerInterruptHotCold();
+				break;
+			case pitfunction_search: 
+				interruptFunctionS_SEARCH();
+				break;	
 		}
 	}	
 	
 	if (PIT->CHANNEL[1].TFLG & PIT_TFLG_TIF_MASK) {
 		PIT->CHANNEL[1].TFLG |= PIT_TFLG_TIF_MASK;
+		
+		static float temprature = 0;
+		float tempTemprature = temperatureSensor();
+		if (tempTemprature) temprature = tempTemprature;
 		
 		milliSecond += MILLISUPDATE;
 		
@@ -78,7 +89,7 @@ extern "C" void PIT_IRQHandler(void) {
 			char dataEeprom[36];
 			char coord[30];
 			gps(coord);
-			//sprintf(dataEeprom, "D:%sC%f|", coord, temprature());
+			sprintf(dataEeprom, "D:%sC%f|", coord, temprature);
 			eeprom_write_string(EEPROM_currentAdress, dataEeprom);
 		}
 		

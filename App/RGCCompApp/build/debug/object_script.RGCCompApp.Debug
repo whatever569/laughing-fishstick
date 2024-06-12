@@ -1,0 +1,15 @@
+debug/appgpslocation.o
+debug/appinitgamedata.o
+debug/appwaypoint.o
+debug/datapc.o
+debug/logcard.o
+debug/logdata.o
+debug/loggingwaypoint.o
+debug/main.o
+debug/mainwindow.o
+debug/mapcontroller.o
+debug/pc_uart.o
+debug/qrc_resources.o
+debug/moc_logcard.o
+debug/moc_mainwindow.o
+debug/moc_mapcontroller.o

@@ -3,7 +3,7 @@
 
 #include <string>
 #include "GPSLocation.h"
-#include "Controls.h"
+//#include "Controls.h"
 #include "User.h"
 
 namespace GameData

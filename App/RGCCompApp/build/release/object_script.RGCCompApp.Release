@@ -1,0 +1,15 @@
+release/appgpslocation.o
+release/appinitgamedata.o
+release/appwaypoint.o
+release/datapc.o
+release/logcard.o
+release/logdata.o
+release/loggingwaypoint.o
+release/main.o
+release/mainwindow.o
+release/mapcontroller.o
+release/pc_uart.o
+release/qrc_resources.o
+release/moc_logcard.o
+release/moc_mainwindow.o
+release/moc_mapcontroller.o

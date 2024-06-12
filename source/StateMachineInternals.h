@@ -13,7 +13,7 @@
 	//pit functions
 	void timerInterruptHotCold();
 	void interruptFunctionS_SEARCH();
-
+	
 
 namespace statemachine
 {
@@ -130,6 +130,7 @@ namespace statemachine
 
     private:
         Event errorSource ;//= E_NO_ERROR_SOURCE_SET;
+	
         void invokeOnEntry(State state)
         {
             switch (state)
@@ -163,6 +164,8 @@ namespace statemachine
             }
         }
     };
-
+	
+	extern short transitionFlag;
+	extern Event currentEvent; 
 }
 #endif

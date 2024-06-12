@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "GPS.h"
+#include "../delay.h"
 #include "../PC communication/Microcontroller/queue.h"
 #include "../PC communication/Microcontroller/uart0.h"
 
@@ -53,6 +54,7 @@ void gps_init(void) {
 void UART1_IRQHandler(void) {
 	   
 	uint8_t c;
+	static int previousTime = 0;
   
     NVIC_ClearPendingIRQ(UART1_IRQn);
 	
@@ -60,6 +62,11 @@ void UART1_IRQHandler(void) {
         c = UART1->D;
         q_enqueue(&Rx1, c);
     }
+	
+	if (milliSecond - previousTime > GPS_FLUSH_INTERVAL) {
+		q_flush(&Rx1);
+		previousTime = milliSecond;
+	}
 } 
 
 void gps_receive_data(char* str) {
@@ -123,5 +130,7 @@ void gps(char* coordinates) {
 			}
 			q_flush(&Rx1);		//empty the rest of the data left, so it wont search the same data for coordinates that are already found.
 		}
+		
+		else strcpy(coordinates, "INVALID_DATA");
 	}
 }

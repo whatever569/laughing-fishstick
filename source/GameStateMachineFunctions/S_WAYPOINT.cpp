@@ -59,7 +59,7 @@ public:
         {
             Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
             currentRound++;
-            GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+            GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(rand() % 4);
             directionsToBeShown[directionsToBeShownSize++] = randDirection;
             showArrowSequence();
             return false;
@@ -126,7 +126,7 @@ private:
         directionsToBeShown.fill(GPSLocation::UP); // Initialize with some default value
         for (int i = 0; i < baseNumberOfDirectionsToBeShown; i++)
         {
-            GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(generaterandom32bitint(RNGpinShift, RNGportShift, RNGGPIOModulePort, RNGBits, RNGportModulePort) % 4);
+            GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(rand() % 4);
             directionsToBeShown[directionsToBeShownSize++] = randDirection;
         }
     }
@@ -177,14 +177,16 @@ void buttonForDirectionPressed(GPSLocation::Direction dir)
                 {
                     Display::showScreenForNSeconds(3, Display::showPuzzleWon, Display::showLoading);
                     InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(true);
-                    StateMachine::stateMachineSingelton->transition(E_PUZZLE_COMPLETE);
+					transitionFlag = true;
+					currentEvent = E_PUZZLE_COMPLETE;
                 }
             }
             else
             {
                 Display::showScreenForNSeconds(3, Display::showPuzzleLost, Display::showLoading);
                 InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(false);
-                StateMachine::stateMachineSingelton->transition(E_PUZZLE_COMPLETE);
+				transitionFlag = true;
+				currentEvent = E_PUZZLE_COMPLETE;
             }
         }
     }

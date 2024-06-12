@@ -104,7 +104,7 @@ bool i2c1_write_cmd(const uint8_t address, const uint8_t cmd[], const uint32_t n
     
     // Wait for acknowledge
     // If timeout occurs, try to reinitialise i2c and return from this function
-    uint32_t timeout = I2C_TIMEOUT;
+    uint32_t timeout = I2C_TIMEOUT1;
     while((I2C1->S & I2C_S_IICIF_MASK)==0)
     {
         if(--timeout == 0)
@@ -133,7 +133,7 @@ bool i2c1_write_cmd(const uint8_t address, const uint8_t cmd[], const uint32_t n
         
     // Wait for acknowledge
     // If timeout occurs, try to reinitialise i2c and return from this function
-    timeout = I2C_TIMEOUT;
+    timeout = I2C_TIMEOUT1;
     while((I2C1->S & I2C_S_IICIF_MASK)==0)
     {
         if(--timeout == 0)
@@ -153,7 +153,7 @@ bool i2c1_write_cmd(const uint8_t address, const uint8_t cmd[], const uint32_t n
         // Wait for acknowledge
         // If timeout occurs, try to reinitialise i2c and return from this
         // function
-        timeout = I2C_TIMEOUT;
+        timeout = I2C_TIMEOUT1;
         while((I2C1->S & I2C_S_IICIF_MASK)==0)
         {
             if(--timeout == 0)
@@ -197,7 +197,7 @@ bool i2c1_write_data(const uint8_t address, const uint8_t data[], const uint32_t
     
     // Wait for acknowledge
     // If timeout occurs, try to reinitialise i2c and return from this function
-    uint32_t timeout = I2C_TIMEOUT;
+    uint32_t timeout = I2C_TIMEOUT1;
     while((I2C1->S & I2C_S_IICIF_MASK)==0)
     {
         if(--timeout == 0)
@@ -226,7 +226,7 @@ bool i2c1_write_data(const uint8_t address, const uint8_t data[], const uint32_t
         
     // Wait for acknowledge
     // If timeout occurs, try to reinitialise i2c and return from this function
-    timeout = I2C_TIMEOUT;
+    timeout = I2C_TIMEOUT1;
     while((I2C1->S & I2C_S_IICIF_MASK)==0)
     {
         if(--timeout == 0)
@@ -246,7 +246,7 @@ bool i2c1_write_data(const uint8_t address, const uint8_t data[], const uint32_t
         // Wait for acknowledge
         // If timeout occurs, try to reinitialise i2c and return from this
         // function
-        timeout = I2C_TIMEOUT;
+        timeout = I2C_TIMEOUT1;
         while((I2C1->S & I2C_S_IICIF_MASK)==0)
         {
             if(--timeout == 0)

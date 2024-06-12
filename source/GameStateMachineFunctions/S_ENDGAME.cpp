@@ -28,6 +28,6 @@ void S_ENDGAME_OnEntry()
     eeprom_write_string(EEPROM_currentAdress, eepromData);
 	if (GameDataReturn()) eeprom_flush();
 	
-    StateMachine::stateMachineSingelton->transition(E_TURNED_OFF);
-    
+	transitionFlag = true;
+    currentEvent = E_TURNED_OFF;
 }

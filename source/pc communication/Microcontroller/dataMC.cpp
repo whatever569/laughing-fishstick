@@ -12,7 +12,7 @@ using namespace std;
 bool GameDataInit(void) {
 	uart0_put_char('S');											 //Send start signal
 	
-	while(uart0_num_rx_chars_available() < 10 || milliSecond < 1e4); //wait for data or timeout after 10 seconds
+	while(uart0_num_rx_chars_available() < 10 && milliSecond < 1e4); //wait for data or timeout after 10 seconds
 	if (milliSecond > 1e4) return false;
 	delay_ms(100);													 //wait a little so all info can get received
 	

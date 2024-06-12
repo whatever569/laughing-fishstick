@@ -1,4 +1,5 @@
 #include "appwaypoint.h"
+#include <cmath>
 
 APPWaypoint::APPWaypoint(APPGPSLocation &loc, Puzzles puz)
     : puzzle(puz), location(loc)

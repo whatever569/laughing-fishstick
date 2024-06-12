@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -565,20 +565,25 @@
               <FilePath>..\Source\GameData.cpp</FilePath>
             </File>
             <File>
-              <FileName>Initializers.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Source\Initializers.cpp</FilePath>
-            </File>
-            <File>
               <FileName>delay.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Source\delay.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Controls.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Controls.cpp</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>GPS</GroupName>
           <Files>
+            <File>
+              <FileName>Initializers.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Source\Initializers.cpp</FilePath>
+            </File>
             <File>
               <FileName>GPS.c</FileName>
               <FileType>1</FileType>
@@ -633,6 +638,21 @@
               <FileName>ssd1306.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Source\display\ssd1306.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>temprature</GroupName>
+          <Files>
+            <File>
+              <FileName>temp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\source\temprature\temp.h</FilePath>
+            </File>
+            <File>
+              <FileName>temp.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\temprature\temp.cpp</FilePath>
             </File>
           </Files>
         </Group>

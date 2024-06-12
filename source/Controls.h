@@ -1,19 +1,6 @@
 #ifndef CONTROLS_H
 #define CONTROLS_H
-
-#define A_BUTTON_SHIFT
-#define A_BUTTON_PORT
-
-#define B_BUTTON_SHIFT
-#define B_BUTTON_PORT
-
-#define C_BUTTON_SHIFT
-#define C_BUTTON_PORT
-
-#define D_BUTTON_SHIFT
-#define D_BUTTON_PORT
-
-#define MASK(x) (1UL<<x)
+#include "delay.h"
 
 /// @brief the controls class is the class that handles the functionality of user input and is an intermidiary between the game player and internal modules.
 class Controls {
@@ -25,7 +12,8 @@ class Controls {
         void (* CPressedFunction)(void);
         void (* DPressedFunction)(void);
         static Controls * controlsSingleton;
-
+		volatile static int t0ForA, t0ForB, t0ForC, t0ForD;
+		static int debounceMillis;
         /// @brief Sets the functions for each button, use at the start of each state. These callback functions are executed in an ISR and therefore should be short and handle only time sensitive stuff.
         /// @param A Call back function for the A button
         /// @param B Call back function for the B button
@@ -38,12 +26,16 @@ class Controls {
             CPressedFunction = C;
             DPressedFunction = D;
         }
-
-        /// @brief does nothing, for readability
+		
+		void initializeButtons();
+		
+		///@brief does nothing, for readability
         static void doNothing()
         {
             //nothing is done here, this is only for readablity
         }
 
 };
+
+
 #endif

@@ -23,6 +23,7 @@ void S_SEARCH_OnEntry()
     Display::showSEARCHScreen();
 
     PIT_setup();
+	pitFunction = pitfunction_search;
 
     Controls::controlsSingleton->setFunctionsForButtons(
         Controls::doNothing,
@@ -40,7 +41,8 @@ void interruptFunctionS_SEARCH()
                                                               .getLocation()));
     if (distance == hotColdGameThreshold)
     {
-        StateMachine::stateMachineSingelton->transition(E_CLOSE_PROXIMITY);
+        currentEvent = E_CLOSE_PROXIMITY;
+		transitionFlag = true;
     }
     else if (distance > distanceAboveWhichInterruptsAreDoneSlower)
     {

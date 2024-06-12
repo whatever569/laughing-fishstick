@@ -57,7 +57,7 @@ extern "C" {
  * This timeout value is used in loops to wait for a bit to set/reset. If the
  * bit doesn't get set, the function returns.
  */
-#define I2C_TIMEOUT (10000)
+#define I2C_TIMEOUT1 (10000)
 
 // Function prototypes
 void i2c1_init(void);

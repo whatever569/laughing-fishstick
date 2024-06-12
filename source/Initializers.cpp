@@ -5,6 +5,7 @@
 #include "eeprom/at24c256.h"
 #include "delay.h"
 #include "display/Display.h"
+#include "Controls.h"
 
 void initializeModules() {
 	millis_setup();
@@ -14,4 +15,5 @@ void initializeModules() {
 	eeprom_init();
 	PIT_setup();
 	Display::displayInit();
+	Controls::controlsSingleton->initializeButtons();
 }
