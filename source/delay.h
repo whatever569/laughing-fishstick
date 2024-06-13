@@ -21,5 +21,6 @@ void millis_setup(void);
 void PIT_setup(void);
 void delay_ms(int ms);
 void delay_us(int us);
+void updateTempAndCoord(void);
 
 #endif

@@ -20,6 +20,7 @@
 ".\objects\delay.o"
 ".\objects\controls.o"
 ".\objects\initializers.o"
+".\objects\user.o"
 ".\objects\gps.o"
 ".\objects\display.o"
 ".\objects\fonts.o"

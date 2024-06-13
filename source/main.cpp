@@ -8,8 +8,8 @@
 
 using namespace GameData;
 using namespace statemachine;
-short statemachine::transitionFlag = false;
-Event statemachine::currentEvent = (Event)0;
+volatile short statemachine::transitionFlag = false;
+volatile Event statemachine::currentEvent = (Event)0;
 
 User* User::userSingleton = nullptr;
 GameData::InitGameData* GameData::InitGameData::gameDataSingleton = nullptr;
@@ -33,8 +33,6 @@ int main() {
 			StateMachine::stateMachineSingelton->transition(statemachine::currentEvent);
 			transitionFlag = false;
 		}
-		
-		delay_ms(5);
 	}
 	
 	return 0;

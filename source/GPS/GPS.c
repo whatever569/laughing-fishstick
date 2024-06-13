@@ -133,4 +133,5 @@ void gps(char* coordinates) {
 		
 		else strcpy(coordinates, "INVALID_DATA");
 	}
+	else strcpy(coordinates, "NO_DATA_IN_BUFFER");
 }

@@ -34,7 +34,7 @@ void S_HOT_COLD_OnEntry() {
 }
 
 void timerInterruptHotCold() {
-
+	
     GPSLocation currentLocation = User::userSingleton->getUsersCurrentLocation();
     double distance = currentLocation.distanceTo(wpLocation);
 

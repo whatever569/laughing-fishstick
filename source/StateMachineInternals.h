@@ -165,7 +165,7 @@ namespace statemachine
         }
     };
 	
-	extern short transitionFlag;
-	extern Event currentEvent; 
+	extern volatile short transitionFlag;
+	extern volatile Event currentEvent; 
 }
 #endif

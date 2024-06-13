@@ -574,16 +574,21 @@
               <FileType>8</FileType>
               <FilePath>..\source\Controls.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Initializers.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\source\Initializers.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>User.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>GPS</GroupName>
           <Files>
-            <File>
-              <FileName>Initializers.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Source\Initializers.cpp</FilePath>
-            </File>
             <File>
               <FileName>GPS.c</FileName>
               <FileType>1</FileType>

@@ -60,6 +60,20 @@ void delay_us(int us) {
         __asm("nop");
     }
 }
+
+void updateTempAndCoord(void) {
+	static float temprature = 0;
+	float tempTemprature = temperatureSensor();
+	if (tempTemprature) temprature = tempTemprature;
+	
+	if ((milliSecond % 30000) == 0) {
+		char dataEeprom[36];
+		char coord[30] = {0};
+		User::userSingleton->setUsersCurrentLocation(coord);
+		sprintf(dataEeprom, "D:%sC%f|", coord, temprature);
+		eeprom_write_string(EEPROM_currentAdress, dataEeprom);
+	}
+}
  
 extern "C" void PIT_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(PIT_IRQn);
@@ -81,19 +95,9 @@ extern "C" void PIT_IRQHandler(void) {
 	if (PIT->CHANNEL[1].TFLG & PIT_TFLG_TIF_MASK) {
 		PIT->CHANNEL[1].TFLG |= PIT_TFLG_TIF_MASK;
 		
-		static float temprature = 0;
-		float tempTemprature = temperatureSensor();
-		if (tempTemprature) temprature = tempTemprature;
-		
 		milliSecond += MILLISUPDATE;
 		
-		if ((milliSecond % 30000) == 0) {
-			char dataEeprom[36];
-			char coord[30];
-			gps(coord);
-			sprintf(dataEeprom, "D:%sC%f|", coord, temprature);
-			eeprom_write_string(EEPROM_currentAdress, dataEeprom);
-		}
+		updateTempAndCoord();
 		
 		if (showForNSecondsCalledFlag & ((milliSecond - Display::millisWhenShowForNSecondsCalled) > Display::nScreenMilliseconds)) {
 			showForNSecondsCalledFlag = false;
