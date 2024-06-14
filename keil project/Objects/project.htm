@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Thu Jun 13 20:34:56 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Fri Jun 14 19:37:56 2024
 <BR><P>
 <H3>Maximum Stack Usage =      33248 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1794,7 +1794,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[32]"></a>showDir()</STRONG> (Thumb, 220 bytes, Stack size 104 bytes, s_search.o(.text._Z7showDirv))
+<P><STRONG><a name="[32]"></a>showDir()</STRONG> (Thumb, 228 bytes, Stack size 104 bytes, s_search.o(.text._Z7showDirv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 576 + Unknown Stack Size
 <LI>Call Chain = showDir() &rArr; User::setUsersCurrentLocation(char*) &rArr; gps &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -1802,6 +1802,7 @@ Global Symbols
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;User::setUsersCurrentLocation(char*)
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display::showScreenForNSeconds(long, void (*)(), void (*)())
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;User::getUsersCurrentLocation()
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms(int)
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fcmpgt
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
@@ -1813,6 +1814,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DHT20_resetRegister(unsigned char)
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;temperatureSensor()
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showDir()
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameDataReturn()
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameDataInit()
 </UL>

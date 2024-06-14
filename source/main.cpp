@@ -24,7 +24,7 @@ int main() {
 	InitGameData::gameDataSingleton = &initgamedataInstance;
 	Controls controlInstance;
 	Controls::controlsSingleton = &controlInstance;
-	    
+	 	
 	StateMachine::stateMachineSingelton->currentState = S_NO;
 	StateMachine::stateMachineSingelton->transition(E_START_STATE_MACHINE); 
 	

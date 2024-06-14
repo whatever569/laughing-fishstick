@@ -92,7 +92,7 @@ float temperatureSensor(void) {
             break;
 						
 						
-				case 4:
+		case 4:
             if (!i2c0_read_temp(DHT20_ADDRESS, 0x71, &status_word1, 1)) {
                 return false;
             }
@@ -118,6 +118,7 @@ float temperatureSensor(void) {
 
             state = 0;
             return temperature;
+			break;
     }
 
     return false;

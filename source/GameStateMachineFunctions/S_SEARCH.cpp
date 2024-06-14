@@ -62,6 +62,7 @@ void showDir()
     GPSLocation currentlocation = User::userSingleton->getUsersCurrentLocation();
 	
 	while (!currentlocation.getIsConnected()) {
+		delay_ms(500);
 		Display::showAwaitingReconnection();
 		User::userSingleton->setUsersCurrentLocation(coordinates);
 		currentlocation = User::userSingleton->getUsersCurrentLocation();

@@ -6,6 +6,7 @@
 #include "display/Display.h"
 #include "StateMachineInternals.h"
 #include "temprature/temp.h"
+#include "pc communication/Microcontroller/uart0.h"
 
 volatile long milliSecond = 0;
 volatile int showForNSecondsCalledFlag = false;
@@ -70,6 +71,7 @@ void updateTempAndCoord(void) {
 		char dataEeprom[36];
 		char coord[30] = {0};
 		User::userSingleton->setUsersCurrentLocation(coord);
+		
 		sprintf(dataEeprom, "D:%sC%f|", coord, temprature);
 		eeprom_write_string(EEPROM_currentAdress, dataEeprom);
 	}

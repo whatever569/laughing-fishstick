@@ -91,7 +91,7 @@ void gps(char* coordinates) {
 		if (gnrmc_start != NULL) {
 			char *token = strstr(gnrmc_start, ",V"); 											// if it encounters ",V" it means no fix can be found
 			if (token[1] == 'V') strcpy(coordinates, "DISCONECTED");
-			else if (strchr(gnrmc_start, '\r') == NULL) strcpy(coordinates, "INVALID_DATA");	// if the endline cannot befound the GPSData string didnt read full line
+			else if (strchr(gnrmc_start, '\r') == NULL) strcpy(coordinates, "INVALID_DATA_NFR");	// if the endline cannot befound the GPSData string didnt read full line
 			else {
 				int token_index = 0;
 				token = strtok(gnrmc_start, ",");
@@ -131,7 +131,7 @@ void gps(char* coordinates) {
 			q_flush(&Rx1);		//empty the rest of the data left, so it wont search the same data for coordinates that are already found.
 		}
 		
-		else strcpy(coordinates, "INVALID_DATA");
+		else strcpy(coordinates, "INVALID_DATA_NF");
 	}
 	else strcpy(coordinates, "NO_DATA_IN_BUFFER");
 }

@@ -582,7 +582,7 @@
             <File>
               <FileName>User.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\User.cpp</FilePath>
+              <FilePath>..\source\User.cpp</FilePath>
             </File>
           </Files>
         </Group>
