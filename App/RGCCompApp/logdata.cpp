@@ -1,6 +1,6 @@
 #include "logdata.h"
 
-LogData::LogData() : totalTime(0.0f), userName("DEFAULT"),
+LogData::LogData() : totalTime(0.0f), userName(),
     recordedLocations(vector<APPGPSLocation>()),
     recordedTemperatures(vector<float>()),
     gameWaypoints(vector<LoggingWaypoint>()), totalTimesDWasPressed(0)
@@ -87,4 +87,9 @@ int LogData::getTotalTimesDWasPressed()
 void LogData::setTotalTimesDWasPressed(int times)
 {
     totalTimesDWasPressed = times;
+}
+
+float LogData::calculateUserScore()
+{
+    return 50.0;
 }

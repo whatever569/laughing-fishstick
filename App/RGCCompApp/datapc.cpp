@@ -1,5 +1,6 @@
 #include <string>
 #include "datapc.h"
+#include "QtCore/qdebug.h"
 #include "pc_uart.h"
 //#include "loggingwaypoint.h"
 
@@ -7,38 +8,49 @@ using namespace GameData;
 using namespace std;
 
 bool IsConnectedToMc (void) {
-    if (QSerialPortInfo::availablePorts().size()) {
-        return true;
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+        qDebug() << "Port:" << info.portName();
+        qDebug() << "Description:" << info.description();
+        qDebug() << "Manufacturer:" << info.manufacturer();
+        qDebug() << "Vendor Identifier:" << (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString("N/A"));
+        qDebug() << "Product Identifier:" << (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString("N/A"));
+        qDebug() << "-----------------------------------";
+
+        // Check for KL25Z VID and PID
+        if (info.hasVendorIdentifier() && info.vendorIdentifier() == 0x0d28 &&
+            info.hasProductIdentifier() && info.productIdentifier() == 0x0204) {
+            return true;
+        }
     }
     return false;
 }
 
-void gameDataInit (string userName, vector<WayPoint> waypoints) {
-    PC_UART pc;
-    QByteArray gameData;
+bool gameDataInit (string userName, vector<WayPoint> waypoints) {
+        PC_UART pc;
+        QByteArray gameData;
 
-    while(1) {                  //poll until it receives start info
-        QByteArray temp;
-        temp = pc.receiveData();
-        if (temp.size()) break;
-    }
+        // while(1) {                  //poll until it receives start info
+        //     QByteArray temp;
+        //     temp = pc.receiveData();
+        //     if (temp.size()) break;
+        // }
 
-    gameData.append(to_string(userName.size()));
-    if (userName.size() < 10) gameData.prepend('0');
-    gameData.append(userName);
-    gameData.append(to_string(waypoints.size()));
+        gameData.append(to_string(userName.size()));
+        if (userName.size() < 10) gameData.prepend('0');
+        gameData.append(userName);
+        gameData.append(to_string(waypoints.size()));
 
-    for (int i = 0; i < (int)waypoints.size(); i++) {
+        for (int i = 0; i < (int)waypoints.size(); i++) {
 
-        gameData.append((char)waypoints[i].waypointPuzzle + 48);
-        GPSLocation gps = waypoints[i].getLocation();
-        gameData.append((int)to_string(gps.getLatitude()).size()+'0');
-        gameData.append(to_string(gps.getLatitude()));
-        gameData.append(to_string(gps.getLongitude()));
-    }
+            gameData.append((char)waypoints[i].waypointPuzzle + 48);
+            GPSLocation gps = waypoints[i].getLocation();
+            gameData.append((int)to_string(gps.getLatitude()).size()+'0');
+            gameData.append(to_string(gps.getLatitude()));
+            gameData.append(to_string(gps.getLongitude()));
+        }
 
-    pc.flush('T');
-    pc.transmitData(gameData);
+        pc.flush('T');
+        pc.transmitData(gameData);
 }
 
 LogData GameDataReturn(void) {

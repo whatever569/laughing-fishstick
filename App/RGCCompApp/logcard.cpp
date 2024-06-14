@@ -70,7 +70,7 @@ void LogCard::setupUi() {
     frameLayout->addWidget(boldLabel);
 
     // Configure the additional text label
-    additionalTextLabel->setText("Score: 1245p");
+    additionalTextLabel->setText(QString::number(logData.calculateUserScore()));
     QPalette additionalTextPalette = additionalTextLabel->palette();
     additionalTextPalette.setColor(QPalette::WindowText, QColor(255, 255, 255, 128)); // Less visible
     additionalTextLabel->setPalette(additionalTextPalette);
@@ -108,11 +108,12 @@ void LogCard::onMoreInfoClicked() {
     QLineSeries *series = new QLineSeries();
 
     // Example temperature data
-    QList<QPointF> temperatureData = {
-        QPointF(0, 20.5), QPointF(1, 21.0), QPointF(2, 19.8),
-        QPointF(3, 22.1), QPointF(4, 23.4), QPointF(5, 25.0),
-        QPointF(6, 24.5), QPointF(7, 23.9), QPointF(8, 22.0)
-    };
+    QList<QPointF> temperatureData;
+    
+    for(int i = 0; i < logData.recordedTemperatures.size(); i++)
+    {
+        temperatureData.append(QPoint(i * logData.timeBetweenEachTempRecording, logData.getRecordedTemperatures()[i]));
+    }
 
     for (const QPointF &point : temperatureData) {
         series->append(point);
@@ -135,7 +136,9 @@ void LogCard::onMoreInfoClicked() {
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(800,400);
     dialogLayout->addWidget(chartView);
-
+    QLabel * label = new QLabel();
+    label->setText("Your score: ");
+    dialogLayout->addWidget(label);
     dialog->setLayout(dialogLayout);
     dialog->exec();
 }

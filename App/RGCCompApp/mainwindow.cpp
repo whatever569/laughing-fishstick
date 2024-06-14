@@ -2,6 +2,8 @@
 #include "logcard.h"
 #include "ui_mainwindow.h"
 #include "datapc.h"
+#include "/Users/mohammedalzuaa/Documents/HAN University Of Applied Sciences/Project/GitHub/laughing-fishstick/source/GameData.h"
+#include "/Users/mohammedalzuaa/Documents/HAN University Of Applied Sciences/Project/GitHub/laughing-fishstick/source/GPSLocation.h"
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,8 +30,12 @@ void MainWindow::on_amountOfWaypointsSpinBox_valueChanged(int arg1)
     else
     {
         enableStuffAfterWaypointSpinBox(false);
+        ui->latLineEdit->setEnabled(false);
+        ui->longLineEdit->setEnabled(false);
+        ui->wayPointPuzzleSelect->setEnabled(false);
     }
 
+    tempWaypointIndex = 0;
     ui->wayPointSelector->clear();
     initGameData.getWaypoints().clear();
     for(int i = 0; i < arg1; i++)
@@ -231,6 +237,23 @@ void MainWindow::DataCompleteCheck()
 void MainWindow::on_recheckConnectionButton_clicked()
 {
     boxIsConnected = IsConnectedToMc();
+    qDebug()<<boxIsConnected;
     DataCompleteCheck();
+}
+
+
+void MainWindow::on_newGameButton_clicked()
+{
+    boxIsConnected = IsConnectedToMc();
+    DataCompleteCheck();
+    vector<GameData::WayPoint> wps;
+    for(APPWaypoint &wp : initGameData.getWaypoints())
+    {
+        GameData::WayPoint twp;
+        twp.setWayPoint(GPSLocation(wp.getLocation().getLat(), wp.getLocation().getLon()), GameData::SimonSays);
+        wps.push_back(twp);
+    }
+    gameDataInit(initGameData.getUserName(), wps);
+
 }
 

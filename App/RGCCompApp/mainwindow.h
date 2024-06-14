@@ -40,6 +40,8 @@ private slots:
 
     void on_recheckConnectionButton_clicked();
 
+    void on_newGameButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
