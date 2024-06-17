@@ -85,20 +85,31 @@ void gps(char* coordinates) {
 	char GPSData[UART_BUFFER_SIZE];
 	char subCoord[15] = {0};
 	gps_receive_data(GPSData);			//reads everything it can from the uart
+	int correction = 0;					//used for being able to use GNGGA, GNGLL satelite aswell 
 
 	if (GPSData[0] != NULL) {
 		char *gnrmc_start = strstr(GPSData, "$GNRMC");
+		
+		if (gnrmc_start == NULL) {
+			gnrmc_start = strstr(GPSData, "$GNGGA");
+			correction = 1;
+		}
+		if (gnrmc_start == NULL) {
+			gnrmc_start = strstr(GPSData, "$GNGLL");
+			correction = 2;
+		}
+		
 		if (gnrmc_start != NULL) {
 			char *token = strstr(gnrmc_start, ",V"); 											// if it encounters ",V" it means no fix can be found
 			if (token[1] == 'V') strcpy(coordinates, "DISCONECTED");
-			else if (strchr(gnrmc_start, '\r') == NULL) strcpy(coordinates, "INVALID_DATA_NFR");	// if the endline cannot befound the GPSData string didnt read full line
+			else if (strchr(gnrmc_start, '$') == NULL) strcpy(coordinates, "INVALID_DATA_NFR");	// if the endline cannot befound the GPSData string didnt read full line
 			else {
 				int token_index = 0;
 				token = strtok(gnrmc_start, ",");
 				
 				while (token != NULL) {
 					// Latitude is at token index 3
-					if (token_index == 3) {
+					if (token_index == 3 - correction) {
 						strncpy(subCoord, token, sizeof(subCoord) - 1);
 						subCoord[sizeof(subCoord) - 1] = '\0';
 						
@@ -112,7 +123,7 @@ void gps(char* coordinates) {
 					}
 					
 					// Longitude is at token index 5
-					else if (token_index == 5) {
+					else if (token_index == 5 - correction) {
 						strncpy(subCoord, token, sizeof(subCoord) - 1);
 						subCoord[sizeof(subCoord) - 1] = '\0';
 						
@@ -128,10 +139,9 @@ void gps(char* coordinates) {
 					token = strtok(NULL, ",");
 				}
 			}
-			q_flush(&Rx1);		//empty the rest of the data left, so it wont search the same data for coordinates that are already found.
 		}
-		
 		else strcpy(coordinates, "INVALID_DATA_NF");
+		q_flush(&Rx1);		//empty the rest of the data left, so it wont search the same data for coordinates that are already found.
 	}
 	else strcpy(coordinates, "NO_DATA_IN_BUFFER");
 }

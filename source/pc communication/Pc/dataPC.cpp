@@ -17,12 +17,6 @@ void gameDataInit (string userName, vector<WayPoint> waypoints) {
 	PC_UART pc;
     QByteArray gameData;
 
-    while(1) {                  //poll until it receives start info
-        QByteArray temp;
-        temp = pc.receiveData();
-        if (temp.size()) break;
-    }
-
     gameData.append(to_string(userName.size()));
 	if (userName.size() < 10) gameData.prepend('0');
 	gameData.append(userName);

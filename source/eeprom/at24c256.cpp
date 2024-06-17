@@ -41,10 +41,16 @@ void eeprom_init(void)
 }
 
 void eeprom_flush(void) {
-	uint8_t buffer[EEPROM_SIZE];
-	for (int i = 0; i < EEPROM_SIZE; i++) buffer[i] = EEPROM_CLEAR;
-	eeprom_write(0x0, buffer, EEPROM_SIZE);
+    uint8_t buffer[EEPROM_PAGE];
+
+    for (int i = 0; i < (EEPROM_SIZE / EEPROM_PAGE); i++) {
+        for (int j = 0; j < EEPROM_PAGE; j++) {
+            buffer[j] = EEPROM_CLEAR;  
+        }
+        eeprom_write(i * EEPROM_PAGE, buffer, EEPROM_PAGE);  
+    }
 }
+
 
 /*!
  * \brief Reads data from the AT24C256 EEPROM
@@ -102,7 +108,7 @@ bool eeprom_write(const uint16_t address, const uint8_t data[], const uint16_t n
     uint16_t start_address = address;
     uint16_t n_written = 0;
 	
-	EEPROM_currentAdress += n;
+	EEPROM_currentAdress += n - 1;
 
     while(n_written < n)
     {

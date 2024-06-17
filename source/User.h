@@ -13,6 +13,7 @@ public:
     char username[16];
     int timeDirectionButtonPressed = 0;
     int currentWayPointNumber = 0;
+	int TotalWayPoints = 0;
 
 	void setUsersCurrentLocation(char* coordinates);	
     GPSLocation getUsersCurrentLocation(void);

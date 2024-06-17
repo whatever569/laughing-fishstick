@@ -14,6 +14,6 @@ void servo_init (void) {
 void servo_lock(int lockState) {
 	//servo is unlocked: lockState = 0, servo position = 90 degree, Channel value = 4500.
 	//servo is locked:   lockState = 1, servo position = 0 degree,  Channel value = 2000.	
-	SERVO_CHANNEL.CnV = (lockState) ? 2000 : 4500; 		
+	SERVO_CHANNEL.CnV = (lockState) ? 1500 : 4500; 		
 }
 

@@ -22,5 +22,6 @@ void PIT_setup(void);
 void delay_ms(int ms);
 void delay_us(int us);
 void updateTempAndCoord(void);
+void displayShowForTime(void);
 
 #endif

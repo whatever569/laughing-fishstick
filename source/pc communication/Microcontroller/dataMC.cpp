@@ -1,3 +1,4 @@
+#include <string.h>
 #include "dataMC.h"
 #include "uart0.h"
 #include "../../delay.h"
@@ -22,9 +23,9 @@ bool GameDataInit(void) {
 	
 	strcpy(InitGameData::gameDataSingleton->userName, User::userSingleton->username);
 	//get_char - 48, because '0' = 48. EXAMPLE: if get_char = '3' -> 51 as int, 51-48 = 3. 
-	int waypointAmount = (int)(uart0_get_char() - 48);			//Limits waypointAmount to 9
+	User::userSingleton->TotalWayPoints = (int)(uart0_get_char() - 48);			//Limits waypointAmount to 9
 	
-	for (int i = 0; i < waypointAmount; i++) {
+	for (int i = 0; i < User::userSingleton->TotalWayPoints; i++) {
 		//if the Puzzle is accidentally bigger then the amount of Puzzles, it switches around.
 		Puzzle waypointPuzzle = (Puzzle)((uart0_get_char() - '0') % TotalPuzzles);	
 		
@@ -46,11 +47,10 @@ int GameDataReturn() {
 	
 	int EEPROM_readAdress = 0x0000;
 	long startTime = milliSecond;
-	uart0_put_char('S');							//send start info
 	
 	while (EEPROM_currentAdress > EEPROM_readAdress) {
 		char tempData[32] = {0};
-		eeprom_read_string(EEPROM_readAdress, tempData);
+		eeprom_read((const int)EEPROM_readAdress, (uint8_t *)tempData, sizeof(tempData));
 		EEPROM_readAdress += strlen(tempData) + 1;
 		uart0_send_string(tempData);
 		delay_ms(50);

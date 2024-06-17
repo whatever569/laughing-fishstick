@@ -24,11 +24,13 @@ void S_INIT_OnEntry()
     Display::clearScreen();
     Display::showINITScreen();
 	servo_lock(0);
+	eeprom_flush();
+	EEPROM_currentAdress = 0;
 	
 	Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, 		//A button
                                                         Controls::doNothing, 		//B button
-	Controls::doNothing,   //C button
-                                                        Controls::doNothing);
+														Controls::doNothing,   		//C button
+                                                        Controls::doNothing);		//D button
 	
 	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
 	
@@ -39,7 +41,7 @@ void S_INIT_OnEntry()
 		eeprom_write_string(EEPROM_currentAdress, eepromData);	
 		
 		ScoreData::timesDButtonPressed = 0;
-		transitionFlag = true;
+		//transitionFlag = true;
 		currentEvent = E_INIT_SUCCESS;
     }
 	else {

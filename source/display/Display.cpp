@@ -1,9 +1,12 @@
 #include "Display.h"
 #include "delay.h"
+#include <stdio.h>
+#include "../User.h"
 
-void (*Display::returnScreen)(void) = Display::showINITScreen;
-long Display::nScreenMilliseconds = 0;
-volatile long Display::millisWhenShowForNSecondsCalled = 0;
+volatile int showForNSecondsCalledFlag = false;
+void (*returnScreen)(void) = Display::showINITScreen;
+long nScreenMilliseconds = 0;
+volatile long millisWhenShowForNSecondsCalled = 0;
 
 Display::Display()
 {
@@ -23,11 +26,12 @@ void Display::displayInit()
 void Display::clearScreen()
 {
 	ssd1306_clearscreen();
+	ssd1306_update();
 }
 
 void Display::showINITScreen()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	ssd1306_putstring(0,0, "Awaiting connection");
 	ssd1306_putstring(0,16, "with admin...");
 	ssd1306_update();
@@ -35,6 +39,8 @@ void Display::showINITScreen()
 
 void Display::showQRCODEScreen()
 {
+	ssd1306_clearscreen();
+	
 	static const unsigned char qr2[] = {
 	0xfc, 0xfc, 0xfc, 0x1c, 0x1c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x1c, 0x1c, 
 	0xfc, 0xfc, 0x7c, 0x7c, 0x9c, 0x9c, 0xfc, 0xfc, 0x7c, 0x7c, 0xfc, 0xfc, 0x9c, 0x9c, 0x7c, 0xfc, 
@@ -75,11 +81,13 @@ void Display::showQRCODEScreen()
 
 void Display::showSEARCHScreen()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
-	ssd1306_putstring(0, 0, "Find the");
+	ssd1306_putstring(0, 0, "Find waypoint");
 	
-	ssd1306_putstring(0, 13, "waypoint.");
+	ssd1306_putstring(0, 13, "number ");
+	ssd1306_putchar((char)User::userSingleton->currentWayPointNumber + '1');
+	ssd1306_putchar('.');
 	
 	ssd1306_putstring(0, 29, "Press D to show");
 	
@@ -88,8 +96,8 @@ void Display::showSEARCHScreen()
 }
 
 void Display::showLeftArrow()
-{
-	clearScreen();
+{	
+	ssd1306_clearscreen();
 	
 	static const unsigned char ldir[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -121,7 +129,7 @@ void Display::showLeftArrow()
 
 void Display::showRightArrow()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	static const unsigned char rdir[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -153,8 +161,8 @@ void Display::showRightArrow()
 }
 
 void Display::showUpArrow()
-{
-	clearScreen();
+{	
+	ssd1306_clearscreen();
 	
 	static const unsigned char udir[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -184,8 +192,8 @@ void Display::showUpArrow()
 }
 	
 void Display::showDownArrow()
-{
-	clearScreen();
+{	
+	ssd1306_clearscreen();
 	
 	static const unsigned char ddir[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -215,8 +223,8 @@ void Display::showDownArrow()
 }
 
 void Display::showS_HOT_COLDVeryColdStatus()
-{
-	clearScreen();
+{	
+	ssd1306_clearscreen();
 	
 	static const unsigned char vCold[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xf0, 0x38, 
@@ -262,7 +270,7 @@ void Display::showS_HOT_COLDVeryColdStatus()
 
 void Display::showS_HOT_COLDColdStatus()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	static const unsigned char cold[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0x60, 0x60, 0x70, 0x30, 
@@ -298,7 +306,7 @@ void Display::showS_HOT_COLDColdStatus()
 
 void Display::showS_HOT_COLDWarmStatus()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	static const unsigned char warm[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0x60, 
@@ -334,7 +342,7 @@ void Display::showS_HOT_COLDWarmStatus()
 
 void Display::showS_HOT_COLDHotStatus()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	static const unsigned char hot[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x70, 0x38, 0x18, 0x0c, 0x0c, 0x0c, 
@@ -370,7 +378,7 @@ void Display::showS_HOT_COLDHotStatus()
 
 void Display::showS_HOT_COLDNotCloseAnymore()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "You've strayed too");
 	
@@ -386,7 +394,7 @@ void Display::showS_HOT_COLDNotCloseAnymore()
 
 void Display::showS_WAYPOINT_SimonSaysPuzzlePrompt()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "You've reached");
 	
@@ -395,12 +403,13 @@ void Display::showS_WAYPOINT_SimonSaysPuzzlePrompt()
 	ssd1306_putstring(0, 26, "Memorize the");
 	
 	ssd1306_putstring(0, 39, "next sequence.");
+	
 	ssd1306_update();
 }
 
 void Display::showS_WAYPOINT_SimonSaysControlsTutorial()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	static const unsigned char controls[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -459,17 +468,31 @@ void Display::showS_WAYPOINT_SimonSaysControlsTutorial()
 
 void Display::showAwaitingUserInput()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
-	ssd1306_putstring(0, 0, "Please input");
+	ssd1306_putstring(0, 0, "Please repeat");
 	
 	ssd1306_putstring(0, 13, "the sequence.");
 	ssd1306_update();
 }
 
+void Display::showNextRound(int round) {
+	ssd1306_clearscreen();
+	
+	ssd1306_putstring(0, 0 , "Round ");
+	ssd1306_putchar  (((char)round+'0'));
+	ssd1306_putstring(9*6, 0, "complete!"); 
+	ssd1306_putstring(0, 30, "Get Ready for");
+	ssd1306_putstring(0, 45, "round ");
+	ssd1306_putchar  (((char)round+'1'));
+	ssd1306_putchar  ('.');
+	
+	ssd1306_update();
+}
+
 void Display::showPuzzleLost()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(30, 20, "GAME LOST");
 	ssd1306_update();
@@ -477,7 +500,7 @@ void Display::showPuzzleLost()
 
 void Display::showPuzzleWon()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(30, 20, "GAME WON!");
 	ssd1306_update();
@@ -488,15 +511,15 @@ void Display::showScreenForNSeconds(long n, void (*screenToBeShown)(void), void(
 	returnScreen = screenToReturnTo;
 	screenToBeShown();
 
-	showForNSecondsCalledFlag = 1;
+	showForNSecondsCalledFlag = true;
 	
 	millisWhenShowForNSecondsCalled = milliSecond;
-	nScreenMilliseconds = n;	
+	nScreenMilliseconds = n*1000;	
 }
 
 void Display::showLoading()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "Loading...");
 	ssd1306_update();
@@ -504,7 +527,7 @@ void Display::showLoading()
 
 void Display::showAwaitingReconnection()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "GPS connection");
 	
@@ -520,19 +543,31 @@ void Display::showAwaitingReconnection()
 
 void Display::showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "Game has ended.");
 	
 	ssd1306_putstring(0, 13, "You have reached");
 	
 	ssd1306_putstring(0, 26, "all waypoints.");
+	ssd1306_putstring(0, 39, "Please return box to");
+	ssd1306_putstring(0, 52, "companion app.");
+	
+	ssd1306_update();
+}
+
+void Display::showTurnOff() {
+	ssd1306_clearscreen();
+	ssd1306_putstring(0, 0, "Data has been");
+	ssd1306_putstring(0, 13, "transfered.");
+	ssd1306_putstring(0, 26, "box can safely");
+	ssd1306_putstring(0, 39, "turned off.");
 	ssd1306_update();
 }
 
 void Display::showS_ERROR_NO_SOURCE()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "ERROR:");
 	
@@ -542,7 +577,7 @@ void Display::showS_ERROR_NO_SOURCE()
 
 void Display::showS_ERROR_ERROR_SENDING_DATA_AT_S_ENDGAME()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "ERROR:");
 	
@@ -554,7 +589,7 @@ void Display::showS_ERROR_ERROR_SENDING_DATA_AT_S_ENDGAME()
 
 void Display::showS_ERROR_ERROR_DURING_GAME()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "ERROR:");
 	
@@ -568,7 +603,7 @@ void Display::showS_ERROR_ERROR_DURING_GAME()
 
 void Display::showS_ERROR_ERROR_INIT()
 {
-	clearScreen();
+	ssd1306_clearscreen();
 	
 	ssd1306_putstring(0, 0, "ERROR:");
 	
@@ -576,4 +611,21 @@ void Display::showS_ERROR_ERROR_INIT()
 	
 	ssd1306_putstring(0, 26, "initialization.");
 	ssd1306_update();
+}
+
+void Display::testDistance(double distance, long n, void(*screenToReturnTo) (void)) 
+{
+	returnScreen = screenToReturnTo;
+	showForNSecondsCalledFlag = true;
+	
+	ssd1306_clearscreen();
+	char dist[35];
+	sprintf(dist, "%.1lf meter", distance);
+	
+	ssd1306_putstring(0, 0, (const char*)dist);
+	ssd1306_update();
+	
+	millisWhenShowForNSecondsCalled = milliSecond;
+	nScreenMilliseconds = n*1000;	
+	
 }

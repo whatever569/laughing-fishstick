@@ -26,31 +26,34 @@ bool IsConnectedToMc (void) {
 }
 
 bool gameDataInit (string userName, vector<WayPoint> waypoints) {
-        PC_UART pc;
-        QByteArray gameData;
+    PC_UART pc;
+    QByteArray gameData;
 
-        // while(1) {                  //poll until it receives start info
-        //     QByteArray temp;
-        //     temp = pc.receiveData();
-        //     if (temp.size()) break;
-        // }
+    gameData.append(to_string(userName.size()));
+	if (userName.size() < 10) gameData.prepend('0');
+	gameData.append(userName);
+    gameData.append(to_string(waypoints.size()));
 
-        gameData.append(to_string(userName.size()));
-        if (userName.size() < 10) gameData.prepend('0');
-        gameData.append(userName);
-        gameData.append(to_string(waypoints.size()));
+    for (int i = 0; i < (int)waypoints.size(); i++) {
+		
+        gameData.append((char)waypoints[i].waypointPuzzle + '0');
+        GPSLocation gps = waypoints[i].getLocation();
+        QByteArray lat = QByteArray::fromStdString(to_string(gps.getLatitude()));
+        QByteArray lon = QByteArray::fromStdString(to_string(gps.getLongitude()));
 
-        for (int i = 0; i < (int)waypoints.size(); i++) {
-
-            gameData.append((char)waypoints[i].waypointPuzzle + 48);
-            GPSLocation gps = waypoints[i].getLocation();
-            gameData.append((int)to_string(gps.getLatitude()).size()+'0');
-            gameData.append(to_string(gps.getLatitude()));
-            gameData.append(to_string(gps.getLongitude()));
+        while (lat.size() < 10) {
+            if (lat.size() == lon.size()) break;
+            else if (lat.size() > lon.size()) lon.append('0');
+            else if (lat.size() < lon.size()) lat.append('0');
         }
 
-        pc.flush('T');
-        pc.transmitData(gameData);
+        gameData.append((char)lat.size()+'0');
+        gameData.append(lat);
+        gameData.append(lon);
+	}
+	
+	pc.flush('T');
+	pc.transmitData(gameData);
 }
 
 LogData GameDataReturn(void) {

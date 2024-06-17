@@ -36,7 +36,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define EEPROM_CLEAR 0xFF
+#define EEPROM_CLEAR 0x00
 #define EEPROM_PAGE	0x40
 #define EEPROM_SIZE EEPROM_PAGE*512
 

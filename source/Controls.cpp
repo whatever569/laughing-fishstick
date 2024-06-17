@@ -19,7 +19,7 @@ volatile int Controls::t0ForA = 0;
 volatile int Controls::t0ForB = 0;
 volatile int Controls::t0ForC = 0;
 volatile int Controls::t0ForD = 0;
-int Controls::debounceMillis = 50;
+int Controls::debounceMillis = 100;
 
 extern "C" void PORTA_IRQHandler()
 {

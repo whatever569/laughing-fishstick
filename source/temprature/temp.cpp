@@ -40,24 +40,23 @@ static uint8_t calculate_crc(uint8_t *data, uint8_t len) {
 }
 
 float temperatureSensor(void) {
-    uint8_t buffer[7];
+    uint8_t buffer[7] = {0};
     uint8_t status_word;
 	uint8_t status_word1;
     static int state = 0;
-    static uint32_t start_time = 0;
+    static int start_time = 0;
     static float temperature = 0.0f;
-	uint32_t raw_temperature;
-    uint32_t current_time = milliSecond;
-	uint8_t command_params[2] = {0x33, 0x00};   //Send the 0xAC instruction (trigger measurement) after waiting 10ms. There are two bytes in this command parameter: 0x33 for the first byte and 0x00 for the second. 
+	int raw_temperature = 0;
+	const uint8_t command_params[2] = {0x33, 0x00};   //Send the 0xAC instruction (trigger measurement) after waiting 10ms. There are two bytes in this command parameter: 0x33 for the first byte and 0x00 for the second. 
 
     switch(state) {
         case 0:
-            start_time = current_time;
+            start_time = milliSecond;
             state++;
             break;
 
         case 1:
-            if (current_time - start_time < 100) {   //Wait for at least 100 ms after turning on.
+            if (milliSecond - start_time > 100) {   //Wait for at least 100 ms after turning on.
                 state++;
             }
 			break;
@@ -81,12 +80,12 @@ float temperatureSensor(void) {
                 return false;
             }
 
-            start_time = current_time;
+            start_time = milliSecond;
             state++;
             break;
 
         case 3:
-            if (current_time - start_time < 80) {
+            if (milliSecond - start_time > 80) {
                 state++;
             }
             break;

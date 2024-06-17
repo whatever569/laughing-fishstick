@@ -33,12 +33,14 @@ public:
     static void showS_WAYPOINT_SimonSaysPuzzlePrompt();
     static void showS_WAYPOINT_SimonSaysControlsTutorial();
     static void showAwaitingUserInput();
+	static void showNextRound(int round);
     static void showPuzzleLost();
     static void showPuzzleWon();
     // show a screen for n amount of seconds, and then returning to another screen
     static void showScreenForNSeconds(long n, void (*screenToBeShown)(void), void(*screenToReturnTo) (void));
     // "Loading..." screen
     static void showLoading();
+	static void showTurnOff();
     // This screen shows up when the GPS is disconnected, so the user is prompted to find a better spot
     static void showAwaitingReconnection();
     static void showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();
@@ -47,19 +49,24 @@ public:
     static void showS_ERROR_ERROR_SENDING_DATA_AT_S_ENDGAME();
     static void showS_ERROR_ERROR_DURING_GAME();
     static void showS_ERROR_ERROR_INIT();
+	
+	static void testDistance(double distance, long n, void(*screenToReturnTo) (void)); 
 
     static void clearScreen();
-
-    // stores the screenToReturnTo that was set in showScreenForNSeconds
-    static void (*returnScreen)(void);
-		
-    //stores the amount of milliseconds that screenToBeShown needs to be shown for
-    static long nScreenMilliseconds;
-		
-    //stores the milliSecond count at the moment when the showScreenForNSeconds function was called
-    static volatile long millisWhenShowForNSecondsCalled;
 		
 private:
 };
+
+extern volatile int showForNSecondsCalledFlag;
+
+// stores the screenToReturnTo that was set in showScreenForNSeconds
+extern void (*returnScreen)(void);
+	
+//stores the amount of milliseconds that screenToBeShown needs to be shown for
+extern long nScreenMilliseconds;
+	
+//stores the milliSecond count at the moment when the showScreenForNSeconds function was called
+extern volatile long millisWhenShowForNSecondsCalled;
+
 #endif
 

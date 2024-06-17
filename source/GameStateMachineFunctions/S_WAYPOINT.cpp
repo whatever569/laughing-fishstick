@@ -6,6 +6,9 @@
 #include "../User.h"
 #include "../RandomNumberGenerator.h"
 #include "../GPSLocation.h"
+
+#define SIMONSAYS_SPEED 500
+
 using namespace std;
 using namespace statemachine;
 using namespace GameData;
@@ -22,15 +25,14 @@ PORT_Type *RNGportModulePort = PORTA;
 const int RNGBits = 4;
 int RNGportShift = 0;
 
-const int showingPuzzlePromptScreenNSeconds = 3;
-const int showingControlsForSeconds = 5;
-
+const int showingPuzzlePromptScreenNSeconds = 4;
+const int showingControlsForSeconds = 4;
 
 // Simon says specific
 int userInputSize = 0; // to keep track of the current size of userInput
-const int numberOfRounds = 3;                  // how many rounds of simon says
+const int numberOfRounds = 2;                  // how many rounds of simon says
 int arrowsToBeShownSize = 0; // to keep track of the current size of arrowsToBeShown
-const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direction that will be shown, where a direction is added at each round
+const int baseNumberOfDirectionsToBeShown = 2; // this is the first amount of direction that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
 array<GPSLocation::Direction, baseNumberOfDirectionsToBeShown + numberOfRounds> arrowsToBeShown; // array holding the sequence, assuming a maximum of 10 directions
 array<GPSLocation::Direction, arrowsToBeShown.size()> userInput; // array holding users input, assuming maximum 10 inputs
@@ -42,7 +44,7 @@ struct SimonSaysGame
 public:
     SimonSaysGame(int rounds)
     {
-        numberOfRounds = rounds;
+        numberOfRounds = rounds-1;
         currentRound = 0;
         initDirs();
     }
@@ -50,15 +52,17 @@ public:
     /// @return true if the puzzle is finished
     bool nextRound()
     {
-        if (numberOfRounds - 1 == currentRound)
+        if (numberOfRounds == currentRound)
         {
             Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
             return true;
         }
         else
         {
-            Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
             currentRound++;
+			userInputSize = 0;
+			Display::showNextRound(currentRound);
+			delay_ms(4e3);
             GPSLocation::Direction randDirection = static_cast<GPSLocation::Direction>(rand() % 4);
             directionsToBeShown[directionsToBeShownSize++] = randDirection;
             showArrowSequence();
@@ -88,25 +92,36 @@ public:
 
     void showArrowSequence()
     {
+		Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
+		
         for (int i = 0; i < getDirToBeShownSize(); i++)
         {
             GPSLocation::Direction direction = directionsToBeShown[i];
             switch (direction)
             {
             case (GPSLocation::LEFT):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showLeftArrow, Display::clearScreen);
+                Display::showLeftArrow();
+				delay_ms(SIMONSAYS_SPEED);
                 break;
             case (GPSLocation::RIGHT):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showRightArrow, Display::clearScreen);
+                Display::showRightArrow();
+				delay_ms(SIMONSAYS_SPEED);
                 break;
             case (GPSLocation::UP):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showUpArrow, Display::clearScreen);
+                Display::showUpArrow();
+				delay_ms(SIMONSAYS_SPEED);
                 break;
             case (GPSLocation::DOWN):
-                Display::showScreenForNSeconds(secondsForTheEachDirectionToBeShown, Display::showDownArrow, Display::clearScreen);
+                Display::showDownArrow();
+				delay_ms(SIMONSAYS_SPEED);
                 break;
             }
+			
+			Display::clearScreen();
+			delay_ms(150);
         }
+		
+		Display::showAwaitingUserInput();
 
         Controls::controlsSingleton->setFunctionsForButtons(
             APressed,
@@ -138,6 +153,7 @@ void S_WAYPOINT_OnEntry()
 {
     Display::clearScreen();
     StateMachine::stateMachineSingelton->currentState = S_WAYPOINT;
+	InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsReached(true);
 
     // to protect the user from doing anything during showing them the game tutorial
     Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, Controls::doNothing, Controls::doNothing, Controls::doNothing);
@@ -146,12 +162,13 @@ void S_WAYPOINT_OnEntry()
     if (InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].waypointPuzzle == SimonSays)
     {
         // game tutorial
-        Display::showScreenForNSeconds(showingPuzzlePromptScreenNSeconds,
-                                       Display::showS_WAYPOINT_SimonSaysPuzzlePrompt,
-                                       Display::showLoading);
-        Display::showScreenForNSeconds(showingControlsForSeconds,
-                                       Display::showS_WAYPOINT_SimonSaysControlsTutorial,
-                                       Display::showLoading);
+        Display::showS_WAYPOINT_SimonSaysPuzzlePrompt();
+        delay_ms(showingPuzzlePromptScreenNSeconds * 1e3);
+		
+		Display::showS_WAYPOINT_SimonSaysControlsTutorial();
+		delay_ms(showingControlsForSeconds * 1e3);
+		
+		simonSaysGame->showArrowSequence();
     }
 }
 
@@ -160,6 +177,23 @@ void buttonForDirectionPressed(GPSLocation::Direction dir)
     if (userInputSize < simonSaysGame->getDirToBeShownSize())
     {
         userInput[userInputSize++] = dir;
+		Display::clearScreen();
+		
+		switch (dir) {
+			case (GPSLocation::LEFT):
+                Display::showLeftArrow();
+                break;
+            case (GPSLocation::RIGHT):
+                Display::showRightArrow();
+                break;
+            case (GPSLocation::UP):
+                Display::showUpArrow();
+                break;
+            case (GPSLocation::DOWN):
+                Display::showDownArrow();
+                break;
+            }
+	
         if (userInputSize == simonSaysGame->getDirToBeShownSize())
         {
             bool success = true;
@@ -175,7 +209,9 @@ void buttonForDirectionPressed(GPSLocation::Direction dir)
             {
                 if (simonSaysGame->nextRound())
                 {
-                    Display::showScreenForNSeconds(3, Display::showPuzzleWon, Display::showLoading);
+                    Display::showPuzzleWon();
+					delay_ms(3e3);
+					
                     InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(true);
 					transitionFlag = true;
 					currentEvent = E_PUZZLE_COMPLETE;
@@ -183,7 +219,8 @@ void buttonForDirectionPressed(GPSLocation::Direction dir)
             }
             else
             {
-                Display::showScreenForNSeconds(3, Display::showPuzzleLost, Display::showLoading);
+                Display::showPuzzleLost();
+				delay_ms(3e3);
                 InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].setIsPuzzleSuccess(false);
 				transitionFlag = true;
 				currentEvent = E_PUZZLE_COMPLETE;

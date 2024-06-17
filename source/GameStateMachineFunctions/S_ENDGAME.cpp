@@ -19,7 +19,6 @@ StateMachine* StateMachine::stateMachineSingelton = nullptr;
 void S_ENDGAME_OnEntry()
 {
     StateMachine::stateMachineSingelton->currentState = S_ENDGAME;
-    Display::clearScreen();
     Event nextEvent;
 
     Display::showS_ENDGAMEGameEndedBecauseAllWaypointsWereReached();
@@ -28,7 +27,10 @@ void S_ENDGAME_OnEntry()
 	char eepromData[12];
 	sprintf(eepromData, "E%.3fB%d|", ((float)milliSecond / 1000), GameData::ScoreData::timesDButtonPressed);
     eeprom_write_string(EEPROM_currentAdress, eepromData);
+	
 	if (GameDataReturn()) eeprom_flush();
+	
+	Display::showTurnOff();
 	
 	transitionFlag = true;
     currentEvent = E_TURNED_OFF;

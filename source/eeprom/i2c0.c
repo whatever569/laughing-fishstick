@@ -59,8 +59,8 @@ void i2c0_init(void)
     SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
     
     // Set pins to I2C function
-    PORTC->PCR[8] = PORT_PCR_MUX(2);
-    PORTC->PCR[9] = PORT_PCR_MUX(2);
+    PORTC->PCR[8] = PORT_PCR_MUX(2) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
+    PORTC->PCR[9] = PORT_PCR_MUX(2) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
     
     // Make sure i2c is disabled
     I2C0->C1 &= ~(I2C_C1_IICEN_MASK);
@@ -215,6 +215,8 @@ bool i2c0_read(const uint8_t device_address, const uint16_t address, uint8_t dat
      
         // Read data
         data[i] = I2C0->D;
+		
+		//if (data[i] == '\0') return false;
     }
     
     return true;

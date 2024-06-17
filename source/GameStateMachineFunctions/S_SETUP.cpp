@@ -15,24 +15,30 @@ using namespace GameData;
 void S_SETUP_OnEntry()
 {
 	char eepromData[15] = {0};
-	sprintf(eepromData, "W%dR1P1T%ld|", User::userSingleton->currentWayPointNumber, milliSecond);
+	sprintf(eepromData, "W%dR%dP%dT%ld|",User::userSingleton->currentWayPointNumber, 
+										  InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getIsReached(),
+										  InitGameData::gameDataSingleton->wayPoints[User::userSingleton->currentWayPointNumber].getIsPuzzleSuccess(),
+									      milliSecond);
 	eeprom_write_string(EEPROM_currentAdress, eepromData);
 	
     StateMachine::stateMachineSingelton->currentState = S_SETUP;
-    Display::clearScreen();
-    Display::showLoading();
     Event nextEvent;
+	
     // if user has finished all the waypoints
-    if (User::userSingleton->currentWayPointNumber == sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint))
+    if (User::userSingleton->currentWayPointNumber + 1 == User::userSingleton->TotalWayPoints)
     {
         nextEvent = E_ALL_WAYPOINTS_REACHED;
     }
-    else if (User::userSingleton->currentWayPointNumber < sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint))
+    else if (User::userSingleton->currentWayPointNumber + 1 < User::userSingleton->TotalWayPoints)
     {
         nextEvent = E_NEW_WAYPOINT;
         User::userSingleton->currentWayPointNumber++;
     }
+	else 
+	{
+		nextEvent = E_ERROR_DURING_GAME;
+	}
 
 	currentEvent = nextEvent;
-	transitionFlag = true;
+	StateMachine::stateMachineSingelton->transition(statemachine::currentEvent);
 }

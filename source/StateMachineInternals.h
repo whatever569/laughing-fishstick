@@ -13,7 +13,6 @@
 	//pit functions
 	void timerInterruptHotCold();
 	void interruptFunctionS_SEARCH();
-	
 
 namespace statemachine
 {
@@ -45,7 +44,8 @@ namespace statemachine
         E_TURNED_OFF,
         E_NO_ERROR_SOURCE_SET,
         E_ERROR_SENDING_DATA,
-        E_ERROR_DURING_GAME
+        E_ERROR_DURING_GAME,
+		E_SKIP,
     };
 
     struct Transition
@@ -60,6 +60,7 @@ namespace statemachine
 		{S_NO, 	 E_START_STATE_MACHINE, S_INIT},
         {S_INIT, E_INIT_SUCCESS, S_QRCODE},
         {S_INIT, E_INIT_ERROR, S_ERROR},
+		{S_INIT, E_SKIP, S_WAYPOINT},
 
         // Transitions from QR Code display
         {S_QRCODE, E_CONTINUE_BUTTON, S_SEARCH},

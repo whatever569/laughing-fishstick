@@ -4,6 +4,7 @@
 #include "GPS/GPS.h"
 
 #define PI 3.14159265
+#define EARTH_RADIUS 6371000.0f 
 
 ///@brief GPSLocation is the class representing a gps coordinate, with a few helper functions
 class GPSLocation
@@ -16,10 +17,10 @@ private:
 public:
     enum Direction
     {
-        LEFT,
         UP,
-        RIGHT,
-        DOWN
+		DOWN,
+		LEFT,
+		RIGHT,
     };
     GPSLocation(double lat = 0.0, double lon = 0.0) : latitude(lat), longitude(lon) {}
 
@@ -62,7 +63,6 @@ public:
     /// @brief Calculate distance between this location and another location using the Haversine formula
     double distanceTo(const GPSLocation &other) const
     {
-        const double R = 6371000.0; // Earth's radius in meters
         double lat1 = radians(latitude);
         double lat2 = radians(other.latitude);
         double diffLat = radians(other.latitude - latitude);
@@ -72,7 +72,7 @@ public:
                    cos(lat1) * cos(lat2) *
                        sin(diffLon / 2) * sin(diffLon / 2);
         double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-        double distance = R * c;
+        double distance = EARTH_RADIUS * c;
 
         return distance;
     }

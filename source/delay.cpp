@@ -9,7 +9,6 @@
 #include "pc communication/Microcontroller/uart0.h"
 
 volatile long milliSecond = 0;
-volatile int showForNSecondsCalledFlag = false;
 volatile pitFunction_e pitFunction = pitfunction_nothing;
 
 void millis_setup() {
@@ -34,8 +33,6 @@ void PIT_setup(void) {
     NVIC_SetPriority(PIT_IRQn, 3);
     NVIC_ClearPendingIRQ(PIT_IRQn);
     NVIC_EnableIRQ(PIT_IRQn);
-	
-	PIT->CHANNEL[0].TCTRL |= PIT_TCTRL_TIE_MASK | PIT_TCTRL_TEN_MASK;
 }
 
 void delay_ms(int ms) {
@@ -65,15 +62,25 @@ void delay_us(int us) {
 void updateTempAndCoord(void) {
 	static float temprature = 0;
 	float tempTemprature = temperatureSensor();
-	if (tempTemprature) temprature = tempTemprature;
+	if (tempTemprature) {
+		temprature = tempTemprature;
+	}
 	
 	if ((milliSecond % 30000) == 0) {
-		char dataEeprom[36];
-		char coord[30] = {0};
-		User::userSingleton->setUsersCurrentLocation(coord);
+		char dataEeprom[40];
+		char coordin[30] = {0};
+		User::userSingleton->setUsersCurrentLocation(coordin);
+		GPSLocation coord = User::userSingleton->getUsersCurrentLocation();
 		
-		sprintf(dataEeprom, "D:%sC%f|", coord, temprature);
+		sprintf(dataEeprom, "D:%lf, %lfC%.2f|", coord.getLatitude(), coord.getLongitude(), temprature);
 		eeprom_write_string(EEPROM_currentAdress, dataEeprom);
+	}
+}
+
+void displayShowForTime(void) {	
+	if (showForNSecondsCalledFlag && ((milliSecond - millisWhenShowForNSecondsCalled) > nScreenMilliseconds)) {
+			showForNSecondsCalledFlag = false;
+			returnScreen();
 	}
 }
  
@@ -99,11 +106,7 @@ extern "C" void PIT_IRQHandler(void) {
 		
 		milliSecond += MILLISUPDATE;
 		
+		displayShowForTime();
 		updateTempAndCoord();
-		
-		if (showForNSecondsCalledFlag & ((milliSecond - Display::millisWhenShowForNSecondsCalled) > Display::nScreenMilliseconds)) {
-			showForNSecondsCalledFlag = false;
-			Display::returnScreen();
-		}
 	}
 }
