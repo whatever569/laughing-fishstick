@@ -20,23 +20,6 @@ GameData::InitGameData* GameData::InitGameData::gameDataSingleton = nullptr;
 Controls* Controls::controlsSingleton = nullptr;
 
 int main() {
-	
-	servo_init();
-	millis_setup();
-	int state = 0;
-	servo_lock(0);
-	
-	while (1) {
-		/*
-		if (!(milliSecond % 1000)) {
-			servo_lock(state);
-			state ^= 1;
-		}
-		*/
-	}
-	
-	
-	/*
 	StateMachine statemachineInstance;
 	StateMachine::stateMachineSingelton = &statemachineInstance;
 	User userInstance;
@@ -55,26 +38,6 @@ int main() {
 			transitionFlag = false;
 		}
 	}
-	*/
-	
-	/*
-	i2c0_init();
-	millis_setup();
-	
-	float temprature;
-	
-	while (1) {
-		if (!(milliSecond % 50)) {
-			float temp = temperatureSensor();
-			if (temp) {
-				temprature = temp;
-				char buff[10] = {0};
-				sprintf(buff, "%.2f", temprature);
-				uart0_send_string(buff);
-			}
-		}
-	}
-	*/
 	
 	return 0;
 }

@@ -61,7 +61,7 @@ void delay_us(int us) {
 
 void updateTempAndCoord(void) {
 	static float temprature = 0;
-	float tempTemprature = temperatureSensor();
+	float tempTemprature = temperaturesensor();
 	if (tempTemprature) {
 		temprature = tempTemprature;
 	}

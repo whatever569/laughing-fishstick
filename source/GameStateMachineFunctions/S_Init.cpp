@@ -24,7 +24,7 @@ void S_INIT_OnEntry()
     Display::clearScreen();
     Display::showINITScreen();
 	servo_lock(0);
-	eeprom_flush();
+	//eeprom_flush();
 	EEPROM_currentAdress = 0;
 	
 	Controls::controlsSingleton->setFunctionsForButtons(Controls::doNothing, 		//A button
