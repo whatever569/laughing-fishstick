@@ -1,32 +1,36 @@
 #include <string>
-#include "datapc.h"
+#include "dataPC.hpp"
+#include "pc_uart.hpp"
 #include "QtCore/qdebug.h"
-#include "pc_uart.h"
 //#include "loggingwaypoint.h"
 
 using namespace GameData;
 using namespace std;
 
 bool IsConnectedToMc (void) {
-    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-        qDebug() << "Port:" << info.portName();
-        qDebug() << "Description:" << info.description();
-        qDebug() << "Manufacturer:" << info.manufacturer();
-        qDebug() << "Vendor Identifier:" << (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString("N/A"));
-        qDebug() << "Product Identifier:" << (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString("N/A"));
-        qDebug() << "-----------------------------------";
-
-        // Check for KL25Z VID and PID
-        if (info.hasVendorIdentifier() && info.vendorIdentifier() == 0x0d28 &&
-            info.hasProductIdentifier() && info.productIdentifier() == 0x0204) {
+    if (QSerialPortInfo::availablePorts().size()) {
+        foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
             return true;
+            qDebug() << "Port:" << info.portName();
+            qDebug() << "Description:" << info.description();
+            qDebug() << "Manufacturer:" << info.manufacturer();
+            qDebug() << "Vendor Identifier:" << (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString("N/A"));
+            qDebug() << "Product Identifier:" << (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString("N/A"));
+            qDebug() << "-----------------------------------";
+
+            // Check for KL25Z VID and PID
+            if (info.hasVendorIdentifier() && info.vendorIdentifier() == 0x0d28 &&
+                info.hasProductIdentifier() && info.productIdentifier() == 0x0204) {
+                return true;
+            }
         }
     }
     return false;
+    return false;
 }
 
-bool gameDataInit (string userName, vector<WayPoint> waypoints) {
-    PC_UART pc;
+void gameDataInit (string userName, vector<WayPoint> waypoints) {
+	PC_UART pc;
     QByteArray gameData;
 
     gameData.append(to_string(userName.size()));
@@ -36,20 +40,11 @@ bool gameDataInit (string userName, vector<WayPoint> waypoints) {
 
     for (int i = 0; i < (int)waypoints.size(); i++) {
 		
-        gameData.append((char)waypoints[i].waypointPuzzle + '0');
+		gameData.append((char)waypoints[i].waypointPuzzle + 48);
         GPSLocation gps = waypoints[i].getLocation();
-        QByteArray lat = QByteArray::fromStdString(to_string(gps.getLatitude()));
-        QByteArray lon = QByteArray::fromStdString(to_string(gps.getLongitude()));
-
-        while (lat.size() < 10) {
-            if (lat.size() == lon.size()) break;
-            else if (lat.size() > lon.size()) lon.append('0');
-            else if (lat.size() < lon.size()) lat.append('0');
-        }
-
-        gameData.append((char)lat.size()+'0');
-        gameData.append(lat);
-        gameData.append(lon);
+        gameData.append((int)to_string(gps.getLatitude()).size()+'0');
+        gameData.append(to_string(gps.getLatitude()));
+        gameData.append(to_string(gps.getLongitude()));
 	}
 	
 	pc.flush('T');
@@ -60,9 +55,10 @@ LogData GameDataReturn(void) {
 	PC_UART pc;
     QByteArray dataArray;
     LogData returnData;
-	QByteArray tempData
+    QByteArray tempData;
 
-    pc.transmitData('s');
+    tempData = "s";
+    pc.transmitData(tempData);
 	
 	while (true) {
 		tempData = pc.receiveData(1);
@@ -73,8 +69,7 @@ LogData GameDataReturn(void) {
 		dataArray.append(tempData);
 		tempData.clear();
 		tempData = pc.receiveData();
-	while (dataArray.back() != ';' && tempData.size());
-	}
+    } while (dataArray.back() != ';' && tempData.size());
 
     if (dataArray.size()) {
         returnData.userName = writeUntil(dataArray, "W:");
@@ -85,11 +80,12 @@ LogData GameDataReturn(void) {
     while (dataArray.size()) {
         switch(dataArray[0]) {
             case 'W':
-                dataArray.remove(0, 2);
+                dataArray.remove(0, 1);
+                if (dataArray[0] == 'W') dataArray.remove(0, 1);
                 waypointNumber = stoi(writeUntil(dataArray, 'R'));
                 returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
                 returnData.gameWaypoints[waypointNumber].setIsPuzzleSuccess(stoi(writeUntil(dataArray, 'T')));
-                returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
+                /*returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(*/writeUntil(dataArray)/*)*/;
                 break;
 
             case 'D':
