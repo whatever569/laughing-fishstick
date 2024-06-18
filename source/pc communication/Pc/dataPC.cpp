@@ -39,12 +39,21 @@ LogData GameDataReturn(void) {
 	PC_UART pc;
     QByteArray dataArray;
     LogData returnData;
+	QByteArray tempData
 
-    while(1) {
-        QByteArray temp;
-        temp = pc.receiveData();
-        if (temp.size()) break;
-    }
+    pc.transmitData('s');
+	
+	while (true) {
+		tempData = pc.receiveData(1);
+		if (tempData.size()) break;
+	}
+	
+	do {
+		dataArray.append(tempData);
+		tempData.clear();
+		tempData = pc.receiveData();
+	while (dataArray.back() != ';' && tempData.size());
+	}
 
     if (dataArray.size()) {
         returnData.userName = writeUntil(dataArray, "W:");
@@ -59,7 +68,7 @@ LogData GameDataReturn(void) {
                 waypointNumber = stoi(writeUntil(dataArray, 'R'));
                 returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
                 returnData.gameWaypoints[waypointNumber].setIsPuzzleSuccess(stoi(writeUntil(dataArray, 'T')));
-                //returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
+                returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
                 break;
 
             case 'D':

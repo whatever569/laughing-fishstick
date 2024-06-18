@@ -57,15 +57,24 @@ bool gameDataInit (string userName, vector<WayPoint> waypoints) {
 }
 
 LogData GameDataReturn(void) {
-    PC_UART pc;
+	PC_UART pc;
     QByteArray dataArray;
     LogData returnData;
+	QByteArray tempData
 
-    while(1) {
-        QByteArray temp;
-        temp = pc.receiveData();
-        if (temp.size()) break;
-    }
+    pc.transmitData('s');
+	
+	while (true) {
+		tempData = pc.receiveData(1);
+		if (tempData.size()) break;
+	}
+	
+	do {
+		dataArray.append(tempData);
+		tempData.clear();
+		tempData = pc.receiveData();
+	while (dataArray.back() != ';' && tempData.size());
+	}
 
     if (dataArray.size()) {
         returnData.userName = writeUntil(dataArray, "W:");
@@ -75,31 +84,31 @@ LogData GameDataReturn(void) {
 
     while (dataArray.size()) {
         switch(dataArray[0]) {
-        case 'W':
-            dataArray.remove(0, 2);
-            waypointNumber = stoi(writeUntil(dataArray, 'R'));
-            returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
-            returnData.gameWaypoints[waypointNumber].setIsPuzzleComplete(stoi(writeUntil(dataArray, 'T')));
-            //returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
-            break;
+            case 'W':
+                dataArray.remove(0, 2);
+                waypointNumber = stoi(writeUntil(dataArray, 'R'));
+                returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
+                returnData.gameWaypoints[waypointNumber].setIsPuzzleSuccess(stoi(writeUntil(dataArray, 'T')));
+                returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(writeUntil(dataArray));
+                break;
 
-        case 'D':
-            dataArray.remove(0, 1);
-            returnData.recordedLocations.resize(returnData.recordedLocations.size() + 1);
-            returnData.recordedLocations[returnData.recordedLocations.size()-1].setLat((stof(writeUntil(dataArray, ", "))));
-            returnData.recordedLocations[returnData.recordedLocations.size()-1].setLon((stof(writeUntil(dataArray, 'C'))));
-            returnData.recordedTemperatures.push_back(stof(writeUntil(dataArray)));
-            break;
+            case 'D':
+                dataArray.remove(0, 1);
+                returnData.recordedLocations.resize(returnData.recordedLocations.size() + 1);
+                returnData.recordedLocations[returnData.recordedLocations.size()-1].setLatitude((stof(writeUntil(dataArray, ", "))));
+                returnData.recordedLocations[returnData.recordedLocations.size()-1].setLongitude((stof(writeUntil(dataArray, 'C'))));
+                returnData.recordedTemperatures.push_back(stof(writeUntil(dataArray)));
+                break;
 
-        case 'E':
-            dataArray.remove(0, 1);
-            returnData.totalTime = stof(writeUntil(dataArray, 'B'));
-            returnData.totalTimesDWasPressed = stoi(writeUntil(dataArray));
-            break;
+            case 'E':
+                dataArray.remove(0, 1);
+                returnData.totalTime = stof(writeUntil(dataArray, 'B'));
+                returnData.totalTimesDWasPressed = stoi(writeUntil(dataArray));
+                break;
 
-        default:
-            dataArray.remove(0, 1);
-            break;
+            default:
+                dataArray.remove(0, 1);
+                break;
         }
     }
 

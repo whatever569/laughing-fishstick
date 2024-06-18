@@ -48,12 +48,12 @@ I (RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x65B8F765)
 I (..\Source\pc communication\Microcontroller\queue.h)(0x666C9C5C)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x656A1282)
 F (..\Source\pc communication\Microcontroller\uart0.h)(0x666068B9)()
-F (..\Source\pc communication\Microcontroller\dataMC.h)(0x666068B9)()
-F (..\Source\pc communication\Microcontroller\dataMC.cpp)(0x666F43EB)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/datamc.o -MD)
+F (..\Source\pc communication\Microcontroller\dataMC.h)(0x66714801)()
+F (..\Source\pc communication\Microcontroller\dataMC.cpp)(0x66714827)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/datamc.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\string.h)(0x656A1280)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x656A127C)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x656A1282)
-I (..\Source\pc communication\Microcontroller\dataMC.h)(0x666068B9)
+I (..\Source\pc communication\Microcontroller\dataMC.h)(0x66714801)
 I (..\Source\pc communication\Microcontroller\uart0.h)(0x666068B9)
 I (C:\Users\Bars\Desktop\School\S2\MIC\MDK-ARM\Keil\Kinetis_KLxx_DFP\1.15.1\Device\Include\MKL25Z4.h)(0x65B8F765)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x64F9C69C)
@@ -1483,7 +1483,7 @@ I (..\Source\GameStateMachineFunctions\..\display\fonts.h)(0x666068B9)
 I (..\Source\GameStateMachineFunctions\..\eeprom\at24c256.h)(0x666F44A5)
 I (..\Source\GameStateMachineFunctions\..\acuator\servo.h)(0x666068B9)
 I (..\Source\GameStateMachineFunctions\..\delay.h)(0x666C88D6)
-I (..\Source\GameStateMachineFunctions\..\pc communication\Microcontroller\dataMC.h)(0x666068B9)
+I (..\Source\GameStateMachineFunctions\..\pc communication\Microcontroller\dataMC.h)(0x66714801)
 F (..\Source\GameStateMachineFunctions\S_ERROR.cpp)(0x66604BD6)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/s_error.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\vector)(0x656A1280)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__algorithm\copy.h)(0x656A126E)
@@ -2225,7 +2225,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x656A1282)
 I (..\Source\GameStateMachineFunctions\..\display\fonts.h)(0x666068B9)
 I (..\Source\GameStateMachineFunctions\..\delay.h)(0x666C88D6)
 I (..\Source\GameStateMachineFunctions\..\eeprom\at24c256.h)(0x666F44A5)
-I (..\Source\GameStateMachineFunctions\..\pc communication\Microcontroller\dataMC.h)(0x666068B9)
+I (..\Source\GameStateMachineFunctions\..\pc communication\Microcontroller\dataMC.h)(0x66714801)
 F (..\Source\GameStateMachineFunctions\S_HOT_COLD.cpp)(0x666ED15C)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/s_hot_cold.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\vector)(0x656A1280)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__algorithm\copy.h)(0x656A126E)
@@ -2968,7 +2968,7 @@ I (..\Source\GameStateMachineFunctions\..\display\fonts.h)(0x666068B9)
 I (..\Source\GameStateMachineFunctions\..\Controls.h)(0x66682164)
 I (..\Source\GameStateMachineFunctions\..\delay.h)(0x666C88D6)
 I (..\Source\GameStateMachineFunctions\..\eeprom\at24c256.h)(0x666F44A5)
-F (..\Source\GameStateMachineFunctions\S_Init.cpp)(0x66702AAE)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/s_init.o -MD)
+F (..\Source\GameStateMachineFunctions\S_Init.cpp)(0x667147AC)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/s_init.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\vector)(0x656A1280)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__algorithm\copy.h)(0x656A126E)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__algorithm\copy_move_common.h)(0x656A126E)
@@ -3708,7 +3708,7 @@ I (RTE\Device\MKL25Z128xxx4\system_MKL25Z4.h)(0x65B8F765)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9C69C)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x656A1282)
 I (..\Source\GameStateMachineFunctions\..\display\fonts.h)(0x666068B9)
-I (..\Source\GameStateMachineFunctions\..\pc communication\Microcontroller\dataMC.h)(0x666068B9)
+I (..\Source\GameStateMachineFunctions\..\pc communication\Microcontroller\dataMC.h)(0x66714801)
 I (..\Source\GameStateMachineFunctions\..\eeprom\at24c256.h)(0x666F44A5)
 I (..\Source\GameStateMachineFunctions\..\Controls.h)(0x66682164)
 I (..\Source\GameStateMachineFunctions\..\delay.h)(0x666C88D6)
@@ -6588,7 +6588,7 @@ F (..\Source\GPSLocation.h)(0x666EF9D5)()
 F (..\Source\RandomNumberGenerator.h)(0x6662A422)()
 F (..\Source\StateMachineInternals.h)(0x666E0513)()
 F (..\Source\User.h)(0x666DF1BA)()
-F (..\Source\main.cpp)(0x6670619C)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/main.o -MD)
+F (..\Source\main.cpp)(0x667141BD)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Source/acuator -I ../Source-I./RTE/Device/MKL25Z128xxx4-I./RTE/_Target_1-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/Bars/Desktop/School/S2/MIC/MDK-ARM/Keil/Kinetis_KLxx_DFP/1.15.1/Device/Include-D__UVISION_VERSION="539" -D_RTE_ -DMKL25Z128xxx4 -D_RTE_ -DCLOCK_SETUP="1"-o ./objects/main.o -MD)
 I (..\Source\delay.hp.\Source\Initializers.hn.\Source\User.h)(0x00000000)
 I (..\Source\GPSLocation.hr:\Keil_v5\ARM\ARMCLANG\include\libcxx\cmath)(0x00000000)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x656A127A)

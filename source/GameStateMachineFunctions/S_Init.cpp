@@ -33,19 +33,22 @@ void S_INIT_OnEntry()
                                                         Controls::doNothing);		//D button
 	
 	isDataGottenSuccessfully = GameDataInit();	//i dont really have error checking but what we can do is, tranmit it back to pc so admin can confirm
+	if (!isDataGottenSuccessfully) GameDataDefault();
 	
-    if(isDataGottenSuccessfully) {
+    /*if(isDataGottenSuccessfully) {*/
 		servo_lock(1);
 		char eepromData[20];
 		sprintf(eepromData, "%sW:%d|", User::userSingleton->username, sizeof(InitGameData::gameDataSingleton->wayPoints)/sizeof(WayPoint));
 		eeprom_write_string(EEPROM_currentAdress, eepromData);	
 		
 		ScoreData::timesDButtonPressed = 0;
-		//transitionFlag = true;
+		transitionFlag = true;
 		currentEvent = E_INIT_SUCCESS;
-    }
+    //}
+	/*
 	else {
         nextEvent = E_INIT_ERROR;
         StateMachine::stateMachineSingelton->setErrorSource(E_INIT_ERROR);
-    }	
+    }
+	*/	
 }
