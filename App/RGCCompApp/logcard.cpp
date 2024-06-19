@@ -61,6 +61,24 @@ void LogCard::setupUi() {
         });
     });
 
+    for(LoggingWaypoint &wp : logData.getGameWaypoints())
+    {
+        if(wp.getIsReached() && wp.getIsPuzzleComplete())
+        {
+            controller->addMarker(wp.getLocation().getLat(), wp.getLocation().getLon(), "GREEN");
+        }
+        else
+        {
+            controller->addMarker(wp.getLocation().getLat(), wp.getLocation().getLon(), "RED");
+        }
+    }
+
+    QVariantList line;
+    for(APPGPSLocation &loc : logData.getRecordedLocations())
+    {
+        line.append(QVariantList{loc.getLat(), loc.getLon()});
+    }
+    controller->drawPolyline(line);
     // Configure the bold text label
     boldLabel->setText(QString::fromStdString(logData.getUserName()));
     QFont boldFont = boldLabel->font();
@@ -70,7 +88,8 @@ void LogCard::setupUi() {
     frameLayout->addWidget(boldLabel);
 
     // Configure the additional text label
-    additionalTextLabel->setText(QString::number(logData.calculateUserScore()));
+    additionalTextLabel->setText("Score: " + QString::number(logData.calculateUserScore()) + "px" + ", Distance walked: " +
+                                 QString::number(logData.calculateUserScore(), 'g', 1) + "km, Time: " + QString::number(logData.getTotalTime(), 'g', 2) + "hrs");
     QPalette additionalTextPalette = additionalTextLabel->palette();
     additionalTextPalette.setColor(QPalette::WindowText, QColor(255, 255, 255, 128)); // Less visible
     additionalTextLabel->setPalette(additionalTextPalette);
@@ -137,6 +156,7 @@ void LogCard::onMoreInfoClicked() {
     chartView->setMinimumSize(800,400);
     dialogLayout->addWidget(chartView);
     QLabel * label = new QLabel();
+    label->setText(logData.scoreCalculationString);
     label->setText("Your score: ");
     dialogLayout->addWidget(label);
     dialog->setLayout(dialogLayout);

@@ -988,7 +988,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideRight</enum>
@@ -1382,9 +1382,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>TextLabel</string>
+             <widget class="QTextEdit" name="userManualTextEdit">
+              <property name="readOnly">
+               <bool>true</bool>
               </property>
              </widget>
             </item>

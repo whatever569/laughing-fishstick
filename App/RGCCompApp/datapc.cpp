@@ -1,8 +1,8 @@
 #include <string>
-#include "dataPC.hpp"
-#include "pc_uart.hpp"
+#include "datapc.h"
+#include "pc_uart.h"
 #include "QtCore/qdebug.h"
-//#include "loggingwaypoint.h"
+#include "loggingwaypoint.h"
 
 using namespace GameData;
 using namespace std;
@@ -10,7 +10,6 @@ using namespace std;
 bool IsConnectedToMc (void) {
     if (QSerialPortInfo::availablePorts().size()) {
         foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-            return true;
             qDebug() << "Port:" << info.portName();
             qDebug() << "Description:" << info.description();
             qDebug() << "Manufacturer:" << info.manufacturer();
@@ -26,10 +25,9 @@ bool IsConnectedToMc (void) {
         }
     }
     return false;
-    return false;
 }
 
-void gameDataInit (string userName, vector<WayPoint> waypoints) {
+bool gameDataInit (string userName, vector<WayPoint> waypoints) {
 	PC_UART pc;
     QByteArray gameData;
 
@@ -49,6 +47,7 @@ void gameDataInit (string userName, vector<WayPoint> waypoints) {
 	
 	pc.flush('T');
 	pc.transmitData(gameData);
+    return true;
 }
 
 LogData GameDataReturn(void) {
@@ -84,15 +83,14 @@ LogData GameDataReturn(void) {
                 if (dataArray[0] == 'W') dataArray.remove(0, 1);
                 waypointNumber = stoi(writeUntil(dataArray, 'R'));
                 returnData.gameWaypoints[waypointNumber].setIsReached(stoi(writeUntil(dataArray, 'P')));
-                returnData.gameWaypoints[waypointNumber].setIsPuzzleSuccess(stoi(writeUntil(dataArray, 'T')));
+                returnData.gameWaypoints[waypointNumber].setIsPuzzleComplete(stoi(writeUntil(dataArray, 'T')));
                 /*returnData.gameWaypoints[waypointNumber].setTimeReachedAfterTheStartOfTheGame(*/writeUntil(dataArray)/*)*/;
                 break;
-
             case 'D':
                 dataArray.remove(0, 1);
                 returnData.recordedLocations.resize(returnData.recordedLocations.size() + 1);
-                returnData.recordedLocations[returnData.recordedLocations.size()-1].setLatitude((stof(writeUntil(dataArray, ", "))));
-                returnData.recordedLocations[returnData.recordedLocations.size()-1].setLongitude((stof(writeUntil(dataArray, 'C'))));
+                returnData.recordedLocations[returnData.recordedLocations.size()-1].setLat((stof(writeUntil(dataArray, ", "))));
+                returnData.recordedLocations[returnData.recordedLocations.size()-1].setLon((stof(writeUntil(dataArray, 'C'))));
                 returnData.recordedTemperatures.push_back(stof(writeUntil(dataArray)));
                 break;
 
