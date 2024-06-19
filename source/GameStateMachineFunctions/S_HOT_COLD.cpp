@@ -12,7 +12,7 @@ using namespace std;
 using namespace statemachine;
 
 // This is when the game goes to the S_SEARCH state again
-const double hotColdExitThreshold = 35.0;
+const double hotColdExitThreshold = 70.0;
 const double reachedThreshold = 10.0;
 GPSLocation wpLocation;
 const double part = hotColdExitThreshold / 4.0;  // Calculate each part size
@@ -40,8 +40,8 @@ void timerInterruptHotCold() {
 	
     GPSLocation currentLocation = User::userSingleton->getUsersCurrentLocation();
     double distance = currentLocation.distanceTo(wpLocation);
-	Display::testDistance(distance, 2, Display::showAwaitingReconnection);
-	delay_ms(2000);
+	//Display::testDistance(distance, 2, Display::showAwaitingReconnection);
+	//delay_ms(2000);
 
     if (distance >= hotColdExitThreshold) {
         Display::showScreenForNSeconds(secondstoShowNotCloseAnymoreScreen, Display::showS_HOT_COLDNotCloseAnymore, Display::showLoading);

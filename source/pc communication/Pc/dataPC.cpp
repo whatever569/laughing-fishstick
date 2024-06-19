@@ -26,7 +26,7 @@ void gameDataInit (string userName, vector<WayPoint> waypoints) {
 		
 		gameData.append((char)waypoints[i].waypointPuzzle + 48);
         GPSLocation gps = waypoints[i].getLocation();
-        gameData.append((int)to_string(gps.getLatitude()).size()+'0');
+        gameData.append((char)to_string(gps.getLatitude()).size()+'0');
         gameData.append(to_string(gps.getLatitude()));
         gameData.append(to_string(gps.getLongitude()));
 	}

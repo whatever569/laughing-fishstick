@@ -39,5 +39,12 @@ int main() {
 		}
 	}
 	
+	/*
+	uart0_init();
+	char str[128] = "SNinoW:2|D51.356665, 5.666791C21.22|W0R1P1T25|D51.356215, 5.621791C20.15|W1R1P1T45|E45B4|;";
+	uart0_send_string(str);
+	delay_ms(1000);
+	*/
+	
 	return 0;
 }

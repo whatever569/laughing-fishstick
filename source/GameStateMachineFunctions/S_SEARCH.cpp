@@ -11,7 +11,7 @@ using namespace std;
 using namespace statemachine;
 using namespace GameData;
 const int nSecondsShowDirectionTimer = 2;
-const double hotColdGameThreshold = 25.0;
+const double hotColdGameThreshold = 50.0;
 const double distanceAboveWhichInterruptsAreDoneSlower = 100.0;
 
 void interruptFunctionS_SEARCH();
@@ -42,7 +42,7 @@ void interruptFunctionS_SEARCH()
     double distance = (currentlocation.distanceTo(InitGameData::gameDataSingleton->
 												  wayPoints[User::userSingleton->currentWayPointNumber]
 												  .getLocation()));
-	Display::testDistance(distance, 2, Display::showSEARCHScreen);
+	//Display::testDistance(distance, 2, Display::showSEARCHScreen);
 	
     if (distance <= hotColdGameThreshold)
     {

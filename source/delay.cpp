@@ -66,7 +66,7 @@ void updateTempAndCoord(void) {
 		temprature = tempTemprature;
 	}
 	
-	if ((milliSecond % 30000) == 0) {
+	if ((milliSecond % 15000) == 0) {
 		char dataEeprom[40];
 		char coordin[30] = {0};
 		User::userSingleton->setUsersCurrentLocation(coordin);

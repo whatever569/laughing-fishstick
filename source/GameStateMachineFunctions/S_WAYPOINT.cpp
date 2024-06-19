@@ -30,7 +30,7 @@ const int showingControlsForSeconds = 4;
 
 // Simon says specific
 int userInputSize = 0; // to keep track of the current size of userInput
-const int numberOfRounds = 3;                  // how many rounds of simon says
+const int numberOfRounds = 1;                  // how many rounds of simon says
 int arrowsToBeShownSize = 0; // to keep track of the current size of arrowsToBeShown
 const int baseNumberOfDirectionsToBeShown = 3; // this is the first amount of direction that will be shown, where a direction is added at each round
 const int secondsForTheEachDirectionToBeShown = 1;
