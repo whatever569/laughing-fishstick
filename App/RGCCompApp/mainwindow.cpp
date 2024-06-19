@@ -13,6 +13,39 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->latLineEdit, SIGNAL(editingFinished()), this,SLOT(on_latLineEdit_editingFinished()));
     connect(ui->longLineEdit, SIGNAL(editingFinished()), this, SLOT(on_longLineEdit_editingFinished()));
+    QString userManualText = R"(
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; }
+            h1 { color: #2E8B57; }
+            h2 { color: #4682B4; }
+            p { margin: 10px 0; }
+            .section-title { font-weight: bold; font-size: 1.2em; margin-top: 20px; }
+        </style>
+    </head>
+    <body>
+        <h1>User Manual</h1>
+        <p>This user manual will tell you the steps of how to set up a game, play it and finish it.</p>
+
+        <div class="section-title">Starting Up:</div>
+        <p>Press the power button to start your Adventure. A message will open telling you to set up a game. This is done with the companion app, to learn more about setting up the game and the companion app, look at the end of this manual. Once a game is set up a QR code will appear. This QR code leads to this user manual. You can continue by pressing the button C. This starts up the game, now you can go and look for your first waypoint.</p>
+
+        <div class="section-title">Finding Waypoints:</div>
+        <p>To get help finding waypoints a help button can be pressed. Press button D to see what direction the next waypoint is, this direction is relative to north, so turn the compass up before you press this button. Additionally, each time this button is pressed, the final score decreases, so part of the game is to use it as few times as possible. When the user is within 25 meters of the waypoint, the screen will show if you are getting closer (hotter) and it will show (colder) if the user moves further away. If the user reaches the waypoint, the "Simon Says" puzzle appears.</p>
+
+        <div class="section-title">Playing the Puzzle:</div>
+        <p>Starting the Game: After displaying a tutorial for three seconds, the game offers control instructions for a couple of seconds. The game displays a series of directions (such as UP, DOWN, and LEFT) which the user has to imitate by remembering the correct sequence.</p>
+        <p>The player uses the matching buttons (A for UP, B for LEFT, C for RIGHT, D for DOWN) to duplicate the sequence. If done correctly the game is passed and a higher score is obtained before moving on to the next waypoint, else the user gets penalized on score but still moves on to the next waypoint.</p>
+        <p>Once each waypoint has been reached the game ends and the box opens to reveal the hidden treasure inside of it. Now the box can be returned to the companion app to get the final score and view the route that has been taken.</p>
+
+        <div class="section-title">Battery Access</div>
+        <p>The battery can be accessed by opening the battery access slider. Make sure to keep the battery charged for continuous use, for charging use a USB wire to charge it. If one wishes to change the batteries, make sure to pay extra attention to the poles of the batteries, copy the directions on the battery holder.</p>
+    </body>
+    </html>
+)";
+
+    ui->userManualTextEdit->setHtml(userManualText);
 }
 
 
@@ -46,10 +79,6 @@ void MainWindow::on_amountOfWaypointsSpinBox_valueChanged(int arg1)
         initGameData.getWaypoints().push_back(APPWaypoint());
     }
     DataCompleteCheck();
-    QListWidgetItem *item = new QListWidgetItem(ui->logsListWidget);
-    LogCard *logCard = new LogCard(LogData());
-    item->setSizeHint(logCard->sizeHint());
-    ui->logsListWidget->setItemWidget(item, logCard);
 }
 
 void MainWindow::enableStuffAfterWaypointSpinBox(bool t)
@@ -253,7 +282,52 @@ void MainWindow::on_newGameButton_clicked()
         twp.setWayPoint(GPSLocation(wp.getLocation().getLat(), wp.getLocation().getLon()), GameData::SimonSays);
         wps.push_back(twp);
     }
-    gameDataInit(initGameData.getUserName(), wps);
+    if(gameDataInit(initGameData.getUserName(), wps))
+    {
+        qDebug()<<&wps;
+        ui->homeLabel->setText("Game In Progress: " + QString::fromStdString(initGameData.getUserName()));
+        ui->newGameButton->setEnabled(false);
+        ui->recheckConnectionButton->setEnabled(false);
+        ui->isDataCompleteLabel->setEnabled(false);
+        ui->latLineEdit->setEnabled(false);
+        ui->longLineEdit->setEnabled(false);
+        ui->userNameLineEdit->setEnabled(false);
+        ui->waypointStatusTextEdit->setEnabled(false);
+        ui->amountOfWaypointsSpinBox->setEnabled(false);
+        ui->wayPointSelector->setEnabled(false);
+        ui->wayPointPuzzleSelect->setEnabled(false);
 
+    }
+    else
+    {
+        ui->statusbar->showMessage("Data transfer to microcontroller failed unexpectedly", 5000);
+    }
+}
+
+
+void MainWindow::on_getLogDataPushButton_clicked()
+{
+    if(IsConnectedToMc())
+    {
+        LogData ld = GameDataReturn();
+
+        QListWidgetItem *item = new QListWidgetItem(ui->logsListWidget);
+        LogCard *logCard = new LogCard(ld);
+        item->setSizeHint(logCard->sizeHint());
+        ui->logsListWidget->setItemWidget(item, logCard);
+        initGameData = APPInitGameData();
+        ui->homeLabel->setText("Game In Progress: None");
+        ui->newGameButton->setEnabled(false);
+        ui->recheckConnectionButton->setEnabled(true);
+        DataCompleteCheck();
+        ui->isDataCompleteLabel->setEnabled(true);
+        ui->latLineEdit->setEnabled(false);
+        ui->longLineEdit->setEnabled(false);
+        ui->userNameLineEdit->setEnabled(true);
+        ui->waypointStatusTextEdit->setEnabled(true);
+        ui->amountOfWaypointsSpinBox->setEnabled(true);
+        ui->wayPointSelector->setEnabled(false);
+        ui->wayPointPuzzleSelect->setEnabled(false);
+    }
 }
 

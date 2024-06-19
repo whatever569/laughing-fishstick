@@ -1,4 +1,4 @@
-#ifndef LOGCARD_HPP
+ #ifndef LOGCARD_HPP
 #define LOGCARD_HPP
 
 #include <QWidget>

@@ -42,6 +42,8 @@ private slots:
 
     void on_newGameButton_clicked();
 
+    void on_getLogDataPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
